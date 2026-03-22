@@ -11,3 +11,6 @@ default-balanced,default-balanced,spring,0.55,0.75,0,General purpose balanced sp
 dramatic,dramatic,spring,0.9,0.95,0,Slow modal or hero transitions,Common,iOS macOS
 web-ease,web-ease,css,0.3s,n/a,n/a,Standard cubic-bezier(0.25 0.1 0.25 1) ease,apple.com,web
 web-scroll-reveal,web-scroll-reveal,css,0.6s,n/a,n/a,Fade and translateY on scroll into viewport,apple.com,web
+restraint,animation-restraint,rule,n/a,n/a,n/a,Max 3 scroll animations per page: hero + 1 key visual + 1 interactive. Rest is static.,Apple HIG philosophy,all
+reduced-motion,reduced-motion-respect,rule,n/a,n/a,n/a,Always check prefers-reduced-motion. When active disable ALL decorative animation.,WCAG + Apple a11y,all
+meaningful,meaningful-motion,rule,n/a,n/a,n/a,Animation must communicate something: state change or spatial relationship. Never animate for decoration alone.,Apple HIG Motion guidelines,all

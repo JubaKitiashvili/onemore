@@ -11,3 +11,6 @@ master-detail,Master-Detail,Persistent list alongside replaceable detail area,iP
 floating-panel,Floating Panel,Detached resizable inspector or tool panel,Tool palettes and inspector panels,macOS,medium
 ornament,Ornament,Attached floating panel anchored to a window edge,Controls and navigation in spatial context,visionOS,low
 full-screen-modal,Full-Screen Modal,Full screen cover with no visible parent,Immersive tasks such as camera and media capture,iOS,medium
+dark-hero,dark-hero-section,Hero and product showcase sections use dark/black background for visual impact,Product launches and hero areas — lets visuals pop against black,all,critical
+light-content,light-content-section,Text-heavy sections (features pricing FAQ) use light background for readability,Features grids and pricing tables — optimized for scanning text,all,critical
+alternating,alternating-sections,Alternate dark and light sections for visual rhythm like apple.com,Creates the contrast and pacing that defines Apple product pages,web,high

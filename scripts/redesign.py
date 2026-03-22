@@ -223,6 +223,21 @@ HIG_RULES = [
         "severity": "low",
         "platforms": ["all"],
     },
+    {
+        "id": "SPACE-003",
+        "category": "spacing",
+        "description": "Section padding less than 100px — Apple uses 100-120px section padding minimum",
+        "patterns": [
+            r"""padding:\s*\d{1,2}px\s+0""",
+            r"""padding-top:\s*[4-9]\dpx""",
+            r"""padding-bottom:\s*[4-9]\dpx""",
+            r"""\bpy-[0-9]\b""",
+            r"""\bpy-1[0-6]\b""",
+        ],
+        "fix": "Use minimum 100px (py-24 in Tailwind) vertical section padding for Apple-quality spacing",
+        "severity": "medium",
+        "platforms": ["all"],
+    },
     # ── Corners ─────────────────────────────────────────────────────────
     {
         "id": "CORNER-001",
