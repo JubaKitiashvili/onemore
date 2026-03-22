@@ -14,3 +14,7 @@ full-screen-modal,Full-Screen Modal,Full screen cover with no visible parent,Imm
 dark-hero,dark-hero-section,Hero and product showcase sections use dark/black background for visual impact,Product launches and hero areas — lets visuals pop against black,all,critical
 light-content,light-content-section,Text-heavy sections (features pricing FAQ) use light background for readability,Features grids and pricing tables — optimized for scanning text,all,critical
 alternating,alternating-sections,Alternate dark and light sections for visual rhythm like apple.com,Creates the contrast and pacing that defines Apple product pages,web,high
+product-page,product-page-layout,Apple product page layout: hero(dark) → stats → features(light) → product-deep-dive(dark) → pricing(light) → CTA(dark) → footer. Alternating dark/light sections.,Default layout for product/SaaS/app landing pages,web,critical
+developer-page,developer-page-layout,Apple developer page layout: all content visible immediately. No scroll animations. Tile-based cards. Dual navigation (global + local tabs). Content-first.,Documentation and developer-focused pages,web,high
+services-page,services-page-layout,Apple services page layout: moderate animation. Service tiles/cards. Subscription pricing. Feature comparison grids.,Service catalog and subscription pages,web,high
+story-page,story-page-layout,Apple story/values page layout: data visualization with Lottie/SVG animation. Progress indicators. Environmental/impact metrics. High dark/light alternation.,Impact reports and brand story pages,web,medium
