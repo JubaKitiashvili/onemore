@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prism — Sound. Redefined.</title>
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --text-tertiary: #aeaeb2;
+  --bg-primary: #fbfbfd;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f5f5f7;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --nav-bg: rgba(251, 251, 253, 0.72);
+  --accent: #007AFF;
+  --accent-hover: #0062cc;
+  --accent-light: rgba(0, 122, 255, 0.1);
+  --success: #34C759;
+  --success-light: rgba(52, 199, 89, 0.1);
+  --destructive: #FF3B30;
+  --pink: #FF2D55;
+  --purple: #AF52DE;
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  --radius-btn: 12px;
+  --radius-card: 20px;
+  --radius-card-lg: 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #f5f5f7;
+    --text-secondary: #86868b;
+    --text-tertiary: #636366;
+    --bg-primary: #000000;
+    --bg-card: #1c1c1e;
+    --bg-card-alt: #2c2c2e;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.12);
+    --nav-bg: rgba(0, 0, 0, 0.72);
+    --accent-light: rgba(0, 122, 255, 0.18);
+    --success-light: rgba(52, 199, 89, 0.15);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-stack);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
+  overflow-x: hidden;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  height: 52px;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #f5f5f7;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  margin-right: auto;
+}
+
+.nav-logo-icon {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, #FF2D55, #AF52DE, #007AFF);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.nav-logo-icon::after {
+  content: '';
+  width: 0; height: 0;
+  border-left: 8px solid #fff;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  margin-left: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.nav-links a:hover { color: #f5f5f7; }
+
+/* SECTIONS */
+section {
+  padding: 100px 24px;
+}
+
+.section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 21px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  max-width: 600px;
+}
+
+/* FADE-IN */
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-apple), transform 0.7s var(--ease-apple);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HERO (DARK) */
+.hero {
+  background: #000;
+  color: #f5f5f7;
+  padding: 180px 24px 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 50% 80%, rgba(175,82,222,0.15) 0%, rgba(0,122,255,0.08) 30%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero .section-title {
+  font-size: 80px;
+  background: linear-gradient(135deg, #FF2D55, #AF52DE, #007AFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.hero .section-subtitle {
+  color: rgba(255,255,255,0.6);
+  margin: 0 auto 48px;
+  position: relative;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 560px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .album-grid { grid-template-columns: repeat(2, 1fr); max-width: 280px; }
+}
+
+.album-art {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-apple);
+}
+
+.album-art:hover { transform: scale(1.05); }
+
+.album-art:nth-child(1) { background: linear-gradient(135deg, #FF2D55, #FF6B8A); }
+.album-art:nth-child(2) { background: linear-gradient(135deg, #AF52DE, #DA8FFF); }
+.album-art:nth-child(3) { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
+.album-art:nth-child(4) { background: linear-gradient(135deg, #FF9500, #FFCC00); }
+
+.album-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 60%);
+}
+
+.hero-play-btn {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: #f5f5f7;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
+}
+
+.hero-play-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(255,255,255,0.2);
+}
+
+.hero-play-btn::after {
+  content: '';
+  width: 0; height: 0;
+  border-left: 18px solid #000;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  margin-left: 4px;
+}
+
+/* NOW PLAYING */
+.now-playing {
+  background: var(--bg-card-alt);
+}
+
+.np-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .np-container { grid-template-columns: 1fr; }
+}
+
+.np-album {
+  aspect-ratio: 1;
+  border-radius: var(--radius-card-lg);
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+  max-width: 400px;
+}
+
+.np-album::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
+}
+
+.np-album::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+}
+
+.np-details { text-align: left; }
+
+.np-song {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.np-artist {
+  font-size: 20px;
+  color: var(--pink);
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.np-progress {
+  margin-bottom: 12px;
+}
+
+.np-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border-strong);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.np-bar-fill {
+  height: 100%;
+  width: 45%;
+  background: var(--pink);
+  border-radius: 2px;
+  position: relative;
+}
+
+.np-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: -5px; top: -3px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+
+.np-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.np-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.np-control-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-primary);
+  transition: transform 0.2s var(--ease-apple);
+}
+
+.np-control-btn:hover { transform: scale(1.15); }
+
+.np-play-btn {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s var(--ease-apple);
+}
+
+.np-play-btn:hover { transform: scale(1.1); }
+
+/* BROWSE */
+.browse-section { }
+
+.category-pills {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-stack);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-apple);
+}
+
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+.pill.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.album-browse-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .album-browse-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.album-card {
+  transition: transform 0.3s var(--ease-apple);
+  cursor: pointer;
+}
+
+.album-card:hover { transform: translateY(-4px); }
+
+.album-cover {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.album-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 60%);
+}
+
+.album-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.album-card-artist {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* FEATURES */
+.media-features-section {
+  background: #000;
+  color: #f5f5f7;
+  padding: 120px 24px;
+}
+
+.media-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .media-features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.media-feature {
+  text-align: center;
+  padding: 32px 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-card);
+  background: rgba(255,255,255,0.04);
+  transition: background 0.3s var(--ease-apple), transform 0.3s var(--ease-apple);
+}
+
+.media-feature:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-4px);
+}
+
+.mf-icon {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.media-feature h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.media-feature p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+.mf-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+/* PRICING */
+.pricing-section { text-align: center; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card-lg);
+  padding: 32px 24px;
+  text-align: left;
+  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
+  position: relative;
+}
+
+.pricing-card.featured {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 1px var(--pink);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--pink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pricing-plan {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.pricing-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.pricing-amount {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 4px;
+}
+
+.pricing-period {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.pricing-features li {
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pricing-features li:last-child { border-bottom: none; }
+
+.check-icon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--success-light);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.check-icon::after {
+  content: '';
+  width: 5px; height: 9px;
+  border: 1.5px solid var(--success);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translate(-0.5px, -0.5px);
+}
+
+.pricing-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-btn);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-stack);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-apple);
+  border: none;
+}
+
+.pricing-btn.primary {
+  background: var(--pink);
+  color: #fff;
+}
+
+.pricing-btn.primary:hover { background: #e6264d; }
+
+.pricing-btn.secondary {
+  background: var(--bg-card-alt);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* FOOTER */
+.footer {
+  padding: 48px 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.footer-links a:hover { color: var(--text-primary); }
+
+@media (max-width: 600px) {
+  .hero .section-title { font-size: 48px; }
+  .section-title { font-size: 36px; }
+  .footer-inner { flex-direction: column; gap: 16px; }
+  .nav-links { display: none; }
+  .np-song { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon"></div>
+      Prism
+    </a>
+    <ul class="nav-links">
+      <li><a href="#browse">Browse</a></li>
+      <li><a href="#features">Radio</a></li>
+      <li><a href="#pricing">Library</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO (DARK) -->
+<section class="hero">
+  <div class="section-inner fade-in">
+    <h1 class="section-title">Sound. Redefined.</h1>
+    <p class="section-subtitle">Over 100 million songs. Lossless quality. Spatial Audio. Experience music the way artists intended.</p>
+
+    <div class="album-grid">
+      <div class="album-art"></div>
+      <div class="album-art"></div>
+      <div class="album-art"></div>
+      <div class="album-art"></div>
+    </div>
+
+    <button class="hero-play-btn" aria-label="Play"></button>
+  </div>
+</section>
+
+<!-- NOW PLAYING -->
+<section class="now-playing">
+  <div class="section-inner">
+    <div class="np-container fade-in">
+      <div class="np-album"></div>
+      <div class="np-details">
+        <div class="section-label">Now Playing</div>
+        <div class="np-song">Midnight Reverie</div>
+        <div class="np-artist">The Luminaires</div>
+        <div class="np-progress">
+          <div class="np-bar">
+            <div class="np-bar-fill"></div>
+          </div>
+        </div>
+        <div class="np-times">
+          <span>1:47</span>
+          <span>3:52</span>
+        </div>
+        <div class="np-controls">
+          <button class="np-control-btn" aria-label="Previous">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M19 20L9 12l10-8v16zM7 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="np-play-btn" aria-label="Play">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="var(--bg-primary)"/></svg>
+          </button>
+          <button class="np-control-btn" aria-label="Next">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8V4zM17 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BROWSE -->
+<section class="browse-section" id="browse">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Browse</div>
+      <h2 class="section-title">Discover your next favorite</h2>
+    </div>
+
+    <div class="category-pills fade-in">
+      <button class="pill active">All</button>
+      <button class="pill">Pop</button>
+      <button class="pill">Hip-Hop</button>
+      <button class="pill">Electronic</button>
+      <button class="pill">Rock</button>
+      <button class="pill">Jazz</button>
+      <button class="pill">Classical</button>
+    </div>
+
+    <div class="album-browse-grid fade-in">
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#FF2D55,#FF6B8A)"></div>
+        <div class="album-card-title">Neon Dreams</div>
+        <div class="album-card-artist">Synthwave Collective</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#5856D6,#AF52DE)"></div>
+        <div class="album-card-title">Velvet Horizons</div>
+        <div class="album-card-artist">Aurora Belle</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#34C759,#30D158)"></div>
+        <div class="album-card-title">Emerald City</div>
+        <div class="album-card-artist">Glass Animals</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#FF9500,#FFCC00)"></div>
+        <div class="album-card-title">Golden Hour</div>
+        <div class="album-card-artist">Solar Flare</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#007AFF,#5AC8FA)"></div>
+        <div class="album-card-title">Blue Ocean</div>
+        <div class="album-card-artist">Deep Current</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#FF3B30,#FF6961)"></div>
+        <div class="album-card-title">Crimson Pulse</div>
+        <div class="album-card-artist">The Heartbeats</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div>
+        <div class="album-card-title">After Dark</div>
+        <div class="album-card-artist">Night Owls</div>
+      </div>
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#AF52DE,#FF2D55)"></div>
+        <div class="album-card-title">Spectrum</div>
+        <div class="album-card-artist">Prism Radio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="media-features-section" id="features">
+  <div class="section-inner">
+    <div class="fade-in" style="text-align:center;">
+      <div class="section-label" style="color:var(--pink);">Technology</div>
+      <h2 class="section-title" style="color:#f5f5f7;">Hear the difference</h2>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.5);margin:0 auto;">Cutting-edge audio technology that brings you closer to the music than ever before.</p>
+    </div>
+
+    <div class="media-features-grid fade-in">
+      <div class="media-feature">
+        <div class="mf-icon" style="background:rgba(175,82,222,0.15);">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke="#AF52DE" stroke-width="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="#AF52DE" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Spatial Audio</h3>
+        <p>Immersive 3D sound that surrounds you from every direction.</p>
+        <span class="mf-badge" style="background:rgba(175,82,222,0.15);color:#AF52DE;">Dolby Atmos</span>
+      </div>
+      <div class="media-feature">
+        <div class="mf-icon" style="background:rgba(0,122,255,0.15);">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M3 12h2l3-8 4 16 3-8h2l2 4h2" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Lossless Audio</h3>
+        <p>Studio-quality sound up to 24-bit/192kHz resolution.</p>
+        <span class="mf-badge" style="background:rgba(0,122,255,0.15);color:#007AFF;">Hi-Res</span>
+      </div>
+      <div class="media-feature">
+        <div class="mf-icon" style="background:rgba(255,45,85,0.15);">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h12M4 18h8" stroke="#FF2D55" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Real-time Lyrics</h3>
+        <p>Sing along with perfectly synced, animated lyrics.</p>
+        <span class="mf-badge" style="background:rgba(255,45,85,0.15);color:#FF2D55;">Synced</span>
+      </div>
+      <div class="media-feature">
+        <div class="mf-icon" style="background:rgba(255,149,0,0.15);">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#FF9500" stroke-width="2"/><path d="M12 8v4l2 2" stroke="#FF9500" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Live Radio</h3>
+        <p>24/7 curated stations hosted by world-class DJs.</p>
+        <span class="mf-badge" style="background:rgba(255,149,0,0.15);color:#FF9500;">Live</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label" style="color:var(--pink);">Pricing</div>
+      <h2 class="section-title">Pick your plan</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Listen free with ads, or go premium for the full experience.</p>
+    </div>
+
+    <div class="pricing-grid fade-in">
+      <div class="pricing-card">
+        <div class="pricing-plan">Student</div>
+        <div class="pricing-desc">Verified students only</div>
+        <div class="pricing-amount">$5.99<span style="font-size:18px;color:var(--text-secondary)">/mo</span></div>
+        <div class="pricing-period">With valid student ID</div>
+        <ul class="pricing-features">
+          <li><span class="check-icon"></span> Full catalog access</li>
+          <li><span class="check-icon"></span> Ad-free listening</li>
+          <li><span class="check-icon"></span> Lossless Audio</li>
+          <li><span class="check-icon"></span> Offline downloads</li>
+        </ul>
+        <button class="pricing-btn secondary">Get Student Plan</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Best Value</div>
+        <div class="pricing-plan">Individual</div>
+        <div class="pricing-desc">The complete experience</div>
+        <div class="pricing-amount">$10.99<span style="font-size:18px;color:var(--text-secondary)">/mo</span></div>
+        <div class="pricing-period">Cancel anytime</div>
+        <ul class="pricing-features">
+          <li><span class="check-icon"></span> Full catalog access</li>
+          <li><span class="check-icon"></span> Ad-free listening</li>
+          <li><span class="check-icon"></span> Spatial Audio</li>
+          <li><span class="check-icon"></span> Lossless Audio</li>
+          <li><span class="check-icon"></span> Offline downloads</li>
+        </ul>
+        <button class="pricing-btn primary">Start Free Trial</button>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-plan">Family</div>
+        <div class="pricing-desc">Up to 6 accounts</div>
+        <div class="pricing-amount">$16.99<span style="font-size:18px;color:var(--text-secondary)">/mo</span></div>
+        <div class="pricing-period">Share with family</div>
+        <ul class="pricing-features">
+          <li><span class="check-icon"></span> 6 individual accounts</li>
+          <li><span class="check-icon"></span> Everything in Individual</li>
+          <li><span class="check-icon"></span> Family Mix playlist</li>
+          <li><span class="check-icon"></span> Parental controls</li>
+        </ul>
+        <button class="pricing-btn secondary">Get Family Plan</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">2026 Prism. All rights reserved.</span>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Newsroom</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Pill selection
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
