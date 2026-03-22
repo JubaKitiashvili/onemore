@@ -1,0 +1,17 @@
+keyword,component,variant,height_pt,usage,platform,priority
+list-inset-grouped,List,insetGrouped,44,Rounded section lists with inset margins,iOS,high
+list-sidebar,List,sidebar,44,Navigation sidebar list style,iOS iPadOS macOS,high
+list-plain,List,plain,44,Full-width edge-to-edge list without sections,iOS,medium
+list-grouped,List,grouped,44,Full-width grouped sections with headers/footers,iOS,medium
+cell-standard,Cell,standard,44,Single-line label with optional leading/trailing content,iOS,high
+cell-subtitle,Cell,subtitle,60,Two-line label with primary and secondary text,iOS,high
+cell-value,Cell,value,44,Label with right-aligned value string,iOS,high
+cell-detail,Cell,detail,60,Label with supporting detail text below,iOS,medium
+card-small,Card,small,120,Compact card with subtle shadow and 10pt radius,iOS,medium
+card-medium,Card,medium,200,Standard card layout with 16pt corner radius,iOS,high
+card-large,Card,large,300,Full-feature card with image and 24pt corner radius,iOS,medium
+grid-flexible,Grid,flexible,varies,Equal-width columns that fill available space (LazyVGrid),iOS,high
+grid-fixed,Grid,fixed,varies,Fixed-width columns regardless of container width (LazyVGrid),iOS,medium
+grid-adaptive,Grid,adaptive,varies,Minimum-width columns that expand to fill (LazyHGrid),iOS,medium
+collection-flow,CollectionView,flow layout,varies,Line-based layout wrapping items to next row,iOS macOS,medium
+collection-compositional,CollectionView,compositional layout,varies,Section-specific layouts with groups and items,iOS macOS,high

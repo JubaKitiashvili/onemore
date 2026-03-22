@@ -1,0 +1,21 @@
+keyword,component,variant,height_pt,corner_radius,font_weight,font_size,padding_h,states,platform,priority
+button-filled,Button,filled,50,12,semibold,17,16,normal;pressed;disabled,iOS,high
+button-tinted,Button,tinted,50,12,semibold,17,16,normal;pressed;disabled,iOS,high
+button-bordered,Button,bordered,50,12,semibold,17,16,normal;pressed;disabled,iOS,high
+button-plain,Button,plain,44,0,semibold,17,0,normal;pressed;disabled,iOS,medium
+button-small,Button,small,32,8,semibold,15,12,normal;pressed;disabled,iOS,medium
+button-large,Button,large,56,14,semibold,17,20,normal;pressed;disabled,iOS,medium
+toggle-standard,Toggle,standard,31,16,regular,17,0,on;off;disabled,iOS,high
+slider-continuous,Slider,continuous,28,0,regular,17,0,normal;dragging;disabled,iOS,high
+slider-discrete,Slider,discrete,28,0,regular,17,0,normal;dragging;disabled,iOS,medium
+stepper-standard,Stepper,standard,32,8,regular,17,0,normal;increment;decrement;disabled,iOS,medium
+picker-wheel,Picker,wheel,216,0,regular,17,0,normal;spinning,iOS,medium
+picker-menu,Picker,menu,44,8,regular,17,8,normal;expanded,iOS,high
+picker-segmented,Picker,segmented,32,8,regular,13,8,normal;selected,iOS,high
+segmented-control,SegmentedControl,standard,32,8,regular,13,8,normal;selected;disabled,iOS,high
+date-picker-compact,DatePicker,compact,44,8,regular,17,8,normal;expanded,iOS,medium
+date-picker-graphical,DatePicker,graphical,308,12,regular,17,0,normal;selected,iOS,medium
+date-picker-wheel,DatePicker,wheel,216,0,regular,17,0,normal;spinning,iOS,low
+button-filled-macos,Button,macOS filled,22,5,semibold,13,8,normal;pressed;disabled,macOS,medium
+button-bordered-macos,Button,macOS bordered,22,5,regular,13,8,normal;pressed;disabled,macOS,medium
+toggle-checkbox,Toggle,checkbox,18,4,regular,13,0,on;off;mixed;disabled,macOS,medium

@@ -1,0 +1,16 @@
+keyword,name,type,description,usage,platform,priority
+haptic-impact-light,haptic-impact-light,haptic,Light physical impact sensation for subtle feedback,Toggling small controls and selecting items,iOS,high
+haptic-impact-medium,haptic-impact-medium,haptic,Medium physical impact for moderate interaction weight,Confirming actions and completing drags,iOS,high
+haptic-impact-heavy,haptic-impact-heavy,haptic,Heavy physical impact for prominent interaction weight,Completing significant actions or collisions,iOS,medium
+haptic-notification-success,haptic-notification-success,haptic,Success notification pattern: two light taps,Task completion confirmation,iOS,high
+haptic-notification-warning,haptic-notification-warning,haptic,Warning notification pattern: three ascending taps,Alerting user to a potential issue,iOS,high
+haptic-notification-error,haptic-notification-error,haptic,Error notification pattern: distinct failure rhythm,Indicating a failed operation,iOS,high
+haptic-selection,haptic-selection,haptic,Light single tap for discrete value changes,Scrolling picker wheels and selecting list rows,iOS,high
+progressive-disclosure,progressive-disclosure,pattern,Revealing information gradually as user needs it,Complex settings and multi-step flows,iOS macOS,high
+pull-to-refresh,pull-to-refresh,gesture,Pulling list down past threshold triggers content reload,Updating feeds and list content,iOS,high
+rubber-banding,rubber-banding,visual,Elastic deceleration when scrolling past content boundaries,All scroll views providing spatial awareness,iOS,high
+swipe-actions,swipe-actions,gesture,Horizontal swipe on list row reveals contextual action buttons,Quick delete archive or label on list rows,iOS,high
+context-menu,context-menu,gesture,Long press or right-click reveals menu of contextual actions,Secondary actions on any content element,iOS macOS,high
+drag-and-drop,drag-and-drop,gesture,Long press lifts item into drag session for repositioning,Reordering lists and transferring data between apps,iOS iPadOS macOS,medium
+undo-shake,undo-shake,gesture,Shaking device presents undo or redo alert dialog,Undoing recent text or action changes,iOS,low
+peek-and-pop,peek-and-pop,gesture,Long press shows preview then pop navigates to destination,Previewing links emails and content before committing,iOS,medium

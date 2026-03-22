@@ -1,0 +1,17 @@
+keyword,component,variant,corner_radius,usage,platform,priority
+alert-standard,Alert,standard,14,Blocking modal dialog for critical information or confirmation,iOS macOS,high
+alert-destructive,Alert,destructive,14,Alert with destructive action button styled in red,iOS macOS,high
+action-sheet-standard,ActionSheet,standard,13,Bottom sheet with list of contextual actions,iOS,high
+action-sheet-popover,ActionSheet,iPad popover,8,Popover-presented action list on iPad,iPadOS,medium
+sheet-modal,Sheet,modal,10,Full interactive modal covering presenting view,iOS,high
+sheet-form,Sheet,formSheet,10,Medium detent sheet for forms and pickers,iOS,high
+sheet-page,Sheet,pageSheet,10,Page-style sheet showing part of parent beneath,iOS,medium
+sheet-fullscreen,Sheet,fullScreen,0,Full screen cover without visible parent,iOS,medium
+toast-banner,Toast,notification banner,14,Non-blocking transient notification at top of screen,iOS,high
+progress-linear,ProgressIndicator,linear,2,Horizontal bar showing task completion percentage,iOS macOS,high
+progress-circular,ProgressIndicator,circular,capsule,Circular ring showing determinate progress,iOS macOS,medium
+activity-small,ActivityIndicator,small,capsule,Small spinning indicator for inline loading states,iOS macOS,high
+activity-medium,ActivityIndicator,medium,capsule,Medium spinner for content area loading,iOS macOS,high
+activity-large,ActivityIndicator,large,capsule,Large spinner for full-screen loading states,iOS macOS,medium
+confirmation-dialog,ConfirmationDialog,menu-style,13,Menu-style confirmation with action list,iOS,medium
+progress-indeterminate,ProgressIndicator,indeterminate,2,Linear bar with animated shimmer for unknown duration,iOS macOS,medium

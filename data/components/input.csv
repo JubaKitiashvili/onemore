@@ -1,0 +1,11 @@
+keyword,component,variant,height_pt,corner_radius,usage,platform,priority
+text-field-standard,TextField,standard,44,8,Single-line text entry with label and optional icons,iOS,high
+text-field-rounded,TextField,rounded,44,10,Round-rect bordered text field style,iOS,high
+secure-field,SecureField,password,44,8,Password entry with text obscured by bullets,iOS,high
+search-bar-nav,SearchBar,navigation,36,10,Search field integrated into navigation bar scope,iOS,high
+search-bar-standalone,SearchBar,standalone,44,10,Freestanding search with cancel button,iOS,medium
+text-editor-multiline,TextEditor,multiline,varies,8,Scrollable multiline text editing area,iOS,high
+text-editor-expandable,TextEditor,expandable,44,8,Single-line that grows vertically as content is added,iOS,medium
+form-inset-grouped,Form,insetGrouped,varies,10,SwiftUI Form using insetGrouped list style with sections,iOS,high
+form-plain,Form,plain,varies,0,Edge-to-edge Form without card-style grouping,iOS,medium
+text-field-macos,TextField,macOS standard,22,4,Standard macOS text input field,macOS,medium
