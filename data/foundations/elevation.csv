@@ -1,0 +1,17 @@
+keyword,name,blur,opacity,color,offset_y,material,platform
+ultraThinMaterial,Ultra Thin Material,0,0,ultraThinMaterial,0,ultraThinMaterial,ios
+thinMaterial,Thin Material,0,0,thinMaterial,0,thinMaterial,ios
+regularMaterial,Regular Material,0,0,regularMaterial,0,regularMaterial,ios
+thickMaterial,Thick Material,0,0,thickMaterial,0,thickMaterial,ios
+chromeMaterial,Chrome Material,0,0,chromeMaterial,0,chromeMaterial,ios
+vibrancyLabel,Vibrancy Label,0,1.0,label,0,vibrancy,ios
+vibrancySecondaryLabel,Vibrancy Secondary Label,0,0.6,secondaryLabel,0,vibrancy,ios
+vibrancyTertiaryLabel,Vibrancy Tertiary Label,0,0.3,tertiaryLabel,0,vibrancy,ios
+vibrancyQuaternaryLabel,Vibrancy Quaternary Label,0,0.18,quaternaryLabel,0,vibrancy,ios
+shadowSmall,Small Shadow,4,0.12,#000000,2,none,all
+shadowMedium,Medium Shadow,10,0.16,#000000,4,none,all
+shadowLarge,Large Shadow,20,0.20,#000000,8,none,all
+liquidGlassRegular,Liquid Glass Regular,20,0.72,#FFFFFF,4,liquidGlass,ios
+liquidGlassClear,Liquid Glass Clear,20,0.50,#FFFFFF,2,liquidGlass,ios
+liquidGlassIdentity,Liquid Glass Identity,24,0.80,#FFFFFF,6,liquidGlass,ios
+webNav,Web Navigation Bar,20,0.72,rgba(255,255,255,0.72),0,backdrop-filter saturate(180%) blur(20px),web

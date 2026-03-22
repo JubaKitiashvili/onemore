@@ -1,0 +1,21 @@
+keyword,name,value_pt,value_px,usage,platform,priority
+xxs,Extra Extra Small,2,4,Tight internal component gaps,all,low
+xs,Extra Small,4,8,Icon-to-label gap and badge padding,all,high
+sm,Small,8,16,Internal padding within compact components,all,high
+md,Medium,12,24,Standard internal component padding,all,medium
+base,Base,16,32,Default horizontal screen margin and cell padding,all,critical
+lg,Large,20,40,Section-level internal spacing,all,medium
+xl,Extra Large,24,48,Card-to-card spacing and large component padding,all,medium
+2xl,2X Large,32,64,Major section separation,all,medium
+3xl,3X Large,40,80,Hero and onboarding section gaps,all,low
+4xl,4X Large,48,96,Full-bleed section separation,all,low
+card-padding,Card Padding,16,32,Internal padding inside card components,all,critical
+section-spacing,Section Spacing,32,64,Vertical gap between major page sections,all,high
+icon-label-gap,Icon Label Gap,4,8,Horizontal gap between icon and adjacent label,all,high
+field-label-gap,Field Label Gap,10,20,Vertical space between field label and input,ios,high
+error-gap,Error Gap,4,8,Vertical space between input and error message,all,critical
+section-header-margin,Section Header Margin,16,32,Bottom margin below a section header,all,high
+container-padding-phone,Container Padding Phone,16,32,Horizontal edge padding on iPhone screens,ios,critical
+container-padding-tablet,Container Padding Tablet,20,40,Horizontal edge padding on iPad screens,ios,high
+button-row-gap,Button Row Gap,8,16,Gap between adjacent buttons in a row or stack,all,high
+screen-margin-iphone,Screen Margin iPhone,16,32,Safe-area-aware horizontal margin on iPhone,ios,critical
