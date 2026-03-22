@@ -29,3 +29,6 @@ dark-images,DM-02,dark-mode,Images and icons must have dark-mode variants or use
 dark-contrast,DM-03,dark-mode,Text contrast must meet 4.5:1 in both light and dark modes,Run contrast audit in dark mode across all text and background combinations,critical,10
 sf-symbols,IC-01,icons,Use SF Symbols for system iconography — match weight to adjacent text,Verify all system-concept icons use SF Symbols at matching weight,high,7
 icon-size,IC-02,icons,Navigation bar icons 24pt toolbar icons 22pt tab bar icons 25pt,Measure icon sizes in each context and flag mismatches,medium,5
+section-padding,SP-04,spacing,Section padding minimum 100px vertical,Check that main page sections have at least 100px (preferably 120px) top and bottom padding,critical,5
+content-width,SP-05,spacing,Content max-width 980px for text,Check that text content blocks are constrained to max-width 980px for readability,high,4
+card-grid-width,SP-06,spacing,Card grid max-width 1200px,Check that card grids and visual content are constrained to max-width 1200px,medium,3

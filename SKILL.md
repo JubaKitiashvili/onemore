@@ -37,6 +37,31 @@ OneMore is an Apple HIG design intelligence skill for Claude Code. It provides a
 
 ---
 
+## Apple Design Maxims
+
+These rules separate Apple-quality design from generic AI output:
+
+### One Focal Point Per Section
+Every section gets ONE headline, ONE visual, ONE CTA. If you're adding a second visual or third button, the section is too busy. Split it or simplify.
+
+### Dark for Product, Light for Text
+Product showcases and hero visuals use dark/black backgrounds. Text-heavy sections (features, pricing, FAQ) use light backgrounds. Alternate between them for visual rhythm.
+
+### Restraint Over Decoration
+- Maximum 3 scroll-triggered animations per page: hero entrance, one key visual reveal, one interactive element
+- All other content appears immediately — no fade-in on every element
+- If removing an element doesn't hurt the message, remove it
+
+### Generous Negative Space
+- Section padding: minimum 100px vertical (never less than 80px)
+- Content max-width: 980px for text, 1200px for card grids
+- Between sections: 120px+ creates the "breathing room" that defines Apple
+
+### Accent Color Identity
+Every project gets ONE accent color (not always systemBlue). Choose from the reasoning database based on app category. Use it sparingly — primary CTAs and key highlights only.
+
+---
+
 ## Quick Reference
 
 - **Accessibility**: 4.5:1 contrast ratio minimum, VoiceOver labels on all interactive elements, Dynamic Type support required
