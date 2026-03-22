@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WalletPro — Banking Reimagined</title>
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --bg-primary: #fbfbfd;
+  --bg-card: #ffffff;
+  --accent-blue: #007AFF;
+  --accent-green: #34C759;
+  --accent-red: #FF3B30;
+  --border: rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.16);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #f5f5f7;
+    --text-secondary: #86868b;
+    --bg-primary: #000000;
+    --bg-card: #1c1c1e;
+    --border: rgba(255, 255, 255, 0.08);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.5);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(251, 251, 253, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.3s var(--ease);
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav {
+    background: rgba(0, 0, 0, 0.72);
+  }
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 20px;
+  background: var(--accent-blue);
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 980px;
+  transition: opacity 0.2s var(--ease);
+}
+
+.nav-cta:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .nav-links { gap: 20px; }
+  .nav-links li:not(:last-child) { display: none; }
+}
+
+/* ===== SECTIONS ===== */
+section {
+  padding: 100px 24px;
+}
+
+.section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.section-headline {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.section-subheadline {
+  font-size: clamp(17px, 2.2vw, 21px);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 52px;
+  overflow: hidden;
+}
+
+.hero .section-inner {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.hero-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-headline {
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 520px;
+  margin-bottom: 40px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 32px;
+  background: var(--accent-blue);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  border-radius: 980px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 32px;
+  background: transparent;
+  color: var(--accent-blue);
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  border-radius: 980px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s var(--ease);
+  gap: 6px;
+}
+
+.btn-secondary:hover {
+  opacity: 0.7;
+}
+
+.btn-secondary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s var(--ease);
+}
+
+.btn-secondary:hover svg {
+  transform: translateX(3px);
+}
+
+/* ===== CREDIT CARD ===== */
+.hero-card-wrap {
+  flex-shrink: 0;
+  perspective: 1200px;
+}
+
+.credit-card {
+  width: 380px;
+  height: 240px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e8e8ed 0%, #d2d2d7 25%, #e8e8ed 50%, #c7c7cc 75%, #e8e8ed 100%);
+  position: relative;
+  transform: rotateY(-12deg) rotateX(5deg);
+  transition: transform 0.6s var(--ease);
+  box-shadow: var(--shadow-xl), 0 0 0 0.5px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  .credit-card {
+    background: linear-gradient(135deg, #3a3a3c 0%, #2c2c2e 25%, #48484a 50%, #2c2c2e 75%, #3a3a3c 100%);
+    box-shadow: var(--shadow-xl), 0 0 0 0.5px rgba(255,255,255,0.1);
+  }
+}
+
+.credit-card:hover {
+  transform: rotateY(-4deg) rotateX(2deg) translateY(-4px);
+}
+
+.credit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 45%, transparent 50%);
+  pointer-events: none;
+}
+
+.card-chip {
+  position: absolute;
+  top: 72px;
+  left: 36px;
+  width: 48px;
+  height: 36px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #d4af37 0%, #f2d06b 40%, #d4af37 60%, #c5982e 100%);
+  box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.15);
+}
+
+.card-chip::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  right: 4px;
+  height: 1px;
+  background: rgba(0,0,0,0.12);
+}
+
+.card-chip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: rgba(0,0,0,0.12);
+}
+
+.card-contactless {
+  position: absolute;
+  top: 72px;
+  left: 96px;
+  width: 28px;
+  height: 28px;
+  opacity: 0.25;
+}
+
+.card-contactless::before,
+.card-contactless::after,
+.card-contactless span {
+  content: '';
+  position: absolute;
+  border: 1.5px solid var(--text-primary);
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(-45deg);
+}
+
+.card-contactless::before {
+  width: 10px; height: 10px;
+  top: 9px; left: 9px;
+}
+
+.card-contactless::after {
+  width: 16px; height: 16px;
+  top: 6px; left: 6px;
+}
+
+.card-contactless span {
+  width: 22px; height: 22px;
+  top: 3px; left: 3px;
+}
+
+.card-number {
+  position: absolute;
+  bottom: 64px;
+  left: 36px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--text-primary);
+  opacity: 0.7;
+  display: flex;
+  gap: 16px;
+}
+
+.card-number span {
+  display: flex;
+  gap: 3px;
+}
+
+.card-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  opacity: 0.5;
+  display: inline-block;
+}
+
+.card-name {
+  position: absolute;
+  bottom: 28px;
+  left: 36px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  opacity: 0.5;
+}
+
+.card-logo-mark {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+}
+
+.card-logo-mark .circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.card-logo-mark .circle:first-child {
+  background: #eb001b;
+}
+
+.card-logo-mark .circle:last-child {
+  background: #f79e1b;
+  margin-left: -12px;
+}
+
+@media (max-width: 960px) {
+  .hero .section-inner { flex-direction: column; gap: 48px; text-align: center; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .credit-card { width: 320px; height: 200px; }
+  .card-chip { top: 56px; left: 28px; width: 40px; height: 30px; }
+  .card-contactless { top: 58px; left: 78px; }
+  .card-number { bottom: 52px; left: 28px; font-size: 15px; }
+  .card-name { bottom: 22px; left: 28px; font-size: 11px; }
+  .card-logo-mark { bottom: 18px; right: 24px; }
+  .card-logo-mark .circle { width: 26px; height: 26px; }
+  .card-logo-mark .circle:last-child { margin-left: -10px; }
+}
+
+/* ===== FEATURES ===== */
+.features {
+  background: var(--bg-primary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+}
+
+@media (max-width: 640px) {
+  .features-grid { grid-template-columns: 1fr; }
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  border: 1px solid var(--border);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.feature-icon--blue { background: rgba(0, 122, 255, 0.1); color: var(--accent-blue); }
+.feature-icon--green { background: rgba(52, 199, 89, 0.1); color: var(--accent-green); }
+.feature-icon--purple { background: rgba(175, 82, 222, 0.1); color: #AF52DE; }
+.feature-icon--orange { background: rgba(255, 149, 0, 0.1); color: #FF9500; }
+
+.feature-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.feature-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard {
+  background: var(--bg-primary);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  margin-top: 56px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+.dash-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid var(--border);
+}
+
+.dash-card--balance {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 32px;
+}
+
+.dash-balance-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.dash-balance-amount {
+  font-size: clamp(48px, 7vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.dash-balance-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent-green);
+  background: rgba(52, 199, 89, 0.1);
+  padding: 6px 16px;
+  border-radius: 980px;
+}
+
+.dash-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* Bar chart */
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 160px;
+  padding-top: 8px;
+}
+
+.chart-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(180deg, var(--accent-blue) 0%, rgba(0, 122, 255, 0.6) 100%);
+  min-height: 8px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+}
+
+.chart-bar.animate {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.chart-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Transactions */
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.transaction-item.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.transaction-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.transaction-icon--food { background: rgba(255, 149, 0, 0.1); color: #FF9500; }
+.transaction-icon--transport { background: rgba(0, 122, 255, 0.1); color: var(--accent-blue); }
+.transaction-icon--shopping { background: rgba(175, 82, 222, 0.1); color: #AF52DE; }
+.transaction-icon--income { background: rgba(52, 199, 89, 0.1); color: var(--accent-green); }
+
+.transaction-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.transaction-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.transaction-cat {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.transaction-amount {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.transaction-amount--negative { color: var(--text-primary); }
+.transaction-amount--positive { color: var(--accent-green); }
+
+/* Monthly overview */
+.monthly-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.monthly-row-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.monthly-bar-track {
+  height: 12px;
+  background: var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.monthly-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  width: 0;
+  transition: width 1s var(--ease);
+}
+
+.monthly-bar-fill--income {
+  background: var(--accent-green);
+}
+
+.monthly-bar-fill--expense {
+  background: var(--accent-blue);
+}
+
+.monthly-amount {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ===== SECURITY ===== */
+.security {
+  background: var(--bg-primary);
+  text-align: center;
+}
+
+.trust-badges {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 56px;
+  flex-wrap: wrap;
+}
+
+.trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 240px;
+}
+
+.trust-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-blue);
+}
+
+.trust-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.trust-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== CARD TIERS ===== */
+.card-tiers {
+  background: var(--bg-primary);
+}
+
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+@media (max-width: 860px) {
+  .tiers-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+}
+
+.tier-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.tier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.tier-card--featured {
+  border-color: var(--accent-blue);
+  position: relative;
+}
+
+.tier-card--featured::before {
+  content: 'Most Popular';
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 980px;
+  white-space: nowrap;
+}
+
+.tier-mini-card {
+  width: 200px;
+  height: 126px;
+  border-radius: 14px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.tier-mini-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.2) 45%, transparent 50%);
+}
+
+.tier-mini-card--silver {
+  background: linear-gradient(135deg, #c8c8cc 0%, #e8e8ed 30%, #aeaeb2 50%, #d1d1d6 70%, #c8c8cc 100%);
+}
+
+.tier-mini-card--gold {
+  background: linear-gradient(135deg, #c5972e 0%, #f2d06b 25%, #d4af37 50%, #f2d06b 75%, #c5972e 100%);
+}
+
+.tier-mini-card--platinum {
+  background: linear-gradient(135deg, #1c1c1e 0%, #3a3a3c 25%, #2c2c2e 50%, #48484a 70%, #1c1c1e 100%);
+}
+
+.tier-mini-chip {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  width: 32px;
+  height: 24px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #d4af37, #f2d06b);
+  box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.12);
+}
+
+.tier-mini-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  display: flex;
+  gap: 3px;
+}
+
+.tier-mini-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+}
+
+.tier-mini-card--silver .tier-mini-dots span { background: rgba(0,0,0,0.3); }
+
+.tier-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.tier-price {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.tier-price strong {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tier-benefits {
+  list-style: none;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.tier-benefits li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tier-benefits li::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(52, 199, 89, 0.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2334C759' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+
+.tier-btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s var(--ease), transform 0.15s var(--ease);
+  margin-top: auto;
+}
+
+.tier-btn:hover {
+  opacity: 0.88;
+  transform: scale(1.01);
+}
+
+.tier-btn--outline {
+  background: transparent;
+  color: var(--accent-blue);
+  border: 1.5px solid var(--accent-blue);
+}
+
+.tier-btn--filled {
+  background: var(--accent-blue);
+  color: #ffffff;
+}
+
+/* ===== CTA ===== */
+.cta-section {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.cta-headline {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin-bottom: 16px;
+}
+
+.cta-sub {
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.footer-links a:hover {
+  color: var(--text-primary);
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+.fade-in-delay-4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">WalletPro</a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#cards">Cards</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#" class="nav-cta">Open Account</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="section-inner">
+    <div class="hero-content">
+      <h1 class="hero-headline fade-in">Banking<br>Reimagined for the<br>Modern World.</h1>
+      <p class="hero-sub fade-in fade-in-delay-1">Smart spending insights, instant transfers, and beautiful financial tracking — all in one app.</p>
+      <div class="hero-actions fade-in fade-in-delay-2">
+        <a href="#" class="btn-primary">Open Account</a>
+        <a href="#features" class="btn-secondary">Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-card-wrap fade-in fade-in-delay-3">
+      <div class="credit-card">
+        <div class="card-chip"></div>
+        <div class="card-contactless"><span></span></div>
+        <div class="card-number">
+          <span><i class="card-dot"></i><i class="card-dot"></i><i class="card-dot"></i><i class="card-dot"></i></span>
+          <span><i class="card-dot"></i><i class="card-dot"></i><i class="card-dot"></i><i class="card-dot"></i></span>
+          <span><i class="card-dot"></i><i class="card-dot"></i><i class="card-dot"></i><i class="card-dot"></i></span>
+          <span>4 0 2 1</span>
+        </div>
+        <div class="card-name">Cardholder Name</div>
+        <div class="card-logo-mark">
+          <div class="circle"></div>
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <p class="section-label fade-in">Features</p>
+    <h2 class="section-headline fade-in">Everything you need.<br>Nothing you don't.</h2>
+    <p class="section-subheadline fade-in fade-in-delay-1">Powerful tools designed to simplify your financial life.</p>
+    <div class="features-grid">
+      <div class="feature-card fade-in fade-in-delay-1">
+        <div class="feature-icon feature-icon--blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="feature-title">Instant Transfers</h3>
+        <p class="feature-desc">Send money in seconds with zero fees. Domestic and international transfers arrive instantly, 24/7.</p>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-2">
+        <div class="feature-icon feature-icon--green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3 class="feature-title">Smart Budgets</h3>
+        <p class="feature-desc">AI automatically categorizes your spending and creates personalized budgets that adapt to your habits.</p>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-3">
+        <div class="feature-icon feature-icon--purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="feature-title">Investment Tracking</h3>
+        <p class="feature-desc">Stocks, crypto, and ETFs in one unified view. Real-time prices and portfolio performance at a glance.</p>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-4">
+        <div class="feature-icon feature-icon--orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+        </div>
+        <h3 class="feature-title">Bill Management</h3>
+        <p class="feature-desc">Never miss a payment again. Smart reminders and auto-pay keep your bills organized and on time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dashboard -->
+<section class="dashboard" id="dashboard">
+  <div class="section-inner">
+    <p class="section-label fade-in">Dashboard</p>
+    <h2 class="section-headline fade-in">Your finances.<br>At a glance.</h2>
+    <p class="section-subheadline fade-in fade-in-delay-1">A beautifully designed dashboard that makes managing money feel effortless.</p>
+    <div class="dashboard-grid">
+      <!-- Balance -->
+      <div class="dash-card dash-card--balance fade-in">
+        <p class="dash-balance-label">Total Balance</p>
+        <p class="dash-balance-amount" data-target="24531.80">$0.00</p>
+        <span class="dash-balance-change">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          +12.4% this month
+        </span>
+      </div>
+      <!-- Chart -->
+      <div class="dash-card fade-in fade-in-delay-1">
+        <p class="dash-card-title">Weekly Spending</p>
+        <div class="chart-bars">
+          <div class="chart-bar-col"><div class="chart-bar" style="height:45%"></div><span class="chart-label">Mon</span></div>
+          <div class="chart-bar-col"><div class="chart-bar" style="height:72%"></div><span class="chart-label">Tue</span></div>
+          <div class="chart-bar-col"><div class="chart-bar" style="height:35%"></div><span class="chart-label">Wed</span></div>
+          <div class="chart-bar-col"><div class="chart-bar" style="height:88%"></div><span class="chart-label">Thu</span></div>
+          <div class="chart-bar-col"><div class="chart-bar" style="height:55%"></div><span class="chart-label">Fri</span></div>
+          <div class="chart-bar-col"><div class="chart-bar" style="height:95%"></div><span class="chart-label">Sat</span></div>
+          <div class="chart-bar-col"><div class="chart-bar" style="height:28%"></div><span class="chart-label">Sun</span></div>
+        </div>
+      </div>
+      <!-- Transactions -->
+      <div class="dash-card fade-in fade-in-delay-2">
+        <p class="dash-card-title">Recent Transactions</p>
+        <div class="transaction-list">
+          <div class="transaction-item">
+            <div class="transaction-icon transaction-icon--food">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div class="transaction-info">
+              <p class="transaction-name">Blue Bottle Coffee</p>
+              <p class="transaction-cat">Food & Drink</p>
+            </div>
+            <p class="transaction-amount transaction-amount--negative">-$6.50</p>
+          </div>
+          <div class="transaction-item">
+            <div class="transaction-icon transaction-icon--income">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="transaction-info">
+              <p class="transaction-name">Salary Deposit</p>
+              <p class="transaction-cat">Income</p>
+            </div>
+            <p class="transaction-amount transaction-amount--positive">+$4,200.00</p>
+          </div>
+          <div class="transaction-item">
+            <div class="transaction-icon transaction-icon--transport">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="transaction-info">
+              <p class="transaction-name">Uber Ride</p>
+              <p class="transaction-cat">Transportation</p>
+            </div>
+            <p class="transaction-amount transaction-amount--negative">-$18.40</p>
+          </div>
+          <div class="transaction-item">
+            <div class="transaction-icon transaction-icon--shopping">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <div class="transaction-info">
+              <p class="transaction-name">Apple Store</p>
+              <p class="transaction-cat">Shopping</p>
+            </div>
+            <p class="transaction-amount transaction-amount--negative">-$129.00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Monthly Overview -->
+      <div class="dash-card fade-in fade-in-delay-3" id="monthly-overview">
+        <p class="dash-card-title">Monthly Overview</p>
+        <div class="monthly-bars">
+          <div>
+            <p class="monthly-row-label">Income</p>
+            <div class="monthly-bar-track">
+              <div class="monthly-bar-fill monthly-bar-fill--income" data-width="85%"></div>
+            </div>
+            <p class="monthly-amount">$8,400.00</p>
+          </div>
+          <div>
+            <p class="monthly-row-label">Expenses</p>
+            <div class="monthly-bar-track">
+              <div class="monthly-bar-fill monthly-bar-fill--expense" data-width="58%"></div>
+            </div>
+            <p class="monthly-amount">$4,868.20</p>
+          </div>
+          <div>
+            <p class="monthly-row-label">Savings</p>
+            <div class="monthly-bar-track">
+              <div class="monthly-bar-fill monthly-bar-fill--income" data-width="27%"></div>
+            </div>
+            <p class="monthly-amount">$3,531.80</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Security -->
+<section class="security" id="security">
+  <div class="section-inner">
+    <p class="section-label fade-in">Security</p>
+    <h2 class="section-headline fade-in" style="margin-left:auto;margin-right:auto;">Your Money,<br>Fully Protected.</h2>
+    <p class="section-subheadline fade-in fade-in-delay-1" style="margin-left:auto;margin-right:auto;">Bank-grade security with the simplicity you expect.</p>
+    <div class="trust-badges">
+      <div class="trust-badge fade-in fade-in-delay-1">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h4 class="trust-title">End-to-End Encryption</h4>
+        <p class="trust-desc">256-bit AES encryption protects every transaction and piece of personal data.</p>
+      </div>
+      <div class="trust-badge fade-in fade-in-delay-2">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <h4 class="trust-title">FDIC Insured</h4>
+        <p class="trust-desc">Deposits insured up to $250,000 through our partner banks. Your money is always safe.</p>
+      </div>
+      <div class="trust-badge fade-in fade-in-delay-3">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 2 4 2 4 2-2.9 2-4z"/><path d="M16 11c0-1.1-.9-2-2-2"/><path d="M20 11c0-5-3.6-8-8-8S4 6 4 11"/><line x1="12" y1="19" x2="12" y2="22"/><rect x="8" y="19" width="8" height="3" rx="1"/></svg>
+        </div>
+        <h4 class="trust-title">Biometric Auth</h4>
+        <p class="trust-desc">Face ID, Touch ID, and fingerprint authentication for instant, secure access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Card Tiers -->
+<section class="card-tiers" id="cards">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <p class="section-label fade-in">Cards</p>
+      <h2 class="section-headline fade-in" style="margin-left:auto;margin-right:auto;">Choose your card.<br>Define your style.</h2>
+      <p class="section-subheadline fade-in fade-in-delay-1" style="margin-left:auto;margin-right:auto;">Three tiers, one beautiful banking experience.</p>
+    </div>
+    <div class="tiers-grid" id="pricing">
+      <!-- Standard -->
+      <div class="tier-card fade-in fade-in-delay-1">
+        <div class="tier-mini-card tier-mini-card--silver">
+          <div class="tier-mini-chip"></div>
+          <div class="tier-mini-dots"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <h3 class="tier-name">Standard</h3>
+        <p class="tier-price"><strong>$0</strong> /month</p>
+        <ul class="tier-benefits">
+          <li>No monthly fees</li>
+          <li>1% cashback on all purchases</li>
+          <li>Free ATM withdrawals</li>
+          <li>Instant transfers</li>
+          <li>Basic spending insights</li>
+        </ul>
+        <button class="tier-btn tier-btn--outline">Get Started</button>
+      </div>
+      <!-- Gold -->
+      <div class="tier-card tier-card--featured fade-in fade-in-delay-2">
+        <div class="tier-mini-card tier-mini-card--gold">
+          <div class="tier-mini-chip"></div>
+          <div class="tier-mini-dots"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <h3 class="tier-name">Gold</h3>
+        <p class="tier-price"><strong>$9.99</strong> /month</p>
+        <ul class="tier-benefits">
+          <li>3% cashback on dining and travel</li>
+          <li>Priority customer support</li>
+          <li>AI-powered budget advisor</li>
+          <li>Fee-free international transfers</li>
+          <li>Travel insurance included</li>
+          <li>Exclusive partner offers</li>
+        </ul>
+        <button class="tier-btn tier-btn--filled">Get Gold</button>
+      </div>
+      <!-- Platinum -->
+      <div class="tier-card fade-in fade-in-delay-3">
+        <div class="tier-mini-card tier-mini-card--platinum">
+          <div class="tier-mini-chip"></div>
+          <div class="tier-mini-dots"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <h3 class="tier-name">Platinum</h3>
+        <p class="tier-price"><strong>$24.99</strong> /month</p>
+        <ul class="tier-benefits">
+          <li>5% cashback on everything</li>
+          <li>Dedicated account manager</li>
+          <li>Airport lounge access</li>
+          <li>Premium investment tools</li>
+          <li>Metal card with custom engraving</li>
+          <li>Concierge services</li>
+        </ul>
+        <button class="tier-btn tier-btn--outline">Get Platinum</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <h2 class="cta-headline fade-in">Start Banking<br>Smarter Today.</h2>
+    <p class="cta-sub fade-in fade-in-delay-1">Open your account in minutes. No paperwork, no hidden fees, no hassle.</p>
+    <div class="fade-in fade-in-delay-2">
+      <a href="#" class="btn-primary">Open Your Free Account</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-copy">Copyright 2026 WalletPro, Inc. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Status</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer for fade-in animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Balance counter animation
+const balanceEl = document.querySelector('.dash-balance-amount');
+let balanceCounted = false;
+
+const balanceObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !balanceCounted) {
+      balanceCounted = true;
+      animateBalance(balanceEl, 24531.80, 1600);
+      balanceObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+balanceObserver.observe(balanceEl);
+
+function animateBalance(el, target, duration) {
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = eased * target;
+    el.textContent = '$' + current.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+  requestAnimationFrame(update);
+}
+
+// Bar chart animation
+const chartObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bars = entry.target.querySelectorAll('.chart-bar');
+      bars.forEach((bar, i) => {
+        setTimeout(() => bar.classList.add('animate'), i * 80);
+      });
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chart-bars').forEach(el => chartObserver.observe(el));
+
+// Transaction slide-in animation
+const txObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const items = entry.target.querySelectorAll('.transaction-item');
+      items.forEach((item, i) => {
+        setTimeout(() => item.classList.add('animate'), i * 120);
+      });
+      txObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.transaction-list').forEach(el => txObserver.observe(el));
+
+// Monthly overview bar animation
+const monthlyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fills = entry.target.querySelectorAll('.monthly-bar-fill');
+      fills.forEach((fill, i) => {
+        setTimeout(() => {
+          fill.style.width = fill.dataset.width;
+        }, i * 200);
+      });
+      monthlyObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('#monthly-overview').forEach(el => monthlyObserver.observe(el));
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
