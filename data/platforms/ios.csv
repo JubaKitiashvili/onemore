@@ -1,0 +1,21 @@
+keyword,element,metric,value,unit,context,min_os,priority
+navbar,NavigationBar,height,44,pt,inline title,14.0,critical
+navbar,NavigationBar,height,96,pt,large title expanded,11.0,critical
+tabbar,TabBar,height,49,pt,standard,7.0,critical
+tabbar,TabBar,height,83,pt,with home indicator,11.0,critical
+statusbar,StatusBar,height,54,pt,with dynamic island,16.0,high
+statusbar,StatusBar,height,47,pt,without dynamic island,14.0,high
+safe-area,SafeArea,bottom,34,pt,home indicator,11.0,critical
+safe-area,SafeArea,top,59,pt,dynamic island,16.0,high
+touch,TouchTarget,minimum,44,pt,all interactive,2.0,critical
+keyboard,Keyboard,height,291,pt,iPhone portrait,14.0,medium
+screen,Screen,width,375,pt,iPhone SE/8,7.0,medium
+screen,Screen,width,390,pt,iPhone 14/15,14.0,medium
+screen,Screen,width,393,pt,iPhone 15 Pro,17.0,medium
+screen,Screen,width,430,pt,iPhone Pro Max,14.0,medium
+home-indicator,HomeIndicator,height,5,pt,bar height,11.0,medium
+search,SearchBar,height,36,pt,inline search,11.0,high
+list-cell,Cell,height,44,pt,standard row,2.0,high
+list-cell,Cell,height,60,pt,subtitle row,2.0,medium
+margin,ScreenMargin,width,16,pt,standard,7.0,critical
+corner,DisplayCorner,radius,55,pt,iPhone 14-16,14.0,medium

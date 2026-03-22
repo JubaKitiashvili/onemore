@@ -1,0 +1,11 @@
+keyword,element,metric,value,unit,context,min_os,priority
+touch,TouchTarget,minimum,60,pt,eye tracking,1.0,critical
+spacing,TargetSpacing,minimum,4,pt,between targets,1.0,critical
+tabbar,TabBar,position,leading-vertical,ornament,ornament,1.0,critical
+toolbar,Toolbar,position,bottom-ornament,ornament,ornament,1.0,high
+ornament,Ornament,overlap,20,pt,window overlap,1.0,high
+window,Window,material,glass,system,system,1.0,critical
+window,Window,shadow,real-world,depth,depth,1.0,medium
+volume,Volume,type,3D-content,RealityKit,RealityKit,1.0,medium
+hover,HoverEffect,type,highlight,eye tracking,eye tracking,1.0,high
+immersion,ImmersionLevel,types,mixed/progressive/full,spatial,spatial,1.0,medium

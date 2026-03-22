@@ -1,0 +1,11 @@
+keyword,element,metric,value,unit,context,min_os,priority
+screen,Screen,width,162,pt,40mm,7.0,high
+screen,Screen,width,184,pt,44mm,7.0,high
+screen,Screen,width,205,pt,49mm Ultra,9.0,medium
+touch,TouchTarget,minimum,38,pt,all interactive,2.0,critical
+font,SystemFont,family,SF Compact,text,system,2.0,critical
+crown,DigitalCrown,input,rotation,scroll/value,primary input,2.0,high
+complication,Complication,types,circular/rectangular/graphic,watch face,watch face,5.0,high
+list,ListRow,height,44,pt,standard,2.0,high
+margin,ScreenMargin,width,8.5,pt,standard,7.0,high
+page,PageIndicator,height,5,pt,horizontal dots,2.0,medium

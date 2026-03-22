@@ -1,0 +1,21 @@
+keyword,pattern,implementation,anti_pattern,notes,priority
+text-color,Primary text,color: #1d1d1f,Using pure #000000,Apple uses warm near-black,critical
+bg-color,Background,background: #fbfbfd,Using pure #ffffff,Apple uses warm near-white,critical
+secondary-text,Secondary text,color: #86868b,Using generic gray,Apple's specific secondary,high
+link-color,Links,color: #2997ff,Using default browser blue,Apple's lighter link blue,high
+nav-blur,Frosted nav,backdrop-filter: saturate(180%) blur(20px),No backdrop filter,Signature Apple nav,critical
+nav-bg,Nav background,background: rgba(255 255 255 / 0.72),Opaque nav bar,Semi-transparent for blur effect,critical
+font-stack,System fonts,font-family: -apple-system BlinkMacSystemFont Inter system-ui,Using Arial or Helvetica alone,SF Pro on Apple + Inter fallback,critical
+hero-size,Hero headline,font-size: 80-96px; font-weight: 600-700,Small hero text,Apple uses very large bold heroes,high
+hero-tracking,Hero letter-spacing,letter-spacing: -0.003em to -0.005em,Default letter-spacing,Tight tracking is signature Apple,high
+body-size,Body text,font-size: 17px; line-height: 1.47,Using 14-16px body,Matches iOS body text size,critical
+subhead,Subheadline,font-size: 21-28px; font-weight: 600; color: #86868b,Generic subheading,Apple's secondary prominence style,medium
+max-width,Content width,max-width: 980px (text) 1440px (full-width),No max-width constraint,Apple constrains content width,high
+section-pad,Section spacing,padding: 80-120px 0 (vertical),Small section gaps,Apple uses generous vertical rhythm,high
+transition,Transitions,transition: 0.3-0.4s cubic-bezier(0.25 0.1 0.25 1),Using ease-in-out,Apple's custom easing curve,medium
+scroll-reveal,Scroll animation,Intersection Observer + transform/opacity,No scroll animation,Elements fade-up on scroll,medium
+dark-nav,Dark mode nav,background: rgba(29 29 31 / 0.72),Same as light mode,Adapted background for dark,high
+cta-style,CTA links,font-size: 21px; color: #2997ff; text-decoration: none,Generic button CTAs,Apple prefers text link CTAs,medium
+image-treatment,Product images,Full-bleed with dark background sections,Small inline images,Large product showcases,medium
+gpu-animation,Animation performance,Use transform and opacity only,Animating width/height/margin,GPU-accelerated properties only,high
+feature-settings,Font features,font-feature-settings for OpenType,Missing font features,Enables proper character rendering,low
