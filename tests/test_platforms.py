@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-from platforms import generate_project_rules, init_platform, list_platforms, PLATFORMS
+from platforms import generate_project_rules, init_platform, list_platforms, detect_platforms, auto_init, PLATFORMS
 
 def test_generate_project_rules():
     rules = generate_project_rules()
@@ -85,3 +85,40 @@ def test_init_project_roo(tmp_path):
 def test_init_project_kiro(tmp_path):
     result = init_platform("kiro", project_dir=tmp_path)
     assert result["status"] == "installed"
+
+
+def test_detect_platforms():
+    results = detect_platforms()
+    assert len(results) == 11
+    # At least claude-code should be detected (we have ~/.claude)
+    claude = next(r for r in results if r["platform"] == "claude-code")
+    assert claude["detected"] == True
+
+
+def test_detect_platforms_project_dir(tmp_path):
+    # Create .cursor dir to simulate Cursor project
+    (tmp_path / ".cursor").mkdir()
+    results = detect_platforms(project_dir=tmp_path)
+    cursor = next(r for r in results if r["platform"] == "cursor")
+    assert cursor["detected"] == True
+    assert "project" in cursor["reason"]
+
+
+def test_auto_init(tmp_path):
+    # Create .windsurf dir to simulate detection
+    (tmp_path / ".windsurf").mkdir()
+    result = auto_init(project_dir=tmp_path)
+    assert len(result["detected"]) > 0
+    # Windsurf should be in detected
+    windsurf_detected = any(p["platform"] == "windsurf" for p in result["detected"])
+    assert windsurf_detected
+
+
+def test_auto_init_skip_already_installed(tmp_path):
+    (tmp_path / ".cursor").mkdir()
+    # First install
+    auto_init(project_dir=tmp_path)
+    # Second install should skip
+    result = auto_init(project_dir=tmp_path)
+    cursor_skipped = any(p["platform"] == "cursor" for p in result["skipped"])
+    assert cursor_skipped

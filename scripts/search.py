@@ -200,7 +200,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _handle_init(args: list[str]) -> int:
     """Handle the 'init' subcommand for multi-platform distribution."""
-    from scripts.platforms import init_platform, list_platforms, PLATFORMS
+    from scripts.platforms import init_platform, list_platforms, detect_platforms, auto_init, PLATFORMS
 
     if "--list" in args:
         platforms = list_platforms()
@@ -219,9 +219,46 @@ def _handle_init(args: list[str]) -> int:
             break
 
     if not ai_value:
-        print("Usage: onemore init --ai <platform>[,platform,...] | --ai all | init --list")
-        print(f"Available platforms: {', '.join(sorted(PLATFORMS.keys()))}")
-        return 1
+        # Auto-detect mode: no --ai flag given
+        print("OneMore — Auto-Detecting AI Platforms...\n")
+
+        detected_list = detect_platforms()
+        for p in detected_list:
+            mark = "✓" if p["detected"] else "✗"
+            reason = p["reason"] if p["detected"] else "not detected"
+            print(f"  {mark} {p['name']:<16} {reason}")
+
+        detected_count = sum(1 for p in detected_list if p["detected"])
+        if detected_count == 0:
+            print("\nNo AI platforms detected. Use --ai <platform> to install manually.")
+            print(f"Available platforms: {', '.join(sorted(PLATFORMS.keys()))}")
+            return 0
+
+        print(f"\nInstalling OneMore for {detected_count} detected platform(s)...\n")
+
+        result = auto_init()
+        installed_names = {p["platform"] for p in result["installed"]}
+        skipped_names = {p["platform"] for p in result["skipped"]}
+
+        for p in detected_list:
+            if not p["detected"]:
+                continue
+            platform_key = p["platform"]
+            config = PLATFORMS[platform_key]
+            install_path = config["path"]
+            if platform_key in installed_names:
+                print(f"  ✓ {p['name']:<16} → {install_path}")
+            elif platform_key in skipped_names:
+                print(f"  ✓ {p['name']:<16} → {install_path} (already installed)")
+
+        newly_installed = len(result["installed"])
+        already_installed = len(result["skipped"])
+        total = newly_installed + already_installed
+        if already_installed > 0:
+            print(f"\nDone! OneMore installed for {total} platform(s) ({already_installed} already installed).")
+        else:
+            print(f"\nDone! OneMore installed for {total} platform(s).")
+        return 0
 
     # Determine which platforms to init
     if ai_value == "all":
