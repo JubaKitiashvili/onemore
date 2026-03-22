@@ -317,6 +317,12 @@ def _handle_export(args: list[str]) -> int:
     return 0
 
 
+def _handle_redesign(args: list[str]) -> int:
+    """Handle the 'redesign' subcommand for HIG violation scanning."""
+    from scripts.redesign import cli_main
+    return cli_main(args)
+
+
 def main() -> int:
     # Handle subcommands before argparse
     raw_args = sys.argv[1:]
@@ -324,6 +330,8 @@ def main() -> int:
         return _handle_export(raw_args[1:])
     if raw_args and raw_args[0] == "init":
         return _handle_init(raw_args[1:])
+    if raw_args and raw_args[0] == "redesign":
+        return _handle_redesign(raw_args[1:])
 
     # Use parse_known_args to allow unknown domain/stack/platform values
     # without crashing, then validate manually so we can surface helpful messages.
