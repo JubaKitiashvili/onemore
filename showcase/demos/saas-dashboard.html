@@ -11,6 +11,12 @@
   box-sizing: border-box;
 }
 
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 :root {
   --text-primary: #1d1d1f;
   --text-light: #f5f5f7;
@@ -49,6 +55,154 @@ body {
   overflow-x: hidden;
 }
 
+/* ========== STAGGER ANIMATION SYSTEM ========== */
+[data-stagger] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease),
+              transform 0.6s var(--ease);
+  will-change: transform, opacity;
+}
+
+[data-stagger].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Clip-path reveal */
+.clip-reveal {
+  clip-path: inset(8% round 16px);
+  transition: clip-path 1s var(--ease);
+  will-change: clip-path;
+}
+
+.clip-reveal.revealed {
+  clip-path: inset(0% round 16px);
+}
+
+/* Parallax */
+.parallax {
+  will-change: transform;
+  transform: translateY(calc(var(--parallax-offset, 0) * 1px));
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #5856D6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Feature icon pulse (after reveal) */
+.feature-icon-wrap.revealed .feature-icon {
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Feature icon scale-in */
+.feature-icon-wrap {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
+}
+
+.feature-icon-wrap.revealed {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Glow border on Pro card */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: conic-gradient(from var(--glow-angle, 0deg), #5856D6, #a78bfa, #c084fc, #5856D6);
+  z-index: -1;
+  animation: glow-rotate 4s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes glow-rotate {
+  to { --glow-angle: 360deg; }
+}
+
+/* Shimmer button */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.shimmer-btn:hover::after {
+  left: 100%;
+}
+
+/* Pricing card hover lift */
+.pricing-card {
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .clip-reveal {
+    clip-path: none;
+    transition: none;
+  }
+  .parallax {
+    transform: none !important;
+  }
+  .glow-border::before {
+    animation: none;
+  }
+  .shimmer-btn::after {
+    display: none;
+  }
+  .feature-icon-wrap {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+  .feature-icon-wrap.revealed .feature-icon {
+    animation: none;
+  }
+  .pricing-card {
+    transition: none;
+  }
+  .pricing-card:hover {
+    transform: none;
+  }
+}
+
 /* ========== NAVIGATION ========== */
 .nav {
   position: fixed;
@@ -78,6 +232,7 @@ body {
   font-weight: 700;
   color: var(--text-light);
   letter-spacing: -0.02em;
+  transition: color 0.3s var(--ease);
 }
 
 .nav-links {
@@ -146,61 +301,92 @@ body {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 20px;
-  opacity: 0;
-  animation: heroFadeUp 0.8s var(--ease) 0.1s forwards;
 }
 
 .hero-headline {
   font-size: clamp(48px, 8vw, 96px);
   font-weight: 700;
-  color: var(--text-light);
   letter-spacing: -0.04em;
   line-height: 1.05;
   max-width: 980px;
   margin: 0 auto 20px;
-  opacity: 0;
-  animation: heroFadeUp 0.9s var(--ease) 0.2s forwards;
 }
 
 .hero-sub {
   font-size: 21px;
   color: var(--text-secondary);
   max-width: 560px;
-  margin: 0 auto 64px;
+  margin: 0 auto 40px;
   line-height: 1.5;
   font-weight: 400;
-  opacity: 0;
-  animation: heroFadeUp 0.9s var(--ease) 0.35s forwards;
 }
 
-@keyframes heroFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 32px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 980px;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.2s var(--ease), transform 0.15s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-btn-primary:hover {
+  background: var(--accent-hover);
+  transform: scale(1.04);
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--text-light);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 980px;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.35);
 }
 
 /* ========== DASHBOARD MOCKUP (shared) ========== */
 .mockup-wrap {
   max-width: 1200px;
   margin: 0 auto;
-  opacity: 0;
-  animation: mockupReveal 1s var(--ease) 0.6s forwards;
 }
 
-@keyframes mockupReveal {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero-mockup-scale {
+  transform: scale(0.95);
+  transition: transform 0.8s var(--ease);
+}
+
+.hero-mockup-scale.revealed {
+  transform: scale(1);
 }
 
 .browser-chrome {
@@ -434,6 +620,7 @@ body {
   height: 48px;
   margin: 0 auto 20px;
   color: var(--accent);
+  display: block;
 }
 
 .feature-title {
@@ -461,8 +648,6 @@ body {
 
 .deep-dive .mockup-wrap {
   max-width: 1200px;
-  opacity: 1;
-  animation: none;
   perspective: 1200px;
 }
 
@@ -659,6 +844,17 @@ body {
   margin-left: 8px;
 }
 
+/* Deep dive table rows slide in */
+.mini-table tbody tr[data-stagger] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.mini-table tbody tr[data-stagger].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ========== PRICING ========== */
 .pricing {
   background: var(--bg-light);
@@ -684,9 +880,8 @@ body {
 }
 
 .pricing-card.featured {
-  border-color: var(--accent);
+  border-color: transparent;
   border-width: 2px;
-  box-shadow: 0 8px 30px rgba(88, 86, 214, 0.1);
 }
 
 .pricing-badge {
@@ -882,13 +1077,23 @@ body {
     background: #1c1c1e;
     border-color: rgba(255,255,255,0.08);
   }
+  .pricing-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
   .pricing-card.featured {
-    border-color: var(--accent);
+    border-color: transparent;
   }
   .pricing-tier,
   .pricing-amount,
   .pricing-features li {
     color: var(--text-light);
+  }
+  .pricing-btn.secondary {
+    background: rgba(88, 86, 214, 0.15);
+    color: #a5a4f3;
+  }
+  .pricing-btn.secondary:hover {
+    background: rgba(88, 86, 214, 0.25);
   }
 }
 
@@ -929,6 +1134,10 @@ body {
   }
   .hero-sub {
     font-size: 17px;
+    margin-bottom: 32px;
+  }
+  .hero-buttons {
+    flex-direction: column;
     margin-bottom: 48px;
   }
   .nav-links {
@@ -964,12 +1173,19 @@ body {
 </nav>
 
 <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-tag">Analytics Platform</div>
-  <h1 class="hero-headline">See your data clearly.</h1>
-  <p class="hero-sub">Real-time analytics that help teams make better decisions.</p>
+<section class="hero" data-stagger-group data-hero>
+  <div class="hero-tag" data-stagger>Analytics Platform</div>
+  <h1 class="hero-headline gradient-text" data-stagger>See your data clearly.</h1>
+  <p class="hero-sub" data-stagger>Real-time analytics that help teams make better decisions. Understand what matters, act on what counts.</p>
+  <div class="hero-buttons" data-stagger>
+    <button class="hero-btn-primary shimmer-btn">Start Free Trial</button>
+    <a href="#dashboard" class="hero-btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="6,3 13,8 6,13"/></svg>
+      See it in action
+    </a>
+  </div>
 
-  <div class="mockup-wrap">
+  <div class="mockup-wrap parallax hero-mockup-scale" data-stagger data-parallax-speed="0.15">
     <div class="browser-chrome">
       <div class="traffic-light red"></div>
       <div class="traffic-light yellow"></div>
@@ -1059,15 +1275,12 @@ body {
             <div class="chart-svg-wrap" style="justify-content: center; align-items: center;">
               <svg viewBox="0 0 200 200" width="180" height="180">
                 <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="24"/>
-                <!-- Organic: 42% -->
                 <circle cx="100" cy="100" r="70" fill="none" stroke="#5856D6" stroke-width="24"
                   stroke-dasharray="184.7 255" stroke-dashoffset="0" transform="rotate(-90 100 100)"
                   stroke-linecap="round"/>
-                <!-- Direct: 28% -->
                 <circle cx="100" cy="100" r="70" fill="none" stroke="#a5a4f3" stroke-width="24"
                   stroke-dasharray="123.2 316.5" stroke-dashoffset="-184.7" transform="rotate(-90 100 100)"
                   stroke-linecap="round"/>
-                <!-- Referral: 18% -->
                 <circle cx="100" cy="100" r="70" fill="none" stroke="#32d74b" stroke-width="24"
                   stroke-dasharray="79.2 360.5" stroke-dashoffset="-307.9" transform="rotate(-90 100 100)"
                   stroke-linecap="round"/>
@@ -1083,52 +1296,58 @@ body {
 </section>
 
 <!-- Stats Bar -->
-<section class="stats-bar">
+<section class="stats-bar" data-stagger-group>
   <div class="stats-bar-inner">
-    <div class="stat-item">
-      <div class="stat-number" data-target="10000" data-suffix="+">0</div>
+    <div class="stat-item" data-stagger data-stagger-delay="0">
+      <div class="stat-number" data-count-to="10000" data-count-suffix="+">0</div>
       <div class="stat-label">Teams</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-number" data-target="99.9" data-suffix="%" data-decimal="1">0</div>
+    <div class="stat-item" data-stagger data-stagger-delay="150">
+      <div class="stat-number" data-count-to="99.9" data-count-suffix="%" data-count-decimal="1">0</div>
       <div class="stat-label">Uptime</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-number" data-target="50" data-suffix="M+">0</div>
+    <div class="stat-item" data-stagger data-stagger-delay="300">
+      <div class="stat-number" data-count-to="50" data-count-suffix="M+">0</div>
       <div class="stat-label">Data points processed</div>
     </div>
   </div>
 </section>
 
 <!-- Features Section -->
-<section class="features" id="features">
-  <h2 class="section-headline dark">Built for modern teams</h2>
+<section class="features" id="features" data-stagger-group>
+  <h2 class="section-headline dark" data-stagger>Built for modern teams</h2>
   <div class="features-grid">
-    <div class="feature-item">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none">
-        <path d="M8 36V20l8-6 8 8 8-10 8 6v18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="16" cy="14" r="3" stroke="currentColor" stroke-width="2"/>
-        <circle cx="32" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-      </svg>
+    <div class="feature-item" data-stagger data-stagger-delay="200">
+      <div class="feature-icon-wrap" data-feature-icon>
+        <svg class="feature-icon" viewBox="0 0 48 48" fill="none">
+          <path d="M8 36V20l8-6 8 8 8-10 8 6v18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="16" cy="14" r="3" stroke="currentColor" stroke-width="2"/>
+          <circle cx="32" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
       <h3 class="feature-title">Real-Time Insights</h3>
       <p class="feature-desc">Watch your metrics update live. No refresh needed, no waiting for batch processing.</p>
     </div>
-    <div class="feature-item">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none">
-        <path d="M24 8v8l6 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2.5"/>
-        <path d="M10 32c2 4 6 7 10 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-        <path d="M38 16c-2-4-6-7-10-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-      </svg>
+    <div class="feature-item" data-stagger data-stagger-delay="400">
+      <div class="feature-icon-wrap" data-feature-icon>
+        <svg class="feature-icon" viewBox="0 0 48 48" fill="none">
+          <path d="M24 8v8l6 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M10 32c2 4 6 7 10 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          <path d="M38 16c-2-4-6-7-10-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
       <h3 class="feature-title">AI Predictions</h3>
       <p class="feature-desc">Machine learning models forecast trends and surface anomalies before they become problems.</p>
     </div>
-    <div class="feature-item">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none">
-        <circle cx="18" cy="18" r="6" stroke="currentColor" stroke-width="2.5"/>
-        <circle cx="30" cy="18" r="6" stroke="currentColor" stroke-width="2.5"/>
-        <path d="M24 24c-8 0-14 4-14 10v4h28v-4c0-6-6-10-14-10z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
+    <div class="feature-item" data-stagger data-stagger-delay="600">
+      <div class="feature-icon-wrap" data-feature-icon>
+        <svg class="feature-icon" viewBox="0 0 48 48" fill="none">
+          <circle cx="18" cy="18" r="6" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="30" cy="18" r="6" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M24 24c-8 0-14 4-14 10v4h28v-4c0-6-6-10-14-10z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
       <h3 class="feature-title">Team Collaboration</h3>
       <p class="feature-desc">Shared dashboards, inline comments, and scheduled reports keep everyone aligned.</p>
     </div>
@@ -1136,19 +1355,19 @@ body {
 </section>
 
 <!-- Dashboard Deep Dive -->
-<section class="deep-dive" id="dashboard">
-  <h2 class="section-headline light">Every metric, one view.</h2>
-  <div class="mockup-wrap">
-    <div class="deep-dive-mockup">
+<section class="deep-dive" id="dashboard" data-stagger-group>
+  <h2 class="section-headline light" data-stagger>Every metric, one view.</h2>
+  <div class="mockup-wrap parallax" data-parallax-speed="0.1">
+    <div class="deep-dive-mockup clip-reveal" data-stagger data-stagger-delay="200">
       <div class="browser-chrome">
         <div class="traffic-light red"></div>
         <div class="traffic-light yellow"></div>
         <div class="traffic-light green"></div>
         <div class="browser-url">app.datapulse.io/analytics</div>
       </div>
-      <div class="dashboard-body" style="flex-direction: column;">
+      <div class="dashboard-body" style="flex-direction: column;" data-stagger-group data-deep-dive-inner>
         <!-- Filter bar -->
-        <div class="filter-bar">
+        <div class="filter-bar" data-stagger data-stagger-delay="400">
           <div class="filter-chip active">All Channels</div>
           <div class="filter-chip">Organic</div>
           <div class="filter-chip">Paid</div>
@@ -1161,8 +1380,8 @@ body {
         </div>
 
         <!-- KPI sparkline row -->
-        <div class="kpi-spark-row">
-          <div class="kpi-spark-card">
+        <div class="kpi-spark-row" data-stagger-group>
+          <div class="kpi-spark-card" data-stagger data-stagger-delay="500">
             <div class="kpi-spark-header">
               <div>
                 <div class="kpi-spark-label">Revenue</div>
@@ -1174,7 +1393,7 @@ body {
               <path d="M0,25 10,22 20,20 30,18 40,22 50,16 60,14 70,18 80,12 90,8 100,10 110,6 120,4" fill="none" stroke="#32d74b" stroke-width="1.5"/>
             </svg>
           </div>
-          <div class="kpi-spark-card">
+          <div class="kpi-spark-card" data-stagger data-stagger-delay="600">
             <div class="kpi-spark-header">
               <div>
                 <div class="kpi-spark-label">MRR</div>
@@ -1186,7 +1405,7 @@ body {
               <path d="M0,20 10,22 20,18 30,16 40,18 50,14 60,16 70,12 80,10 90,8 100,9 110,6 120,5" fill="none" stroke="#32d74b" stroke-width="1.5"/>
             </svg>
           </div>
-          <div class="kpi-spark-card">
+          <div class="kpi-spark-card" data-stagger data-stagger-delay="700">
             <div class="kpi-spark-header">
               <div>
                 <div class="kpi-spark-label">Churn Rate</div>
@@ -1198,7 +1417,7 @@ body {
               <path d="M0,8 10,10 20,12 30,10 40,14 50,12 60,16 70,14 80,18 90,20 100,18 110,22 120,24" fill="none" stroke="#ff453a" stroke-width="1.5"/>
             </svg>
           </div>
-          <div class="kpi-spark-card">
+          <div class="kpi-spark-card" data-stagger data-stagger-delay="800">
             <div class="kpi-spark-header">
               <div>
                 <div class="kpi-spark-label">NPS Score</div>
@@ -1213,9 +1432,9 @@ body {
         </div>
 
         <!-- Charts row -->
-        <div class="deep-charts">
+        <div class="deep-charts" data-stagger-group>
           <!-- Revenue trend multi-line -->
-          <div class="deep-chart-panel">
+          <div class="deep-chart-panel" data-stagger data-stagger-delay="900">
             <div class="deep-chart-header">
               <div class="deep-chart-title">Revenue Trend</div>
               <div class="deep-chart-tabs">
@@ -1231,16 +1450,12 @@ body {
                   <stop offset="100%" stop-color="#5856D6" stop-opacity="0"/>
                 </linearGradient>
               </defs>
-              <!-- Grid -->
               <line x1="0" y1="45" x2="500" y2="45" stroke="rgba(255,255,255,0.04)"/>
               <line x1="0" y1="90" x2="500" y2="90" stroke="rgba(255,255,255,0.04)"/>
               <line x1="0" y1="135" x2="500" y2="135" stroke="rgba(255,255,255,0.04)"/>
-              <!-- This year -->
               <path d="M0,160 C40,150 80,130 120,120 C160,110 200,125 240,100 C280,75 320,60 360,65 C400,70 440,45 480,30 L500,25" fill="none" stroke="#5856D6" stroke-width="2"/>
               <path d="M0,160 C40,150 80,130 120,120 C160,110 200,125 240,100 C280,75 320,60 360,65 C400,70 440,45 480,30 L500,25 L500,180 L0,180 Z" fill="url(#deepGrad)"/>
-              <!-- Last year -->
               <path d="M0,140 C40,138 80,142 120,135 C160,128 200,130 240,125 C280,120 320,115 360,110 C400,108 440,100 480,95 L500,92" fill="none" stroke="#a5a4f3" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
-              <!-- Labels -->
               <text x="0" y="178" fill="#86868b" font-size="9" font-family="var(--font)">Jan</text>
               <text x="80" y="178" fill="#86868b" font-size="9" font-family="var(--font)">Mar</text>
               <text x="160" y="178" fill="#86868b" font-size="9" font-family="var(--font)">May</text>
@@ -1251,12 +1466,11 @@ body {
           </div>
 
           <!-- Bar chart -->
-          <div class="deep-chart-panel">
+          <div class="deep-chart-panel" data-stagger data-stagger-delay="1000">
             <div class="deep-chart-header">
               <div class="deep-chart-title">Conversions by Channel</div>
             </div>
             <svg viewBox="0 0 400 180" width="100%" preserveAspectRatio="none" style="height:180px">
-              <!-- Bars -->
               <rect x="30" y="30" width="50" height="130" rx="4" fill="rgba(88,86,214,0.15)"/>
               <rect x="30" y="50" width="50" height="110" rx="4" fill="#5856D6"/>
               <rect x="110" y="30" width="50" height="130" rx="4" fill="rgba(88,86,214,0.15)"/>
@@ -1267,7 +1481,6 @@ body {
               <rect x="270" y="100" width="50" height="60" rx="4" fill="#a5a4f3"/>
               <rect x="350" y="30" width="50" height="130" rx="4" fill="rgba(88,86,214,0.15)"/>
               <rect x="350" y="115" width="50" height="45" rx="4" fill="#a5a4f3"/>
-              <!-- Labels -->
               <text x="55" y="175" text-anchor="middle" fill="#86868b" font-size="9" font-family="var(--font)">Organic</text>
               <text x="135" y="175" text-anchor="middle" fill="#86868b" font-size="9" font-family="var(--font)">Direct</text>
               <text x="215" y="175" text-anchor="middle" fill="#86868b" font-size="9" font-family="var(--font)">Email</text>
@@ -1278,8 +1491,8 @@ body {
         </div>
 
         <!-- Table section -->
-        <div style="padding: 0 20px 20px;">
-          <div class="deep-chart-panel">
+        <div style="padding: 0 20px 20px;" data-stagger-group>
+          <div class="deep-chart-panel" data-stagger data-stagger-delay="1100">
             <div class="deep-chart-header">
               <div class="deep-chart-title">Top Pages</div>
               <div class="deep-chart-tabs">
@@ -1296,26 +1509,26 @@ body {
                   <th style="text-align:right">Conv. Rate</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
+              <tbody data-stagger-group>
+                <tr data-stagger data-stagger-delay="1200">
                   <td>/pricing</td>
                   <td>12,847 <span class="table-bar" style="width:80px"></span></td>
                   <td>24%</td>
                   <td>8.4%</td>
                 </tr>
-                <tr>
+                <tr data-stagger data-stagger-delay="1300">
                   <td>/features</td>
                   <td>9,312 <span class="table-bar" style="width:58px"></span></td>
                   <td>31%</td>
                   <td>5.2%</td>
                 </tr>
-                <tr>
+                <tr data-stagger data-stagger-delay="1400">
                   <td>/docs/getting-started</td>
                   <td>7,105 <span class="table-bar" style="width:44px"></span></td>
                   <td>18%</td>
                   <td>12.1%</td>
                 </tr>
-                <tr>
+                <tr data-stagger data-stagger-delay="1500">
                   <td>/blog/analytics-guide</td>
                   <td>4,892 <span class="table-bar" style="width:30px"></span></td>
                   <td>42%</td>
@@ -1331,11 +1544,11 @@ body {
 </section>
 
 <!-- Pricing -->
-<section class="pricing" id="pricing">
-  <h2 class="section-headline dark">Simple pricing</h2>
+<section class="pricing" id="pricing" data-stagger-group>
+  <h2 class="section-headline dark" data-stagger>Simple pricing</h2>
   <div class="pricing-grid">
     <!-- Starter -->
-    <div class="pricing-card">
+    <div class="pricing-card" data-stagger data-stagger-delay="200">
       <div class="pricing-tier">Starter</div>
       <div class="pricing-price">
         <span class="pricing-amount">$29</span>
@@ -1364,7 +1577,7 @@ body {
     </div>
 
     <!-- Pro -->
-    <div class="pricing-card featured">
+    <div class="pricing-card featured glow-border" data-stagger data-stagger-delay="400">
       <div class="pricing-badge">Most Popular</div>
       <div class="pricing-tier">Pro</div>
       <div class="pricing-price">
@@ -1394,11 +1607,11 @@ body {
           Priority support
         </li>
       </ul>
-      <button class="pricing-btn primary">Get Started</button>
+      <button class="pricing-btn primary shimmer-btn">Get Started</button>
     </div>
 
     <!-- Enterprise -->
-    <div class="pricing-card">
+    <div class="pricing-card" data-stagger data-stagger-delay="600">
       <div class="pricing-tier">Enterprise</div>
       <div class="pricing-price">
         <span class="pricing-amount">Custom</span>
@@ -1432,15 +1645,17 @@ body {
 </section>
 
 <!-- Final CTA -->
-<section class="final-cta" id="cta">
-  <h2 class="final-headline">Start analyzing today.</h2>
-  <button class="final-btn">Get Started Free</button>
-  <p class="final-note">No credit card required</p>
+<section class="final-cta" id="cta" data-stagger-group>
+  <h2 class="final-headline" data-stagger>Start analyzing today.</h2>
+  <div data-stagger data-stagger-delay="200">
+    <button class="final-btn shimmer-btn">Get Started Free</button>
+  </div>
+  <p class="final-note" data-stagger data-stagger-delay="400">No credit card required</p>
 </section>
 
 <!-- Footer -->
-<footer class="footer">
-  <p class="footer-text">
+<footer class="footer" data-stagger-group>
+  <p class="footer-text" data-stagger>
     &copy; 2026 DataPulse
     <a href="#">Privacy</a>
     <a href="#">Terms</a>
@@ -1449,87 +1664,221 @@ body {
 </footer>
 
 <script>
-// Counter animation (the ONE allowed secondary animation)
-function animateCounters() {
-  const counters = document.querySelectorAll('.stat-number[data-target]');
-  counters.forEach(counter => {
-    const target = parseFloat(counter.dataset.target);
-    const suffix = counter.dataset.suffix || '';
-    const decimal = parseInt(counter.dataset.decimal) || 0;
-    const duration = 2000;
-    const startTime = performance.now();
+// ========== SCROLL ANIMATOR ENGINE ==========
+class ScrollAnimator {
+  constructor() {
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function update(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = target * eased;
-
-      if (decimal > 0) {
-        counter.textContent = current.toFixed(decimal) + suffix;
-      } else {
-        counter.textContent = Math.floor(current).toLocaleString() + suffix;
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      }
+    if (this.reducedMotion) {
+      // Instantly reveal everything
+      document.querySelectorAll('[data-stagger]').forEach(el => el.classList.add('revealed'));
+      document.querySelectorAll('.clip-reveal').forEach(el => el.classList.add('revealed'));
+      document.querySelectorAll('.hero-mockup-scale').forEach(el => el.classList.add('revealed'));
+      document.querySelectorAll('.feature-icon-wrap').forEach(el => el.classList.add('revealed'));
+      return;
     }
 
-    requestAnimationFrame(update);
-  });
+    this.setupHeroAnimation();
+    this.setupStaggerObservers();
+    this.setupParallax();
+    this.setupCounters();
+    this.setupNavContext();
+    this.setupFeatureIcons();
+    this.setupSmoothScroll();
+  }
+
+  // ---- Hero: animate on load with staggered delays ----
+  setupHeroAnimation() {
+    const heroSection = document.querySelector('[data-hero]');
+    if (!heroSection) return;
+
+    const heroItems = heroSection.querySelectorAll(':scope > [data-stagger], :scope > .hero-buttons[data-stagger], :scope > .mockup-wrap[data-stagger]');
+    // Get all direct stagger children of hero
+    const allHeroStagger = heroSection.querySelectorAll('[data-stagger]');
+
+    allHeroStagger.forEach((el, i) => {
+      // Only animate top-level hero items (not nested inside mockup)
+      if (el.closest('.dashboard-body')) return;
+      setTimeout(() => {
+        el.classList.add('revealed');
+        // Also trigger mockup scale
+        if (el.classList.contains('hero-mockup-scale') || el.querySelector('.hero-mockup-scale')) {
+          const scaleEl = el.classList.contains('hero-mockup-scale') ? el : el.querySelector('.hero-mockup-scale');
+          if (scaleEl) scaleEl.classList.add('revealed');
+        }
+      }, i * 200);
+    });
+
+    // Scale the hero mockup
+    const heroMockup = heroSection.querySelector('.hero-mockup-scale');
+    if (heroMockup) {
+      setTimeout(() => heroMockup.classList.add('revealed'), 800);
+    }
+
+    // Mark hero as already revealed so observer skips it
+    heroSection.dataset.revealed = 'true';
+  }
+
+  // ---- Stagger observers for scroll-triggered sections ----
+  setupStaggerObservers() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.revealed) {
+          entry.target.dataset.revealed = 'true';
+          const items = entry.target.querySelectorAll('[data-stagger]');
+          items.forEach((el, i) => {
+            // Use custom delay if set, otherwise auto-stagger
+            const delay = el.dataset.staggerDelay !== undefined
+              ? parseInt(el.dataset.staggerDelay, 10)
+              : i * 150;
+            setTimeout(() => el.classList.add('revealed'), delay);
+          });
+
+          // Also reveal clip-reveal elements within this group
+          const clipEls = entry.target.querySelectorAll('.clip-reveal');
+          clipEls.forEach(el => {
+            const delay = el.dataset.staggerDelay !== undefined
+              ? parseInt(el.dataset.staggerDelay, 10)
+              : 200;
+            setTimeout(() => el.classList.add('revealed'), delay);
+          });
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('[data-stagger-group]').forEach(g => {
+      // Skip hero (handled separately on load)
+      if (g.hasAttribute('data-hero')) return;
+      observer.observe(g);
+    });
+  }
+
+  // ---- Parallax: scroll-linked transform ----
+  setupParallax() {
+    const parallaxElements = document.querySelectorAll('.parallax');
+    if (!parallaxElements.length) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          parallaxElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const speed = parseFloat(el.dataset.parallaxSpeed || 0.3);
+            const offset = (window.innerHeight - rect.top) * speed;
+            el.style.setProperty('--parallax-offset', offset);
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initial
+  }
+
+  // ---- Counter animation ----
+  setupCounters() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          this.animateCounter(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count-to]').forEach(el => observer.observe(el));
+  }
+
+  animateCounter(el) {
+    const target = el.dataset.countTo;
+    const suffix = el.dataset.countSuffix || '';
+    const prefix = el.dataset.countPrefix || '';
+    const decimalPlaces = parseInt(el.dataset.countDecimal || '0', 10);
+    const finalValue = parseFloat(target.replace(/,/g, ''));
+    const duration = 2000;
+    const start = performance.now();
+
+    const animate = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const current = eased * finalValue;
+
+      if (decimalPlaces > 0) {
+        el.textContent = prefix + current.toFixed(decimalPlaces) + suffix;
+      } else {
+        el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
+      }
+
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }
+
+  // ---- Feature icon scale-in ----
+  setupFeatureIcons() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.iconRevealed) {
+          entry.target.dataset.iconRevealed = 'true';
+          // Find the parent feature-item's stagger delay and sync
+          const featureItem = entry.target.closest('[data-stagger]');
+          const delay = featureItem
+            ? parseInt(featureItem.dataset.staggerDelay || '0', 10)
+            : 0;
+          setTimeout(() => entry.target.classList.add('revealed'), delay);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('[data-feature-icon]').forEach(el => observer.observe(el));
+  }
+
+  // ---- Nav context awareness ----
+  setupNavContext() {
+    const sections = document.querySelectorAll('section');
+    const nav = document.getElementById('mainNav');
+    if (!nav || !sections.length) return;
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const isLight = entry.target.classList.contains('stats-bar') ||
+                          entry.target.classList.contains('features') ||
+                          entry.target.classList.contains('pricing');
+          if (isLight) {
+            nav.classList.add('light-ctx');
+          } else {
+            nav.classList.remove('light-ctx');
+          }
+        }
+      });
+    }, {
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => navObserver.observe(section));
+  }
+
+  // ---- Smooth scroll for anchor links ----
+  setupSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
 }
 
-// Intersection observer for stats counter
-const statsBar = document.querySelector('.stats-bar');
-let statsAnimated = false;
-
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !statsAnimated) {
-      statsAnimated = true;
-      animateCounters();
-    }
-  });
-}, { threshold: 0.5 });
-
-statsObserver.observe(statsBar);
-
-// Nav context awareness - switch nav style based on section background
-const sections = document.querySelectorAll('section');
-const nav = document.getElementById('mainNav');
-
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const isLight = entry.target.classList.contains('stats-bar') ||
-                      entry.target.classList.contains('features') ||
-                      entry.target.classList.contains('pricing');
-      if (isLight) {
-        nav.classList.add('light-ctx');
-      } else {
-        nav.classList.remove('light-ctx');
-      }
-    }
-  });
-}, {
-  rootMargin: '-50% 0px -50% 0px',
-  threshold: 0
-});
-
-sections.forEach(section => navObserver.observe(section));
-
-// Smooth scroll for nav links
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', () => new ScrollAnimator());
 </script>
 
 </body>
