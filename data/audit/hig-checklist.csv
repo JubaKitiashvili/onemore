@@ -32,3 +32,8 @@ icon-size,IC-02,icons,Navigation bar icons 24pt toolbar icons 22pt tab bar icons
 section-padding,SP-04,spacing,Section padding minimum 100px vertical,Check that main page sections have at least 100px (preferably 120px) top and bottom padding,critical,5
 content-width,SP-05,spacing,Content max-width 980px for text,Check that text content blocks are constrained to max-width 980px for readability,high,4
 card-grid-width,SP-06,spacing,Card grid max-width 1200px,Check that card grids and visual content are constrained to max-width 1200px,medium,3
+scroll-reveal,AN-03,animation,All sections use scroll-triggered stagger reveal,Check that content sections fade in when scrolled into view with staggered timing,high,4
+hero-stagger,AN-04,animation,Hero uses staggered entrance animation,Check that hero elements animate in sequence on page load with increasing delays,high,4
+parallax,AN-05,animation,Product visuals use parallax scrolling,Check that hero/product mockups have subtle parallax depth effect,medium,3
+easing-curve,AN-06,animation,Uses Apple standard easing curve,Check that all transitions use cubic-bezier(0.25 0.1 0.25 1) not ease-in-out or linear,high,4
+gpu-animation,AN-07,animation,Only GPU-accelerated properties animated,Check that animations only use transform and opacity not width/height/margin,critical,5

@@ -47,15 +47,49 @@ Every section gets ONE headline, ONE visual, ONE CTA. If you're adding a second 
 ### Dark for Product, Light for Text
 Product showcases and hero visuals use dark/black backgrounds. Text-heavy sections (features, pricing, FAQ) use light backgrounds. Alternate between them for visual rhythm.
 
-### Restraint Over Decoration
-- Maximum 3 scroll-triggered animations per page: hero entrance, one key visual reveal, one interactive element
-- All other content appears immediately — no fade-in on every element
-- If removing an element doesn't hurt the message, remove it
+### Apple Product Page Animation Standard (Default)
+The default animation approach matches Apple's product pages — the most iconic Apple experience:
+
+**Hero (on load, not scroll):**
+- Staggered entrance: tag → headline → subtitle → CTAs → visual mockup
+- Each element: opacity 0→1, translateY(30px→0), 600ms cubic-bezier(0.25, 0.1, 0.25, 1)
+- Stagger delay: 150-200ms between elements
+
+**Every Section (scroll-triggered):**
+- Use IntersectionObserver (threshold: 0.15) to trigger reveals
+- Section headline fades up first, then content staggers in
+- Each element: opacity 0→1, translateY(30px→0)
+- Stagger delay: 100-150ms between sibling elements
+
+**Visual Elements (scroll-linked):**
+- Product mockups/dashboards: parallax effect (move at 0.3x scroll speed)
+- Large visuals: clip-path reveal (inset 8%→0%) as they scroll into view
+- Charts/graphs: draw animation (SVG stroke-dasharray)
+- Numbers: count-up animation with ease-out cubic
+
+**Hover Interactions:**
+- Cards: translateY(-4px) + shadow increase, 200ms transition
+- Buttons: subtle scale(1.02) or background shift
+- Links: color transition 150ms
+
+**Easing:** Always cubic-bezier(0.25, 0.1, 0.25, 1) — Apple's standard curve
+**Performance:** Only animate transform and opacity (GPU-accelerated)
+**Accessibility:** All animations disabled when prefers-reduced-motion is set
+
+**When to use LESS animation:**
+- Developer documentation / technical content → zero scroll animation
+- E-commerce / transactional pages → minimal, speed-first
+- Data-heavy dashboards → animate data viz only, not chrome
 
 ### Generous Negative Space
-- Section padding: minimum 100px vertical (never less than 80px)
+Apple's exact spacing scale from 25 pages analyzed:
+- Between elements: 8, 16, 20, 24px
+- Section internal padding: 32, 40, 48px
+- Between sections: 56, 64, 72, 80, 96, 120px
+- Desktop sections: 80-120px vertical padding
+- Tablet sections: 72-96px
+- Mobile sections: 40-72px
 - Content max-width: 980px for text, 1200px for card grids
-- Between sections: 120px+ creates the "breathing room" that defines Apple
 
 ### Accent Color Identity
 Every project gets ONE accent color (not always systemBlue). Choose from the reasoning database based on app category. Use it sparingly — primary CTAs and key highlights only.

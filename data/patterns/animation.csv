@@ -11,6 +11,14 @@ default-balanced,default-balanced,spring,0.55,0.75,0,General purpose balanced sp
 dramatic,dramatic,spring,0.9,0.95,0,Slow modal or hero transitions,Common,iOS macOS
 web-ease,web-ease,css,0.3s,n/a,n/a,Standard cubic-bezier(0.25 0.1 0.25 1) ease,apple.com,web
 web-scroll-reveal,web-scroll-reveal,css,0.6s,n/a,n/a,Fade and translateY on scroll into viewport,apple.com,web
-restraint,animation-restraint,rule,n/a,n/a,n/a,Max 3 scroll animations per page: hero + 1 key visual + 1 interactive. Rest is static.,Apple HIG philosophy,all
-reduced-motion,reduced-motion-respect,rule,n/a,n/a,n/a,Always check prefers-reduced-motion. When active disable ALL decorative animation.,WCAG + Apple a11y,all
-meaningful,meaningful-motion,rule,n/a,n/a,n/a,Animation must communicate something: state change or spatial relationship. Never animate for decoration alone.,Apple HIG Motion guidelines,all
+hero-stagger,hero-stagger-entrance,pattern,n/a,n/a,n/a,Hero elements stagger on load: tag(0ms) headline(150ms) subtitle(300ms) CTAs(450ms) visual(600ms). Each: opacity 0→1 translateY(30px→0) 600ms,Apple product pages standard,all
+section-reveal,section-scroll-reveal,pattern,n/a,n/a,n/a,Every section uses IntersectionObserver(threshold 0.15). Headline reveals first then content staggers 100-150ms apart. opacity 0→1 translateY(30px→0),Apple product pages standard,all
+parallax-visual,parallax-product-visual,pattern,n/a,n/a,n/a,Product mockups and hero visuals move at 0.3x scroll speed creating depth. Use CSS custom property --parallax-offset updated via rAF,Apple product pages standard,all
+clip-reveal,clip-path-reveal,pattern,n/a,n/a,n/a,Large visuals reveal via clip-path: inset(8% round 16px) → inset(0% round 16px) as element scrolls into view. 1s transition,Apple product pages standard,all
+chart-draw,svg-chart-draw,pattern,n/a,n/a,n/a,SVG charts animate stroke-dasharray from 0 to full length creating a drawing effect. Triggered on scroll into view,Apple product pages standard,all
+counter-animate,number-count-up,pattern,n/a,n/a,n/a,Numbers count from 0 to final value with ease-out cubic timing over 2s. Triggered by IntersectionObserver(threshold 0.5),Apple product pages standard,all
+hover-card-lift,card-hover-lift,pattern,n/a,n/a,n/a,Cards lift on hover: translateY(-4px) + box-shadow increase. transition: all 200ms cubic-bezier(0.25 0.1 0.25 1),Apple product pages standard,all
+gradient-text,gradient-text-reveal,pattern,n/a,n/a,n/a,Headlines use background: linear-gradient with background-clip: text. Gradient activates/sweeps when scrolled into view,Apple product pages standard,all
+reduced-motion,reduced-motion-respect,rule,n/a,n/a,n/a,Always check prefers-reduced-motion. When active disable ALL decorative animation and show all content immediately,WCAG + Apple a11y,all
+apple-easing,apple-standard-easing,reference,n/a,n/a,n/a,Apple's standard easing: cubic-bezier(0.25 0.1 0.25 1). Use for ALL transitions. Never use linear or ease-in-out,Apple product pages,all
+gpu-only,gpu-accelerated-only,rule,n/a,n/a,n/a,Only animate transform and opacity for 60fps performance. Never animate width height margin padding top left. Use will-change on animated elements,Apple performance standard,all
