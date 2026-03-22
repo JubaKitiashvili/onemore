@@ -307,6 +307,157 @@ This avoids legal/technical risks of automated scraping with auto-apply. Human s
 
 **VERSION file**: Simple semver (e.g., `1.0.0`) bumped when CSV content is updated. Allows tracking data freshness.
 
+## Deep Research Findings (March 2026)
+
+### Liquid Glass (iOS 26 / macOS Tahoe 26) — NEW
+
+Apple's most significant visual redesign since iOS 7. Must be included in OneMore.
+
+**Material Variants**:
+| Variant | Transparency | Use Case |
+|---|---|---|
+| `.regular` | Medium | Default for most UI |
+| `.clear` | High | Media-rich backgrounds |
+| `.identity` | None | Conditional disable |
+
+**SwiftUI API**: `glassEffect(_:in:isEnabled:)`, `GlassEffectContainer(spacing:)`, `glassEffectID(_:in:)` for morphing transitions, `.tint(_ color:)` for semantic coloring, `.interactive()` for scaling/bouncing/shimmer.
+
+**Rules**: Glass is ONLY for navigation layer (never content). Text gets automatic "vibrant treatment". Default shape is capsule. Accessibility auto-adapts (Reduce Transparency → more frosting, Increase Contrast → borders).
+
+### Complete Typography Values
+
+**iOS Text Styles (at Large/Default Dynamic Type)**:
+
+| Style | Size | Weight | Tracking |
+|---|---|---|---|
+| extraLargeTitle | 36pt | Bold | — |
+| extraLargeTitle2 | 28pt | Bold | — |
+| largeTitle | 34pt | Regular | +0.40px |
+| title1 | 28pt | Regular | +0.36px |
+| title2 | 22pt | Regular | — |
+| title3 | 20pt | Regular | — |
+| headline | 17pt | Semibold | -0.43px |
+| body | 17pt | Regular | -0.43px |
+| callout | 16pt | Regular | -0.32px |
+| subheadline | 15pt | Regular | -0.24px |
+| footnote | 13pt | Regular | -0.08px |
+| caption1 | 12pt | Regular | 0px |
+| caption2 | 11pt | Regular | +0.07px |
+
+**macOS Text Styles** (significantly different from iOS):
+
+| Style | Size | Weight |
+|---|---|---|
+| largeTitle | 26pt | Regular |
+| title1 | 22pt | Regular |
+| title2 | 17pt | Regular |
+| title3 | 15pt | Regular |
+| headline | 13pt | Bold |
+| body | 13pt | Regular |
+| callout | 12pt | Regular |
+| subheadline | 11pt | Regular |
+| footnote | 10pt | Regular |
+
+**SF Font Family Rules**:
+- SF Pro Text: below 20pt (optimized readability)
+- SF Pro Display: 20pt+ (optimized headlines)
+- SF Compact: watchOS system font
+- macOS 11+ merges Text/Display into variable font with dynamic optical sizes
+
+### Complete Color System
+
+**System Colors (Light / Dark)**:
+
+| Name | Light | Dark |
+|---|---|---|
+| systemBlue | #007AFF | #0A84FF |
+| systemGreen | #34C759 | #30D158 |
+| systemIndigo | #5856D6 | #5E5CE6 |
+| systemOrange | #FF9500 | #FF9F0A |
+| systemPink | #FF2D55 | #FF375F |
+| systemPurple | #AF52DE | #BF5AF2 |
+| systemRed | #FF3B30 | #FF453A |
+| systemTeal | #5AC8FA | #64D2FF |
+| systemYellow | #FFCC00 | #FFD60A |
+
+**System Grays**: systemGray #8E8E93 (same both modes), systemGray2-6 with different light/dark values.
+
+**Labels** (with alpha): label 1.0, secondaryLabel 0.6, tertiaryLabel 0.3, quaternaryLabel 0.18.
+
+**Backgrounds** (6 levels): systemBackground, secondarySystemBackground, tertiarySystemBackground + grouped variants.
+
+**Fills** (4 levels): systemFill, secondarySystemFill, tertiarySystemFill, quaternarySystemFill.
+
+### Animation Presets (Verified)
+
+**iOS 17+ Built-in** (response, dampingFraction):
+| Preset | Response | Damping | Character |
+|---|---|---|---|
+| `.smooth` | 0.5s | 1.0 | No bounce, gentle |
+| `.snappy` | 0.5s | 1.0 (internal) | Fast, clean |
+| `.bouncy` | 0.5s | 0.7 | Playful, springy |
+| `.interactive` | 0.15 | 0.86 | Gesture-driven |
+
+**Tuned Values by Use Case**:
+| Use Case | Response | Damping |
+|---|---|---|
+| Button press | 0.3 | 0.8 |
+| Card expansion | 0.3 | 0.82 |
+| Sheet presentation | 0.45 | 0.9 |
+| Default balanced | 0.55 | 0.75 |
+| Dramatic/modal | 0.9 | 0.95 |
+
+### Corner Radius System
+
+**App Icon Formula**: `10/57 × iconSize` (~17.5%)
+
+**iPhone Display Corners** (pts): iPhone 12 Pro=47.33, iPhone 14 Pro–16=55.0, iPhone 16 Pro/Max=62.0
+
+**UI Components**: Buttons 12pt, Cards 16-24pt, Text fields 8-10pt, Toggle 16pt (capsule), Alerts 14pt, Sheets 10-21pt.
+
+**Concentricity**: Inner elements should maintain visual concentricity with outer container. iOS 26 introduces `.containerConcentric` for automatic alignment.
+
+### apple.com Web-Specific Values
+
+Critical for web-apple.csv — how Apple itself implements the aesthetic on web:
+- **Text**: #1d1d1f (warm near-black, NOT #000000)
+- **Background**: #fbfbfd (warm near-white, NOT #ffffff)
+- **Secondary text**: #86868b
+- **Link blue**: #2997ff (lighter than systemBlue)
+- **Nav bar**: `backdrop-filter: saturate(180%) blur(20px)`, `background: rgba(255,255,255,0.72)`
+- **Hero headlines**: 80-96px, weight 600-700, tracking -0.003em to -0.005em
+- **Body**: 17px, line-height 1.47
+- **Max content width**: 980px (text), 1440px (full-width)
+- **Section padding**: 80-120px vertical
+- **Transition duration**: 0.3-0.4s
+- **Easing**: `cubic-bezier(0.25, 0.1, 0.25, 1)`
+- **Font stack**: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif`
+
+### SF Symbols 6
+
+6,000+ symbols, 29 categories, 9 weights, 3 scales (small/medium/large).
+
+**Rendering modes**: Monochrome, Hierarchical, Palette, Multicolor.
+
+**Animated symbols** (iOS 17+): bounce, pulse, variableColor, scale, appear, disappear, replace.
+
+**Variable color**: Symbols can show percentage/progress.
+
+**React Native access**: `expo-symbols` package on iOS.
+
+### Reference Data Sources
+
+1. **Flutter Cupertino source code** — best programmatic reference for exact Apple values (github.com/flutter/flutter/tree/master/packages/flutter/lib/src/cupertino)
+2. **Apple Design Resources Figma** — official component library with accurate sizing/spacing/colors
+3. **Apple HIG website** — authoritative documentation
+4. **noahgilmore.com iOS system colors** — verified hex values for all system colors
+5. **SwiftUI spring animations repo** — community-verified animation presets
+
+### Scope Exclusions
+
+- **tvOS**: Distinct HIG (focus-based navigation, 10-foot UI, overscan). Out of scope for v1, may add later.
+- **Jetpack Compose**: Material Design framework, Apple aesthetic awkward on Android. Excluded.
+
 ## Anti-Patterns (What OneMore Prevents)
 
 | Anti-Pattern | OneMore Fix |
