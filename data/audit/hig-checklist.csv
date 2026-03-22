@@ -1,0 +1,31 @@
+keyword,rule_id,category,description,check_instruction,severity,weight
+min-tap-target,TC-01,touch,Interactive elements must be at least 44x44pt,Measure all buttons icons and tappable areas — flag anything below 44x44pt,critical,10
+tap-feedback,TC-02,touch,Tappable elements must provide immediate visual feedback,Verify pressed states exist on all interactive elements; no silent taps,high,8
+base-spacing,SP-01,spacing,Minimum 8pt spacing between interactive elements,Check that adjacent tappable elements have at least 8pt separation,high,7
+screen-margin,SP-02,spacing,Content must respect 16pt horizontal safe-area margin on iPhone,Confirm leading and trailing content insets are 16pt minimum on iPhone,critical,9
+consistent-spacing,SP-03,spacing,Use spacing scale values (4/8/12/16/20/24/32pt) — no arbitrary values,Audit layout constants for off-scale values like 5 7 11 15 or 22pt,medium,6
+dynamic-type,TY-01,typography,All text must support Dynamic Type scaling,Enable largest accessibility text size and verify no truncation or overlap,critical,10
+text-contrast,TY-02,typography,Body text must meet 4.5:1 contrast ratio (WCAG AA),Run contrast check on all text/background combinations,critical,10
+max-font-size,TY-03,typography,Display text should not exceed 34pt for body content,Check that body paragraph text stays within largeTitle size or smaller,medium,5
+system-colors,CL-01,color,Use Apple semantic system colors not hardcoded hex values,Search for hardcoded color values that should be semantic tokens,high,8
+dark-mode-colors,CL-02,color,All UI colors must adapt correctly in dark mode,Toggle dark mode and inspect every screen for unreadable or missing colors,critical,10
+color-not-only,CL-03,color,Do not use color as the only way to convey information,Check that status icons and badges also use text or iconography,high,7
+spring-animation,AN-01,animation,Use spring or natural easing — avoid linear or ease-in-out tweens,Review animation curves in all transitions and confirm no linear timing,medium,5
+reduced-motion,AN-02,animation,All animations must respect Reduce Motion accessibility setting,Enable Reduce Motion and confirm animations fade or disable gracefully,critical,9
+continuous-corners,CR-01,corners,Use continuous (squircle) corner style not circular,Verify cornerCurve is continuous on all rounded rectangles,high,6
+corner-consistency,CR-02,corners,Corner radii must match the component type from the HIG scale,Audit radius values against: button 12 card 10/16/24 sheet 21,medium,5
+voiceover,AX-01,accessibility,All interactive elements must have an accessibility label,Run VoiceOver and confirm every button and icon announces a meaningful label,critical,10
+focus-order,AX-02,accessibility,Focus order must follow logical reading order top-to-bottom left-to-right,Navigate screen with VoiceOver and verify order matches visual layout,high,8
+color-blind,AX-03,accessibility,UI must be usable with color blindness filters,Enable Color Filters (Deuteranopia) and confirm all states are distinguishable,high,7
+font-legibility,AX-04,accessibility,Minimum body font size is 15pt; avoid sub-12pt text,Search codebase for fontSize values below 12 and audit legibility,high,7
+error-description,AX-05,accessibility,Error states must provide descriptive accessible text not just color,Confirm error messages are read by VoiceOver and include corrective guidance,critical,9
+native-controls,CO-01,components,Prefer native iOS controls over custom re-implementations,Identify any custom date pickers toggles or pickers — evaluate replacement,medium,6
+standard-nav,CO-02,components,Use UINavigationController tab bar and sheet patterns as specified by HIG,Confirm navigation follows standard push/pop tab and modal patterns,high,7
+swipe-actions,CO-03,components,List rows should support swipe-to-delete or swipe actions when appropriate,Verify list items that support deletion have trailing swipe action,medium,5
+safe-areas,PL-01,platform,All content must respect device safe area insets,Check top bottom and side insets — no content hidden behind notch or home indicator,critical,10
+platform-idiom,PL-02,platform,iPad layout must use sidebar or split view at regular width,On iPad verify app shows sidebar or multi-column layout not stretched iPhone layout,high,7
+dark-system-bg,DM-01,dark-mode,Backgrounds must use systemBackground not #FFFFFF hardcoded,Search for hardcoded white backgrounds and replace with semantic tokens,critical,9
+dark-images,DM-02,dark-mode,Images and icons must have dark-mode variants or use SF Symbols,Check asset catalog for dark mode variants on all color-sensitive images,high,7
+dark-contrast,DM-03,dark-mode,Text contrast must meet 4.5:1 in both light and dark modes,Run contrast audit in dark mode across all text and background combinations,critical,10
+sf-symbols,IC-01,icons,Use SF Symbols for system iconography — match weight to adjacent text,Verify all system-concept icons use SF Symbols at matching weight,high,7
+icon-size,IC-02,icons,Navigation bar icons 24pt toolbar icons 22pt tab bar icons 25pt,Measure icon sizes in each context and flag mismatches,medium,5

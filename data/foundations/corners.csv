@@ -1,0 +1,13 @@
+keyword,component,radius_pt,style,usage,platform
+button,Button,12,continuous,Standard tappable buttons and CTAs,all
+card-small,Small Card,10,continuous,Compact list row cards and thumbnails,all
+card-medium,Medium Card,16,continuous,Standard content cards and panels,all
+card-large,Large Card,24,continuous,Hero cards and featured content modules,all
+text-field,Text Field,8,continuous,Input fields and search bars at rest,all
+toggle,Toggle / Switch,16,continuous,Capsule-shaped on/off toggle control,ios
+alert,Alert Dialog,14,continuous,System alert and confirmation dialogs,ios
+action-sheet,Action Sheet,13,continuous,Bottom action sheet container corners,ios
+sheet,Presentation Sheet,21,continuous,Bottom sheet and form sheet detents,ios
+notification,Notification Banner,14,continuous,Push notification and in-app banner,ios
+app-icon,App Icon,varies,continuous,Formula: 10/57 * icon size (e.g. 60pt icon = 10.5pt radius),ios
+search-bar,Search Bar,10,continuous,Search field in navigation bar or standalone,all
