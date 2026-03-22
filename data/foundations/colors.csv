@@ -1,0 +1,8 @@
+keyword,name,light_hex,dark_hex,usage,semantic_role,platform
+blue,systemBlue,#007AFF,#0A84FF,Links and interactive,accent,all
+green,systemGreen,#34C759,#30D158,Success and confirmation,success,all
+red,systemRed,#FF3B30,#FF453A,Errors and destructive,destructive,all
+label,label,#000000,#FFFFFF,Primary text,text-primary,all
+secondaryLabel,secondaryLabel,#3C3C4399,#EBEBF599,Secondary text,text-secondary,all
+separator,separator,#3C3C4349,#54545899,Divider lines,border,all
+systemBackground,systemBackground,#FFFFFF,#000000,Page background,bg-primary,ios
