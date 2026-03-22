@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus — The Future of Finance</title>
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --bg-primary: #000000;
+  --bg-card: #1c1c1e;
+  --bg-elevated: #0a0a0f;
+  --accent-gold: #FFD60A;
+  --accent-gold-dim: rgba(255, 214, 10, 0.15);
+  --accent-indigo: #5856D6;
+  --accent-green: #30D158;
+  --accent-red: #FF453A;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(255, 214, 10, 0.2);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 60px rgba(255, 214, 10, 0.08);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --bg-primary: #ffffff;
+    --bg-card: #f5f5f7;
+    --bg-elevated: #f0f0f5;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-gold: rgba(255, 180, 0, 0.3);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.14);
+    --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.18);
+    --shadow-glow: 0 0 60px rgba(255, 214, 10, 0.12);
+    --accent-gold: #C69500;
+    --accent-gold-dim: rgba(198, 149, 0, 0.1);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===== ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.clip-reveal {
+  clip-path: inset(8% round 16px);
+  transition: clip-path 0.8s var(--ease);
+}
+
+.clip-reveal.visible {
+  clip-path: inset(0%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .clip-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid var(--border);
+}
+
+@media (prefers-color-scheme: light) {
+  .nav {
+    background: rgba(255, 255, 255, 0.72);
+  }
+}
+
+.nav-inner {
+  max-width: 1024px;
+  width: 100%;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-cta {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-gold);
+  color: #000;
+  text-decoration: none;
+  transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+
+.nav-cta:hover {
+  transform: scale(1.02);
+  opacity: 0.92;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(255, 214, 10, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent-gold);
+  opacity: 0.7;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-headline {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  max-width: 900px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--text-primary) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-subtitle {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 400;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.4;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.btn-primary {
+  font-size: 17px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-gold);
+  color: #000;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  opacity: 0.92;
+}
+
+.btn-secondary {
+  font-size: 17px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--accent-gold);
+  border: 1.5px solid var(--border-gold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.btn-secondary:hover {
+  transform: scale(1.02);
+  background: var(--accent-gold-dim);
+}
+
+/* ===== DASHBOARD MOCKUP ===== */
+.dashboard {
+  width: 100%;
+  max-width: 780px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 32px;
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  opacity: 0;
+  transform: translateY(30px);
+  position: relative;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.dashboard-value {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.dashboard-change {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent-green);
+  padding-bottom: 4px;
+}
+
+.dashboard-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+/* Mini chart SVG */
+.chart-container {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.chart-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--accent-gold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  transition: stroke-dashoffset 2s var(--ease);
+}
+
+.chart-line.animated {
+  stroke-dashoffset: 0;
+}
+
+.chart-gradient {
+  opacity: 0.15;
+}
+
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.asset-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (prefers-color-scheme: light) {
+  .asset-card {
+    background: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.asset-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+}
+
+.asset-icon.btc { background: #F7931A; }
+.asset-icon.eth { background: #627EEA; color: #fff; }
+.asset-icon.sol { background: linear-gradient(135deg, #9945FF, #14F195); }
+
+.asset-name {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.asset-price {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.asset-pct {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pct-up { color: var(--accent-green); }
+.pct-down { color: var(--accent-red); }
+
+@media (max-width: 600px) {
+  .asset-grid { grid-template-columns: 1fr; }
+  .dashboard { padding: 20px; }
+  .dashboard-value { font-size: 32px; }
+}
+
+/* ===== STATS BAR ===== */
+.stats-bar {
+  padding: 60px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+
+.stats-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+  .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .stat-number { font-size: 28px; }
+}
+
+/* ===== SECTION BASE ===== */
+.section {
+  padding: 120px 24px;
+}
+
+.section-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.section-headline {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+/* ===== LIVE PRICES ===== */
+.prices-section {
+  background: var(--bg-elevated);
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.price-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.price-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price-coin {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.coin-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.coin-circle.btc { background: #F7931A; color: #000; }
+.coin-circle.eth { background: #627EEA; color: #fff; }
+.coin-circle.sol { background: linear-gradient(135deg, #9945FF, #14F195); color: #fff; }
+.coin-circle.avax { background: #E84142; color: #fff; }
+.coin-circle.dot { background: #E6007A; color: #fff; }
+.coin-circle.link { background: #2A5ADA; color: #fff; }
+
+.coin-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.coin-name {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.coin-ticker {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.price-value {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.price-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sparkline-svg {
+  width: 80px;
+  height: 32px;
+}
+
+.sparkline-up { stroke: var(--accent-green); }
+.sparkline-down { stroke: var(--accent-red); }
+
+@media (max-width: 768px) {
+  .price-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .price-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== FEATURES ===== */
+.features-section {
+  background: var(--bg-primary);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--accent-gold-dim);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--accent-gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.feature-title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.feature-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .feature-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== SECURITY ===== */
+.security-section {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.security-section::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 214, 10, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.security-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.security-icon-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent-gold-dim);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.security-icon-wrap svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--accent-gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.security-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.security-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 260px;
+}
+
+/* Vault illustration */
+.vault-wrap {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.vault {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 40px rgba(255, 214, 10, 0.06), inset 0 0 40px rgba(255, 214, 10, 0.03);
+}
+
+.vault::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--border-gold);
+}
+
+.vault-inner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent-gold-dim);
+  border: 1.5px solid var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: vaultPulse 3s var(--ease) infinite;
+}
+
+@keyframes vaultPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0.15); }
+  50% { box-shadow: 0 0 0 20px rgba(255, 214, 10, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vault-inner { animation: none; }
+}
+
+.vault-inner svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--accent-gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 768px) {
+  .security-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ===== APP PREVIEW ===== */
+.app-section {
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.app-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.phone-mockup {
+  width: 300px;
+  border-radius: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  background: var(--bg-card);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  will-change: transform;
+}
+
+@media (prefers-color-scheme: light) {
+  .phone-mockup {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.phone-notch {
+  width: 120px;
+  height: 28px;
+  background: var(--bg-primary);
+  border-radius: 0 0 16px 16px;
+  margin: -24px auto 20px;
+}
+
+.phone-balance {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.phone-balance-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.phone-balance-value {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.phone-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.phone-action-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.phone-action-btn.send {
+  background: var(--accent-gold);
+  color: #000;
+}
+
+.phone-action-btn.receive {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: light) {
+  .phone-action-btn.receive {
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.phone-tx-header {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.phone-tx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.phone-tx {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+@media (prefers-color-scheme: light) {
+  .phone-tx {
+    background: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.phone-tx-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tx-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tx-icon.in { background: rgba(48, 209, 88, 0.15); }
+.tx-icon.out { background: rgba(255, 69, 58, 0.15); }
+
+.tx-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.tx-icon.in svg { stroke: var(--accent-green); }
+.tx-icon.out svg { stroke: var(--accent-red); }
+
+.tx-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tx-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.tx-amount {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ===== CTA ===== */
+.cta-section {
+  padding: 160px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-elevated) 100%);
+}
+
+.cta-headline {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--text-primary) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-note {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 16px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+
+.footer-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.footer-links a:hover {
+  color: var(--text-primary);
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+/* ===== PARALLAX ===== */
+.parallax-target {
+  will-change: transform;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Nexus</a>
+    <ul class="nav-links">
+      <li><a href="#prices">Trade</a></li>
+      <li><a href="#features">Wallet</a></li>
+      <li><a href="#security">DeFi</a></li>
+      <li><a href="#app">Learn</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">Start Trading</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-tag" id="heroTag">Web3 Platform</p>
+  <h1 class="hero-headline" id="heroHeadline">The Future of Finance.</h1>
+  <p class="hero-subtitle" id="heroSubtitle">Trade, stake, and manage digital assets with institutional-grade security.</p>
+  <div class="hero-ctas" id="heroCtas">
+    <a href="#cta" class="btn-primary">Start Trading</a>
+    <a href="#features" class="btn-secondary">Explore DeFi</a>
+  </div>
+
+  <div class="dashboard parallax-target" id="heroDashboard">
+    <p class="dashboard-label">Portfolio Value</p>
+    <div class="dashboard-header">
+      <span class="dashboard-value">$847,231.54</span>
+      <span class="dashboard-change">+12.4%</span>
+    </div>
+
+    <div class="chart-container">
+      <svg class="chart-svg" viewBox="0 0 700 120" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFD60A" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#FFD60A" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="chart-gradient" d="M0,90 C50,85 100,70 150,75 C200,80 250,50 300,40 C350,30 400,45 450,35 C500,25 550,30 600,20 C650,10 680,15 700,12 L700,120 L0,120 Z" fill="url(#chartGrad)"/>
+        <path class="chart-line" id="chartLine" d="M0,90 C50,85 100,70 150,75 C200,80 250,50 300,40 C350,30 400,45 450,35 C500,25 550,30 600,20 C650,10 680,15 700,12"/>
+      </svg>
+    </div>
+
+    <div class="asset-grid">
+      <div class="asset-card">
+        <div class="asset-icon btc">B</div>
+        <span class="asset-name">Bitcoin</span>
+        <span class="asset-price">$67,432</span>
+        <span class="asset-pct pct-up">+2.3%</span>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon eth">E</div>
+        <span class="asset-name">Ethereum</span>
+        <span class="asset-price">$3,891</span>
+        <span class="asset-pct pct-up">+4.1%</span>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon sol">S</div>
+        <span class="asset-name">Solana</span>
+        <span class="asset-price">$187</span>
+        <span class="asset-pct pct-up">+8.7%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar" id="statsBar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="3" data-suffix="M+">0</span>
+      <span class="stat-label">Active Users</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="2.1" data-prefix="$" data-suffix="B+">0</span>
+      <span class="stat-label">Trading Volume</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="0.01" data-suffix="%" data-decimals="2">0</span>
+      <span class="stat-label">Trading Fees</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="150" data-suffix="+">0</span>
+      <span class="stat-label">Digital Assets</span>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE PRICES -->
+<section class="section prices-section" id="prices">
+  <div class="section-inner">
+    <h2 class="section-headline reveal">Real-time markets.</h2>
+    <div class="price-grid">
+
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <div class="price-coin">
+            <div class="coin-circle btc">B</div>
+            <div class="coin-info">
+              <span class="coin-name">Bitcoin</span>
+              <span class="coin-ticker">BTC</span>
+            </div>
+          </div>
+        </div>
+        <span class="price-value">$67,432</span>
+        <div class="price-footer">
+          <span class="asset-pct pct-up">+2.3%</span>
+          <svg class="sparkline-svg" viewBox="0 0 80 32"><path d="M0,28 C10,26 20,20 30,22 C40,24 50,14 60,10 C70,6 75,8 80,4" fill="none" class="sparkline-up" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <div class="price-coin">
+            <div class="coin-circle eth">E</div>
+            <div class="coin-info">
+              <span class="coin-name">Ethereum</span>
+              <span class="coin-ticker">ETH</span>
+            </div>
+          </div>
+        </div>
+        <span class="price-value">$3,891</span>
+        <div class="price-footer">
+          <span class="asset-pct pct-up">+4.1%</span>
+          <svg class="sparkline-svg" viewBox="0 0 80 32"><path d="M0,24 C10,22 20,18 30,16 C40,14 50,20 60,12 C70,8 75,6 80,2" fill="none" class="sparkline-up" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <div class="price-coin">
+            <div class="coin-circle sol">S</div>
+            <div class="coin-info">
+              <span class="coin-name">Solana</span>
+              <span class="coin-ticker">SOL</span>
+            </div>
+          </div>
+        </div>
+        <span class="price-value">$187</span>
+        <div class="price-footer">
+          <span class="asset-pct pct-up">+8.7%</span>
+          <svg class="sparkline-svg" viewBox="0 0 80 32"><path d="M0,30 C10,28 20,24 30,18 C40,12 50,16 60,8 C70,4 75,6 80,2" fill="none" class="sparkline-up" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <div class="price-coin">
+            <div class="coin-circle avax">A</div>
+            <div class="coin-info">
+              <span class="coin-name">Avalanche</span>
+              <span class="coin-ticker">AVAX</span>
+            </div>
+          </div>
+        </div>
+        <span class="price-value">$42.18</span>
+        <div class="price-footer">
+          <span class="asset-pct pct-down">-1.2%</span>
+          <svg class="sparkline-svg" viewBox="0 0 80 32"><path d="M0,8 C10,10 20,14 30,12 C40,10 50,18 60,22 C70,24 75,20 80,26" fill="none" class="sparkline-down" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <div class="price-coin">
+            <div class="coin-circle dot">D</div>
+            <div class="coin-info">
+              <span class="coin-name">Polkadot</span>
+              <span class="coin-ticker">DOT</span>
+            </div>
+          </div>
+        </div>
+        <span class="price-value">$8.91</span>
+        <div class="price-footer">
+          <span class="asset-pct pct-up">+3.5%</span>
+          <svg class="sparkline-svg" viewBox="0 0 80 32"><path d="M0,26 C10,24 20,20 30,22 C40,18 50,16 60,10 C70,8 75,12 80,6" fill="none" class="sparkline-up" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <div class="price-coin">
+            <div class="coin-circle link">L</div>
+            <div class="coin-info">
+              <span class="coin-name">Chainlink</span>
+              <span class="coin-ticker">LINK</span>
+            </div>
+          </div>
+        </div>
+        <span class="price-value">$19.45</span>
+        <div class="price-footer">
+          <span class="asset-pct pct-up">+5.2%</span>
+          <svg class="sparkline-svg" viewBox="0 0 80 32"><path d="M0,28 C10,24 20,22 30,16 C40,14 50,18 60,10 C70,6 75,8 80,4" fill="none" class="sparkline-up" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-section" id="features">
+  <div class="section-inner">
+    <h2 class="section-headline reveal">Built different.</h2>
+    <div class="feature-grid">
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Lightning Fast</h3>
+        <p class="feature-desc">Sub-second trade execution powered by a matching engine that processes 100,000+ orders per second.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Self-Custody</h3>
+        <p class="feature-desc">Your keys, your crypto. Non-custodial wallet with hardware security module integration.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Smart DeFi</h3>
+        <p class="feature-desc">Auto-optimized yield farming across 12 chains. Set your risk tolerance, we handle the rest.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="section security-section" id="security">
+  <div class="section-inner">
+    <h2 class="section-headline reveal">Security without compromise.</h2>
+    <div class="security-grid">
+
+      <div class="security-item reveal">
+        <div class="security-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/>
+          </svg>
+        </div>
+        <h3 class="security-title">Cold Storage</h3>
+        <p class="security-desc">95% of assets stored in air-gapped cold wallets across geographically distributed vaults.</p>
+      </div>
+
+      <div class="security-item reveal">
+        <div class="security-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="security-title">Multi-Sig</h3>
+        <p class="security-desc">Every withdrawal requires multi-signature authorization from distributed key holders.</p>
+      </div>
+
+      <div class="security-item reveal">
+        <div class="security-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="security-title">Insurance Fund</h3>
+        <p class="security-desc">$250M insurance fund protecting user assets against security breaches and exploits.</p>
+      </div>
+
+    </div>
+
+    <div class="vault-wrap reveal">
+      <div class="vault">
+        <div class="vault-inner">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            <circle cx="12" cy="16" r="1"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP PREVIEW -->
+<section class="section app-section" id="app">
+  <div class="section-inner">
+    <h2 class="section-headline reveal">Your wallet, everywhere.</h2>
+
+    <div class="app-wrapper">
+      <div class="phone-mockup parallax-target clip-reveal">
+        <div class="phone-notch"></div>
+        <div class="phone-balance">
+          <p class="phone-balance-label">Total Balance</p>
+          <p class="phone-balance-value">$24,831.09</p>
+        </div>
+        <div class="phone-actions">
+          <button class="phone-action-btn send">Send</button>
+          <button class="phone-action-btn receive">Receive</button>
+        </div>
+        <p class="phone-tx-header">Recent Transactions</p>
+        <div class="phone-tx-list">
+          <div class="phone-tx">
+            <div class="phone-tx-left">
+              <div class="tx-icon in">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              </div>
+              <div>
+                <p class="tx-name">Received BTC</p>
+                <p class="tx-date">Today, 2:34 PM</p>
+              </div>
+            </div>
+            <p class="tx-amount pct-up">+0.042 BTC</p>
+          </div>
+          <div class="phone-tx">
+            <div class="phone-tx-left">
+              <div class="tx-icon out">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div>
+                <p class="tx-name">Sent ETH</p>
+                <p class="tx-date">Yesterday, 9:12 AM</p>
+              </div>
+            </div>
+            <p class="tx-amount pct-down">-1.25 ETH</p>
+          </div>
+          <div class="phone-tx">
+            <div class="phone-tx-left">
+              <div class="tx-icon in">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              </div>
+              <div>
+                <p class="tx-name">Staking Reward</p>
+                <p class="tx-date">Mar 20, 12:00 AM</p>
+              </div>
+            </div>
+            <p class="tx-amount pct-up">+14.2 SOL</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section" id="cta">
+  <div class="section-inner">
+    <h2 class="cta-headline reveal">Start building your portfolio.</h2>
+    <div class="reveal" style="transition-delay: 150ms;">
+      <a href="#" class="btn-primary" style="font-size: 19px; padding: 18px 40px;">Create Free Account</a>
+      <p class="cta-note">No minimum deposit. No hidden fees.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-brand">Nexus</span>
+    <ul class="footer-links">
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Security</a></li>
+      <li><a href="#">Status</a></li>
+    </ul>
+    <span class="footer-copy">A OneMore showcase demo.</span>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // Check reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ===== SCROLL ANIMATOR CLASS =====
+  class ScrollAnimator {
+    constructor() {
+      this.observers = [];
+      this.parallaxElements = [];
+      this.counterAnimated = new Set();
+      this.init();
+    }
+
+    init() {
+      this.setupRevealObserver();
+      this.setupClipRevealObserver();
+      this.setupCounterObserver();
+      if (!prefersReducedMotion) {
+        this.setupParallax();
+      }
+    }
+
+    // Stagger reveal for elements with .reveal
+    setupRevealObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Find siblings for stagger
+            const parent = entry.target.parentElement;
+            const siblings = parent ? Array.from(parent.querySelectorAll(':scope > .reveal')) : [];
+            const index = siblings.indexOf(entry.target);
+            const delay = index >= 0 ? index * 120 : 0;
+
+            if (prefersReducedMotion) {
+              entry.target.classList.add('visible');
+            } else {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, delay);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      this.observers.push(observer);
+    }
+
+    // Clip-path reveal
+    setupClipRevealObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (prefersReducedMotion) {
+              entry.target.classList.add('visible');
+            } else {
+              setTimeout(() => entry.target.classList.add('visible'), 200);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.clip-reveal').forEach(el => observer.observe(el));
+      this.observers.push(observer);
+    }
+
+    // Counter animation
+    setupCounterObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !this.counterAnimated.has(entry.target)) {
+            this.counterAnimated.add(entry.target);
+            this.animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('[data-target]').forEach(el => observer.observe(el));
+      this.observers.push(observer);
+    }
+
+    animateCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const decimals = parseInt(el.dataset.decimals) || 0;
+      const duration = 2000;
+      const startTime = performance.now();
+
+      if (prefersReducedMotion) {
+        el.textContent = prefix + target.toFixed(decimals) + suffix;
+        return;
+      }
+
+      const tick = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = target * eased;
+        el.textContent = prefix + current.toFixed(decimals) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = prefix + target.toFixed(decimals) + suffix;
+        }
+      };
+
+      requestAnimationFrame(tick);
+    }
+
+    // Parallax
+    setupParallax() {
+      this.parallaxElements = Array.from(document.querySelectorAll('.parallax-target'));
+      let ticking = false;
+
+      const onScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            this.updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    updateParallax() {
+      const scrollY = window.scrollY;
+      this.parallaxElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const viewCenter = window.innerHeight / 2;
+        const offset = (centerY - viewCenter) * 0.3;
+        el.style.transform = `translateY(${offset * 0.15}px)`;
+      });
+    }
+  }
+
+  // ===== HERO ENTRANCE ANIMATION =====
+  function heroEntrance() {
+    const elements = [
+      { el: document.getElementById('heroTag'), delay: 0 },
+      { el: document.getElementById('heroHeadline'), delay: 150 },
+      { el: document.getElementById('heroSubtitle'), delay: 300 },
+      { el: document.getElementById('heroCtas'), delay: 450 },
+      { el: document.getElementById('heroDashboard'), delay: 600 }
+    ];
+
+    elements.forEach(({ el, delay }) => {
+      if (!el) return;
+      if (prefersReducedMotion) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+        return;
+      }
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, delay);
+    });
+
+    // Chart line draw animation
+    const chartLine = document.getElementById('chartLine');
+    if (chartLine && !prefersReducedMotion) {
+      setTimeout(() => {
+        chartLine.classList.add('animated');
+      }, 900);
+    } else if (chartLine) {
+      chartLine.style.strokeDasharray = 'none';
+      chartLine.style.strokeDashoffset = '0';
+    }
+  }
+
+  // ===== INIT =====
+  document.addEventListener('DOMContentLoaded', () => {
+    heroEntrance();
+    new ScrollAnimator();
+  });
+
+})();
+</script>
+</body>
+</html>
