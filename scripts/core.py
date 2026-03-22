@@ -105,6 +105,7 @@ STACK_CONFIG = {
     "swiftui":        {"dir": "stacks", "file": "swiftui.csv"},
     "react":          {"dir": "stacks", "file": "react.csv"},
     "react-native":   {"dir": "stacks", "file": "react-native.csv"},
+    "nativewind":     {"dir": "stacks", "file": "nativewind.csv"},
     "html-tailwind":  {"dir": "stacks", "file": "html-tailwind.csv"},
     "flutter":        {"dir": "stacks", "file": "flutter.csv"},
     "nextjs":         {"dir": "stacks", "file": "nextjs.csv"},
