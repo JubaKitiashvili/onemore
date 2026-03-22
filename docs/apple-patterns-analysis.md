@@ -1029,3 +1029,479 @@ The local navigation bar appears/hides based on scroll position:
 9. **Spacing follows a clear system.** Desktop: 80-120px between sections. Tablet: 72-96px. Mobile: 40-72px. Internal spacing uses 8-16px.
 
 10. **Dark themes signal "Pro."** Consumer products default to light themes; Pro products default to dark themes. This is a consistent brand signal across all product lines.
+
+---
+
+## 7. Apple Developer Website (developer.apple.com)
+
+### 7.1 Sources
+
+| # | File | Lines | Page |
+|---|------|-------|------|
+| 1 | developer-home.html | 1,183 | developer.apple.com main page |
+| 2 | developer-design.html | 1,292 | developer.apple.com/design/ |
+| 3 | developer-swift.html | 1,457 | developer.apple.com/swift/ |
+| 4 | developer-xcode.html | 1,392 | developer.apple.com/xcode/ |
+| 5 | developer-visionos.html | 1,477 | developer.apple.com/visionos/ |
+| 6 | developer-ml.html | 1,425 | developer.apple.com/machine-learning/ |
+| 7 | developer-wwdc25.html | 393 | developer.apple.com/wwdc25/ |
+
+Total: 8,619 lines across 7 files. Significantly smaller than product pages (avg ~1,231 vs ~3,542 lines per page).
+
+### 7.2 Animation Patterns (Developer)
+
+The developer site uses a **fundamentally different animation approach** from apple.com product pages.
+
+#### What Is Absent (vs. Product Pages)
+
+| Pattern | Product Pages | Developer Pages |
+|---------|--------------|-----------------|
+| `data-anim-keyframe` | Hundreds of instances | **0** |
+| `data-anim` attributes | Extensive | **0** |
+| `opacity: 0` (scroll reveal) | 50-100+ per page | **0** |
+| `transform:` (scroll-linked) | 100+ per page | **0** |
+| `@keyframes` | Multiple per page | **0** |
+| `IntersectionObserver` | Core engine | **0** |
+| `data-component-list` | Dozens per page | **0** |
+| Scroll-linked parallax | Extensive | **0** |
+
+#### What Is Present
+
+The developer site uses only **two animation mechanisms**:
+
+1. **SVG `<animate>` elements** -- Used exclusively for micro-interactions in navigation:
+   - Hamburger menu open/close (`globalnav-menutrigger-bread-top/bottom`): 0.24s, spline easing `0.42, 0, 1, 1; 0, 0, 0.58, 1`
+   - Chevron expand/collapse (`data-chevron-animate="expand/collapse"`): 320ms, 3-keyframe spline with `keyTimes="0; 0.5; 1"`
+   - Both use `begin="indefinite"` (triggered by JS), `fill="freeze"` (hold final state)
+
+2. **CSS `transition`** -- Minimal, only 1-2 occurrences per page, used for hover/focus states on navigation elements. No scroll-linked transitions.
+
+**Key insight**: Developer pages are **content-first, not experience-first**. There are zero scroll-triggered animations. Content appears immediately without any reveal effects.
+
+### 7.3 Layout Patterns (Developer)
+
+#### Navigation Architecture (Two-Tier)
+
+Developer pages use a **dual navigation** system not found on product pages:
+
+1. **Global Nav** (`#globalnav`) -- Shared across all developer.apple.com
+   - 7 top-level items: Get Started, Platforms, Technologies, Community, Documentation, Downloads, Support
+   - Each has a flyout submenu with `--r-globalnav-flyout-rate: 240ms` animation
+   - Flyout uses CSS custom properties for layout: `--r-globalnav-flyout-item-total`, `--r-globalnav-flyout-group-number`, `--r-globalnav-flyout-height`
+   - Contains inline search with Quick Links suggestions
+   - Account icon with SVG avatar
+
+2. **Local Nav** (`#localnav`) -- Per-section sticky sub-navigation
+   - Sticky positioning via `css-sticky` class with `data-sticky` attribute
+   - Uses `--r-localnav-menu-tray-natural-height: 55-90px` custom property
+   - Contains section-specific tabs (Overview, What's New, Get Started, Resources)
+   - Some have action buttons (e.g., Xcode "Download" with dropdown)
+   - WWDC25 variant has a masthead SVG logo instead of text title
+   - Viewport emitter: `data-viewport-emitter-state` JSON tracks viewport, orientation, retina
+
+#### Grid System
+
+12-column grid using `large-span-*`, `medium-span-*`, `small-span-*` classes:
+
+| Class | Count | Usage |
+|-------|-------|-------|
+| `small-span-12` | 60 | Full width on mobile (universal) |
+| `medium-span-6` | 42 | 2-column on tablet |
+| `large-span-4` | 27 | 3-column on desktop |
+| `large-span-12` | 22 | Full width on desktop |
+| `large-span-6` | 21 | 2-column on desktop |
+| `medium-span-12` | 20 | Full width on tablet |
+| `large-span-5` | 6 | Asymmetric layouts |
+| `large-span-7` | 3 | Asymmetric partner to span-5 |
+
+Grid modifier: `grid-gutterless` (23 uses) removes gutters for edge-to-edge tile layouts.
+
+Also uses an older `column large-* small-*` system alongside the span system:
+- `large-centered` (17 uses) -- centers content
+- `large-12`, `large-10`, `large-9`, `large-8` for content width constraints
+
+#### Section Structure
+
+```
+<main class="main bg-light|bg-fill">
+  <article _v="1.0">              <!-- versioned article wrapper (some pages) -->
+    <section class="section section-hero [section-hero-img] [theme-dark]">
+      <div class="section-content">
+        <div class="row">
+          <div class="column large-centered large-10 medium-12 text-center">
+            <h1 class="typography-headline">...</h1>
+            <p class="typography-intro">...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section [bg-alt|bg-fill|bg-light]">
+      ...
+    </section>
+  </article>
+</main>
+```
+
+Background alternation classes: `bg-light`, `bg-fill`, `bg-alt` -- simpler than product page system.
+
+#### Homepage Layout (developer-home.html)
+
+Uses a unique **promo-managed-unit** system:
+
+```
+<section class="homepage-section section-heroes">
+  <ul class="homepage-section-positions">
+    <li class="homepage-section-item hero-position homepage-section-light-copy">
+      <div class="hero promo-managed-unit hero-large">
+        <div class="unit-wrapper unit-wrapper-*">
+          <a class="unit-link">
+          <div class="unit-image-wrapper">
+            <figure class="unit-image unit-image-feature-large">
+          </div>
+          <div class="unit-copy-wrapper">
+            <h4 class="headline">
+            <h5 class="subhead">
+            <div class="cta-links">
+              <a class="more nowrap">
+```
+
+Homepage sections: `section-heroes` (hero banner), `section-promos` (platform tiles), `section-pathways` (getting started).
+
+### 7.4 Typography (Developer)
+
+#### Typography Classes
+
+| Class | Count | Purpose |
+|-------|-------|---------|
+| `typography-card-headline` | 51 | Card titles within tiles |
+| `typography-intro` | 24 | Intro/lede paragraphs below headlines |
+| `typography-headline-standalone` | 9 | Large standalone headlines (SF Symbol sizing) |
+| `typography-eyebrow-reduced` | 7 | Small category labels above sections |
+| `typography-headline` | 6 | Page-level h1 titles |
+| `typography-manifesto` | 5 | Large statement text |
+| `typography-eyebrow-super` | 1 | Extra-large eyebrow (Design page hero) |
+| `typography-eyebrow-elevated` | 1 | Mid-size eyebrow |
+
+#### Heading Hierarchy
+
+- **`h1`**: Page title, always uses `typography-headline` class
+- **`h2`**: Section titles, plain text (no typography class)
+- **`h3`**: Card headlines with `typography-card-headline`, or section sub-headers with `typography-eyebrow-reduced`
+- **`h4`**: Used in homepage promos with `headline` class, or card titles with `typography-card-headline`
+- **`h5`**: Subheads in promo units with `subhead` class; also `vc-card__title` for video cards
+
+#### Text Modifiers
+
+- `lighter` (52 uses) -- Reduces text weight for secondary text
+- `text-center` (41 uses) -- Centers text
+- `text-left` (11 uses) -- Left-aligns text
+- `nowrap` -- Prevents line breaks on specific phrases
+- `more` (31 uses) -- "Learn more" arrow link style
+- `link` -- Styled inline link
+
+### 7.5 Component Catalog (Developer)
+
+#### 1. Tile Component (Primary Building Block)
+
+The tile is the atomic card component across all developer pages:
+
+```html
+<div class="tile tile-rounded tile-full [tile-shadow] [tile-light] [tile-link] hide-overflow [modal-opener]">
+  <div class="tile-content [text-center]">
+    <div class="tile-copy-section">
+      <p class="tile-category lighter">Category Label</p>
+      <h3 class="typography-card-headline">Title</h3>
+    </div>
+    <img class="card-icon" src="...256x256_2x.png" alt="">
+  </div>
+  <button class="tile-button-wrapper">
+    <span class="tile-button">
+      <svg class="tile-icon"><!-- plus icon --></svg>
+    </span>
+  </button>
+</div>
+```
+
+| Tile modifier | Count | Purpose |
+|---------------|-------|---------|
+| `tile-rounded` | 83 | Rounded corners |
+| `tile-full` | 66 | Full-height fill |
+| `tile-category` | 45 | Category label styling |
+| `tile-link` | 40 | Makes tile clickable link |
+| `tile-copy-section` | 28 | Text content wrapper |
+| `tile-icon` | 23 | Icon within tile |
+| `tile-button` | 22 | Expand/modal trigger |
+| `tile-shadow` | 6 | Drop shadow variant |
+| `tile-light` | 6 | Light background variant |
+
+#### 2. Scrolling Gallery (`sc-gallery`)
+
+Horizontal scrolling card carousel used on visionOS, ML, Swift, and Design pages:
+
+```html
+<div class="sc-gallery-container" data-gallery-initialized="true">
+  <div class="sc-gallery sc-gallery--align-start">
+    <div class="sc-gallery__scroll-container">
+      <div class="sc-gallery__item-container">
+        <ul class="sc-gallery__card-set" role="list">
+          <li class="sc-gallery__item" role="listitem">
+            <div class="sc-gallery__card tile tile-rounded tile-full hide-overflow modal-opener"
+                 data-aa="modal-*" data-modal="mc-*">
+              <!-- tile content -->
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+32 gallery items across 4 pages. Each card opens a modal via `data-modal="mc-N"`.
+
+#### 3. Video Card (`vc-card`)
+
+WWDC session video cards (found on wwdc25 page):
+
+```html
+<a href="/videos/play/wwdc2025/101/" class="vc-card tile tile-rounded grid-item large-span-4 medium-span-6 small-span-12"
+   data-released="true" data-category="technology">
+  <div class="vc-card__media">
+    <div class="vc-card__image-container">
+      <img class="vc-card__image" width="250" src="..." alt="...">
+      <span class="vc-card__duration">1:32:36</span>
+    </div>
+  </div>
+  <div class="vc-card__content">
+    <div class="tile-content">
+      <h5 class="vc-card__title">WWDC 2025 Keynote</h5>
+    </div>
+  </div>
+</a>
+```
+
+6 video cards on the WWDC25 page. Uses `data-released` and `data-category` attributes for filtering.
+
+#### 4. Modal System
+
+Developer modals are simpler than product page modals:
+
+```html
+<div class="modal-overlay-container">
+  <div class="modal-element-container">
+    <div class="modal-element-overlay"></div>
+    <div class="modal-element-content-container">
+      <button class="modal-element-close-button">
+        <span class="modal-element-close-icon">
+      </button>
+      <!-- modal content -->
+    </div>
+  </div>
+</div>
+```
+
+- 25 `modal-opener` triggers across all pages
+- Named modals: `modal-spatial-visionos-en`, `modal-safe-swift-en`, `modal-mlx-ml-en`, etc.
+- Each framework/technology gets its own modal ID
+
+#### 5. Thumbnail Video Component
+
+Video preview with play button overlay (Xcode page):
+
+```html
+<a class="thumbnail thumbnail-rounded image-wrapper">
+  <img class="thumbnail-image" data-session="wwdc25-219" src="..." width="100%">
+  <span class="thumbnail-scrim thumbnail-scrim-bottom"></span>
+  <span class="thumbnail-scrim thumbnail-scrim-top"></span>
+  <span class="thumbnail-button" aria-label="play">
+    <svg><!-- play triangle --></svg>
+  </span>
+</a>
+```
+
+Uses gradient scrims (`thumbnail-scrim-top`, `thumbnail-scrim-bottom`) for text readability over images.
+
+#### 6. Device Hero Frame
+
+Xcode page uses a device frame component:
+
+```html
+<figure class="device-hero device-macbook-pro-5th-gen-14-silver large-centered macos-hero">
+  <picture class="device-screen">
+    <img class="theme-dark-image" src="...dark_2x.png" width="100%">
+    <img class="theme-light-image" src="...light_2x.png" width="100%">
+  </picture>
+</figure>
+```
+
+#### 7. Homepage Promo Managed Units
+
+Platform tiles on developer homepage:
+
+```html
+<li class="homepage-section-item promo-position homepage-section-item-ios-15" data-promo-type="show-hide">
+  <div class="promo promo-managed-unit">
+    <div class="unit-wrapper">
+      <a class="unit-link" href="...">
+      <div class="unit-copy-wrapper">
+        <h4 class="headline">iOS 26</h4>
+      </div>
+      <div class="unit-image-wrapper image-constraints-full">
+        <picture>
+          <source srcset="...webp" type="image/webp">
+          <img class="unit-image unit-image-centered" src="...png">
+        </picture>
+      </div>
+    </div>
+  </div>
+</li>
+```
+
+8 promo positions total. Uses `data-promo-type="show-hide"` for visibility toggling.
+
+#### 8. SF Symbols (Inline SVG Icons)
+
+Machine Learning page uses `<sf-symbol>` custom elements rendered as inline SVGs:
+
+```html
+<sf-symbol class="typography-headline-standalone sf-icon"
+           name="microphone" weight="semibold" mode="hierarchical"
+           loading="eager" aria-hidden="true"
+           style="display: inline-flex;">
+  <svg viewBox="..." style="width: 1.06em; overflow: visible;">
+    <!-- SVG path data -->
+  </svg>
+</sf-symbol>
+```
+
+9 SF Symbol instances. Uses `--s-primary` CSS custom property for theming. `data-sa` attributes for animation state.
+
+#### 9. Dark/Light Theme Image Switching
+
+```html
+<img class="theme-light-image" src="...light_2x.png">
+<img class="theme-dark-image" src="...dark_2x.png">
+```
+
+12 light/dark image pairs. Controlled by `data-color-scheme="light"` on `<body>` and `theme-dark`/`theme-light` section classes. CSS toggles visibility based on active theme.
+
+#### 10. Event Details Component
+
+Homepage "Meet with Apple" section uses event detail containers:
+
+```
+event-details-a (10 uses) -- Primary event info
+event-details-b (10 uses) -- Secondary event info
+```
+
+#### 11. Download Button with Dropdown
+
+Xcode page features a multi-option download button:
+
+```html
+<div class="button-multi-container">
+  <a class="localnav-button button button-compact button-pill button-multi icon icon-chevrondown">Download</a>
+  <div class="button-multi-content button-multi-content-right button-multi-content-slide" role="menu">
+    <a class="button-multi-option" role="menuitem">Xcode betas</a>
+    <a class="button-multi-option" role="menuitem">Xcode</a>
+  </div>
+</div>
+```
+
+### 7.6 Key Differences from Product Pages
+
+| Aspect | Product Pages (apple.com) | Developer Pages (developer.apple.com) |
+|--------|--------------------------|--------------------------------------|
+| **Animation engine** | Custom scroll-linked `data-anim-keyframe` with 100+ instances per page | None -- zero scroll animations |
+| **Content reveal** | Progressive reveal as user scrolls (opacity 0 -> 1, transforms) | All content visible immediately on load |
+| **Page weight** | 3,000-6,400 lines per page | 400-1,500 lines per page (3-4x lighter) |
+| **JavaScript animation** | Heavy -- IntersectionObserver, scroll position tracking, RAF loops | Minimal -- only SVG `<animate>` for nav micro-interactions |
+| **Navigation** | Simple global nav (apple.com bar) | Dual-tier: global nav + sticky local nav with section tabs |
+| **Grid system** | `data-component-list` driven responsive layouts | Simple `large-span-*` / `column large-*` 12-column grid |
+| **Typography system** | 160+ granular classes (`typography-feature-card-headline`, etc.) | 8 classes (headline, intro, card-headline, eyebrow variants, manifesto) |
+| **Theme approach** | Dark = Pro product, section-level theme switching | Default light, selective `theme-dark` on individual tiles/heroes |
+| **Video** | 61 video elements with scroll-synced playback | Simple thumbnail + play button, or `<video>` elements |
+| **Card component** | Multiple types (feature-card, info-card, compare-card) | Single `tile` component with modifier classes |
+| **Modal system** | Full content hierarchies with scroll groups and themes | Simple overlay with close button |
+| **Image strategy** | `<picture>` with multiple breakpoints, WebP, 1x/2x | Simpler `<picture>` with WebP source + PNG fallback, 2x only |
+| **Color system** | `--r-*` custom properties, extensive color token system | `--color-fill-blue`, `--s-primary` -- very few custom properties |
+
+#### Shared Patterns
+
+- Both use `globalnav` for the top-level Apple navigation bar (identical markup)
+- Both serve 2x images for retina displays
+- Both use `role` and `aria-*` attributes extensively for accessibility
+- Both use `nowrap` spans to prevent awkward line breaks
+- Both use WebP with PNG fallback via `<picture>` + `<source>`
+- Both use `localnav` sticky navigation (product pages call it `chapternav` but same concept)
+
+### 7.7 Developer Key Numbers
+
+#### File Metrics
+
+| Metric | Value |
+|--------|-------|
+| Total HTML lines (7 pages) | 8,619 |
+| Average lines per page | 1,231 |
+| Smallest page | developer-wwdc25.html (393 lines) |
+| Largest page | developer-visionos.html (1,477 lines) |
+| Ratio vs product pages | ~3x smaller on average |
+
+#### Animation Counts
+
+| Pattern | Total across 7 pages |
+|---------|---------------------|
+| `data-anim-keyframe` | 0 |
+| `data-anim` attributes | 0 |
+| `opacity: 0` | 0 |
+| `transform:` | 0 |
+| `@keyframes` | 0 |
+| `transition` | 7 (1 per page, nav only) |
+| `animation` | 1 (visionOS page) |
+| SVG `<animate>` | ~28 (nav hamburger + chevrons) |
+
+#### Component Counts
+
+| Component | Instances |
+|-----------|-----------|
+| Tiles (`tile tile-rounded`) | 83 |
+| Gallery cards (`sc-gallery__card`) | 32 |
+| Modal openers | 25 |
+| Tile copy sections | 28 |
+| Card headlines (`typography-card-headline`) | 51 |
+| Video cards (`vc-card`) | 6 |
+| Theme image pairs (light/dark) | 12 |
+| SF Symbol instances | 9 |
+| Promo managed units | 9 |
+| Thumbnail video previews | 9 |
+| Event detail components | 20 |
+
+#### Grid Breakpoint System
+
+| Breakpoint prefix | Target | Most common span |
+|-------------------|--------|-------------------|
+| `large-span-*` | Desktop | 4 (3-col), 6 (2-col), 12 (full) |
+| `medium-span-*` | Tablet | 6 (2-col), 12 (full) |
+| `small-span-*` | Mobile | 12 (full-width, always) |
+
+#### Spacing Utilities
+
+| Class | Count | Purpose |
+|-------|-------|---------|
+| `margin-top-small` | 26 | Small top margin |
+| `padding-top-small` | 19 | Small top padding |
+| `margin-top` | 16 | Standard top margin |
+| `padding-bottom-small` | 11 | Small bottom padding |
+| `no-padding-top` | 8 | Remove top padding |
+| `margin-bottom-xs` | 7 | Extra-small bottom margin |
+| `margin-top-xs` | 5 | Extra-small top margin |
+
+#### CSS Custom Properties (Navigation)
+
+| Property | Value | Purpose |
+|----------|-------|---------|
+| `--r-globalnav-flyout-rate` | 240ms | Flyout animation speed |
+| `--r-globalnav-flyout-height` | auto / 388px | Flyout container height |
+| `--r-globalnav-text-zoom-scale` | 1 | Text scaling factor |
+| `--r-localnav-menu-tray-natural-height` | 55-90px | Local nav tray height |
+| `--r-localnav-text-zoom-factor` | 0.94 | WWDC25 text zoom |
