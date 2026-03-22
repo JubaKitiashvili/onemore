@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prismix — Professional Creative Suite</title>
+<style>
+/* ========================================
+   RESET & BASE
+   ======================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --purple: #BF5AF2;
+  --purple-dark: #9B3FD4;
+  --pink: #FF375F;
+  --text-light: #f5f5f7;
+  --text-dark: #1d1d1f;
+  --text-secondary: #86868b;
+  --bg-dark: #000000;
+  --bg-light: #fbfbfd;
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --section-pad: 120px;
+  --radius-btn: 12px;
+  --radius-card: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  color: var(--text-light);
+  background: var(--bg-dark);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========================================
+   ANIMATION BASE
+   ======================================== */
+.anim-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 600ms var(--ease-apple), transform 600ms var(--ease-apple);
+}
+
+.anim-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.clip-reveal {
+  clip-path: inset(8% round 16px);
+  transition: clip-path 1000ms var(--ease-apple);
+}
+
+.clip-reveal.revealed {
+  clip-path: inset(0% round 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-element {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .clip-reveal {
+    clip-path: none;
+    transition: none;
+  }
+  .parallax-element {
+    transform: none !important;
+  }
+  .svg-draw path, .svg-draw line {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+  .counter {
+    transition: none !important;
+  }
+  .track-bar {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+  .channel-bar {
+    transform: scaleY(1) !important;
+    transition: none !important;
+  }
+  @keyframes shimmer { from, to { background-position: 200% center; } }
+  @keyframes rotateBorder { from, to { --border-angle: 0deg; } }
+  @keyframes playheadMove { from, to { left: 4%; } }
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 48px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 300ms var(--ease-apple);
+}
+
+.nav-wordmark {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-light);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color 200ms var(--ease-apple);
+}
+
+.nav-links a:hover {
+  color: var(--text-light);
+}
+
+.nav-cta {
+  background: var(--purple);
+  color: #fff !important;
+  padding: 6px 18px;
+  border-radius: 980px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 200ms var(--ease-apple), transform 200ms var(--ease-apple);
+}
+
+.nav-cta:hover {
+  background: var(--purple-dark);
+  transform: scale(1.02);
+}
+
+/* ========================================
+   SECTION BASE
+   ======================================== */
+.section {
+  padding: var(--section-pad) 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.section-light {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.section-full {
+  max-width: none;
+}
+
+.section-headline {
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 24px;
+}
+
+.section-subheadline {
+  font-size: clamp(18px, 2.5vw, 21px);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-tag {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--purple);
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.hero-headline {
+  font-size: clamp(52px, 9vw, 96px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 40%, #fff 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--purple);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: var(--radius-btn);
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 200ms var(--ease-apple), transform 200ms var(--ease-apple);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.btn-primary:hover {
+  background: var(--purple-dark);
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-light);
+  padding: 14px 32px;
+  border-radius: var(--radius-btn);
+  font-size: 17px;
+  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: border-color 200ms var(--ease-apple), transform 200ms var(--ease-apple);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.02);
+}
+
+.play-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ========================================
+   APP MOCKUP — TIMELINE EDITOR
+   ======================================== */
+.mockup-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-window {
+  background: #1a1a1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(191, 90, 242, 0.15), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.window-bar {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 8px;
+  background: #0d0d0f;
+}
+
+.window-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.window-dot:nth-child(1) { background: #FF5F57; }
+.window-dot:nth-child(2) { background: #FFBD2E; }
+.window-dot:nth-child(3) { background: #28C840; }
+
+.preview-area {
+  height: 220px;
+  margin: 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1c1c3a 0%, #3a1c4a 30%, #2a1c3a 60%, #1c2a3a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-area::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  background: rgba(191, 90, 242, 0.2);
+}
+
+.preview-area .play-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 22px solid rgba(255,255,255,0.5);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 4px;
+}
+
+.timeline-area {
+  padding: 0 12px 16px;
+}
+
+.timeline-ruler {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 8px;
+}
+
+.ruler-mark {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-tracks {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+}
+
+.track-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.track-content {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  height: 100%;
+  position: relative;
+}
+
+.track-bar {
+  height: 100%;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 800ms var(--ease-apple);
+}
+
+.track-bar.revealed {
+  transform: scaleX(1);
+}
+
+.track-bar.purple { background: linear-gradient(90deg, var(--purple), #d97ff5); }
+.track-bar.blue { background: linear-gradient(90deg, #0A84FF, #40a9ff); }
+.track-bar.green { background: linear-gradient(90deg, #30D158, #5ee87d); }
+.track-bar.orange { background: linear-gradient(90deg, #FF9F0A, #ffb84d); }
+.track-bar.teal { background: linear-gradient(90deg, #64D2FF, #8de0ff); }
+
+.playhead {
+  position: absolute;
+  top: -4px;
+  left: 4%;
+  width: 2px;
+  height: calc(100% + 8px);
+  background: #FF375F;
+  z-index: 10;
+  animation: playheadMove 8s ease-in-out infinite alternate;
+}
+
+.playhead::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background: #FF375F;
+  border-radius: 2px;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+}
+
+@keyframes playheadMove {
+  0% { left: 4%; }
+  100% { left: 85%; }
+}
+
+/* ========================================
+   STATS BAR
+   ======================================== */
+.stats-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #0a0a0a;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+  padding: 60px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-light);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   VIDEO SECTION
+   ======================================== */
+.video-section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.video-mockup {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 60px;
+  background: #1a1a1e;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+.video-top {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+}
+
+.video-preview {
+  flex: 1;
+  height: 200px;
+  background: linear-gradient(135deg, #1c1c3a, #2a1440, #1a2438);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-preview::after {
+  content: 'Preview';
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
+
+.color-panel {
+  width: 280px;
+  background: #111114;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.color-panel-title {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.color-wheels {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.color-wheel {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.color-wheel::after {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.wheel-shadows {
+  background: conic-gradient(from 0deg, #2244aa, #224488, #113366, #224488, #2244aa);
+}
+.wheel-shadows::after { content: 'Shadows'; }
+
+.wheel-midtones {
+  background: conic-gradient(from 0deg, #668899, #889999, #667788, #889999, #668899);
+}
+.wheel-midtones::after { content: 'Midtones'; }
+
+.wheel-highlights {
+  background: conic-gradient(from 0deg, #ddbb88, #eedd99, #ccaa77, #eedd99, #ddbb88);
+}
+.wheel-highlights::after { content: 'Highlights'; }
+
+.color-wheel .wheel-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+.waveform-container {
+  margin: 12px;
+  padding: 12px;
+  background: #0d0d0f;
+  border-radius: 8px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.waveform-container svg {
+  width: 100%;
+  height: 60px;
+}
+
+.svg-draw path, .svg-draw line {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 2000ms var(--ease-apple);
+}
+
+.svg-draw.revealed path, .svg-draw.revealed line {
+  stroke-dashoffset: 0;
+}
+
+/* ========================================
+   AUDIO SECTION
+   ======================================== */
+.audio-section {
+  background: var(--bg-light);
+}
+
+.audio-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.audio-content .section-headline {
+  color: var(--text-dark);
+}
+
+.audio-content .section-subheadline {
+  color: var(--text-secondary);
+}
+
+.audio-mockup {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 60px;
+  background: #1e1e22;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.15);
+}
+
+.audio-top {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audio-waveform-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #141417;
+  border-radius: 6px;
+  padding: 8px 12px;
+  height: 50px;
+}
+
+.wave-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  width: 50px;
+  flex-shrink: 0;
+}
+
+.wave-svg {
+  flex: 1;
+  height: 34px;
+}
+
+.audio-bottom {
+  display: flex;
+  gap: 12px;
+  padding: 0 12px 16px;
+}
+
+.channel-mixer {
+  flex: 1;
+  background: #141417;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.mixer-title {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.mixer-channels {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100px;
+}
+
+.channel-bar {
+  width: 24px;
+  border-radius: 4px 4px 0 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 800ms var(--ease-apple);
+}
+
+.channel-bar.revealed {
+  transform: scaleY(1);
+}
+
+.eq-panel {
+  flex: 1;
+  background: #141417;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.eq-title {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.eq-svg {
+  width: 100%;
+  height: 80px;
+}
+
+/* ========================================
+   DESIGN SECTION
+   ======================================== */
+.design-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.design-mockup {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 60px;
+  background: #1a1a1e;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  display: flex;
+  min-height: 380px;
+}
+
+.design-toolbar {
+  width: 48px;
+  background: #111114;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 8px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.tool-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: background 200ms;
+}
+
+.tool-btn.active {
+  background: var(--purple);
+}
+
+.tool-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-secondary);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.tool-btn.active svg {
+  stroke: #fff;
+}
+
+.design-canvas {
+  flex: 1;
+  padding: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.canvas-shape {
+  position: absolute;
+}
+
+.shape-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  top: 60px;
+  left: 80px;
+}
+
+.shape-rect {
+  width: 180px;
+  height: 120px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0A84FF, #64D2FF);
+  top: 140px;
+  left: 220px;
+}
+
+.shape-square {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FF9F0A, #FFD60A);
+  top: 80px;
+  right: 200px;
+}
+
+.shape-diamond {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #30D158, #64D2FF);
+  transform: rotate(45deg);
+  bottom: 60px;
+  left: 160px;
+}
+
+.layers-panel {
+  width: 200px;
+  background: #111114;
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding: 16px;
+}
+
+.layers-title {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: background 200ms;
+}
+
+.layer-item.active {
+  background: rgba(191, 90, 242, 0.15);
+  color: var(--text-light);
+}
+
+.layer-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* ========================================
+   FEATURES GRID
+   ======================================== */
+.features-section {
+  background: var(--bg-light);
+}
+
+.features-content {
+  text-align: center;
+}
+
+.features-content .section-headline {
+  color: var(--text-dark);
+}
+
+.features-content .section-subheadline {
+  margin: 0 auto 64px;
+  color: var(--text-secondary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: var(--radius-card);
+  padding: 36px 28px;
+  text-align: left;
+  transition: transform 200ms var(--ease-apple), box-shadow 200ms var(--ease-apple);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--purple), #d97ff5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.feature-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.feature-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ========================================
+   PRICING
+   ======================================== */
+.pricing-content {
+  text-align: center;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.pricing-card {
+  background: #111114;
+  border-radius: var(--radius-card);
+  padding: 40px 32px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  transition: transform 200ms var(--ease-apple), box-shadow 200ms var(--ease-apple);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+}
+
+.pricing-card.featured {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.pricing-card.featured::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-card) + 2px);
+  padding: 2px;
+  background: conic-gradient(from var(--border-angle, 0deg), var(--purple), var(--pink), #0A84FF, var(--purple));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotateBorder 4s linear infinite;
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotateBorder {
+  to { --border-angle: 360deg; }
+}
+
+.pricing-badge {
+  display: inline-block;
+  background: var(--purple);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 980px;
+  margin-bottom: 16px;
+}
+
+.pricing-tier {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.pricing-price {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.pricing-price span {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.pricing-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.pricing-features li::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23BF5AF2' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center/contain no-repeat;
+  flex-shrink: 0;
+}
+
+.pricing-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-btn);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 200ms var(--ease-apple), transform 200ms var(--ease-apple);
+}
+
+.pricing-btn-primary {
+  background: var(--purple);
+  color: #fff;
+}
+
+.pricing-btn-primary:hover {
+  background: var(--purple-dark);
+  transform: scale(1.02);
+}
+
+.pricing-btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-light);
+}
+
+.pricing-btn-secondary:hover {
+  background: rgba(255,255,255,0.12);
+  transform: scale(1.02);
+}
+
+/* ========================================
+   CTA SECTION
+   ======================================== */
+.cta-section {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(191, 90, 242, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-headline {
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, var(--purple), var(--pink), #FFD60A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-note {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 20px;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: color 200ms;
+}
+
+.footer-links a:hover {
+  color: var(--text-light);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+  :root { --section-pad: 80px; }
+  .nav { padding: 0 24px; }
+  .nav-links { gap: 20px; }
+  .section { padding: var(--section-pad) 24px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); padding: 40px 24px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .color-panel { display: none; }
+  .layers-panel { display: none; }
+  .design-toolbar { width: 40px; }
+  .audio-bottom { flex-direction: column; }
+}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .features-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========================================
+     NAVIGATION
+     ======================================== -->
+<nav class="nav">
+  <div class="nav-wordmark">Prismix</div>
+  <ul class="nav-links">
+    <li><a href="#video">Video</a></li>
+    <li><a href="#audio">Audio</a></li>
+    <li><a href="#design">Design</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#" class="nav-cta">Try Free</a></li>
+  </ul>
+</nav>
+
+<!-- ========================================
+     HERO
+     ======================================== -->
+<section class="section section-dark section-full hero">
+  <div class="hero-tag anim-element" data-delay="0">Creative Suite</div>
+  <h1 class="hero-headline anim-element" data-delay="150">Create without limits.</h1>
+  <p class="hero-subtitle anim-element" data-delay="300">Professional video editing, audio production, and graphic design — unified in one powerful suite.</p>
+  <div class="hero-ctas anim-element" data-delay="450">
+    <button class="btn-primary">Start Creating</button>
+    <button class="btn-secondary">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Watch Film
+    </button>
+  </div>
+
+  <div class="mockup-container anim-element parallax-element" data-delay="600" data-parallax="0.3">
+    <div class="app-window">
+      <div class="window-bar">
+        <div class="window-dot"></div>
+        <div class="window-dot"></div>
+        <div class="window-dot"></div>
+      </div>
+      <div class="preview-area">
+        <div class="play-triangle"></div>
+      </div>
+      <div class="timeline-area">
+        <div class="timeline-ruler">
+          <span class="ruler-mark">00:00</span>
+          <span class="ruler-mark">00:15</span>
+          <span class="ruler-mark">00:30</span>
+          <span class="ruler-mark">00:45</span>
+          <span class="ruler-mark">01:00</span>
+          <span class="ruler-mark">01:15</span>
+          <span class="ruler-mark">01:30</span>
+        </div>
+        <div class="timeline-tracks">
+          <div class="playhead"></div>
+          <div class="track-row">
+            <span class="track-label">V2</span>
+            <div class="track-content">
+              <div class="track-bar purple" style="width:35%; margin-left:5%;" data-track-delay="0"></div>
+              <div class="track-bar purple" style="width:20%; margin-left:3%;" data-track-delay="100"></div>
+            </div>
+          </div>
+          <div class="track-row">
+            <span class="track-label">V1</span>
+            <div class="track-content">
+              <div class="track-bar blue" style="width:25%;" data-track-delay="150"></div>
+              <div class="track-bar blue" style="width:40%; margin-left:2%;" data-track-delay="250"></div>
+              <div class="track-bar blue" style="width:15%; margin-left:2%;" data-track-delay="350"></div>
+            </div>
+          </div>
+          <div class="track-row">
+            <span class="track-label">A1</span>
+            <div class="track-content">
+              <div class="track-bar green" style="width:55%;" data-track-delay="200"></div>
+              <div class="track-bar green" style="width:30%; margin-left:3%;" data-track-delay="300"></div>
+            </div>
+          </div>
+          <div class="track-row">
+            <span class="track-label">A2</span>
+            <div class="track-content">
+              <div class="track-bar orange" style="width:42%; margin-left:10%;" data-track-delay="250"></div>
+              <div class="track-bar orange" style="width:18%; margin-left:4%;" data-track-delay="400"></div>
+            </div>
+          </div>
+          <div class="track-row">
+            <span class="track-label">A3</span>
+            <div class="track-content">
+              <div class="track-bar teal" style="width:80%; margin-left:2%;" data-track-delay="300"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     STATS BAR
+     ======================================== -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item anim-element" data-delay="0">
+      <div class="stat-value">4K/8K</div>
+      <div class="stat-label">Support</div>
+    </div>
+    <div class="stat-item anim-element" data-delay="100">
+      <div class="stat-value">AI-Powered</div>
+      <div class="stat-label">Editing Engine</div>
+    </div>
+    <div class="stat-item anim-element" data-delay="200">
+      <div class="stat-value counter" data-target="1000">0</div>
+      <div class="stat-label">Effects</div>
+    </div>
+    <div class="stat-item anim-element" data-delay="300">
+      <div class="stat-value">Real-Time</div>
+      <div class="stat-label">Preview</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     VIDEO SECTION
+     ======================================== -->
+<section id="video" class="section section-dark section-full">
+  <div class="section video-section-content" style="max-width:1200px; margin:0 auto;">
+    <h2 class="section-headline anim-element">Edit. Color. Export.</h2>
+    <p class="section-subheadline anim-element" data-delay="100" style="margin:0 auto;">Cinema-grade color grading, multi-cam editing, and blazing fast exports — all in real time.</p>
+
+    <div class="video-mockup clip-reveal anim-element" data-delay="200">
+      <div class="video-top">
+        <div class="video-preview"></div>
+        <div class="color-panel">
+          <div class="color-panel-title">Color Grading</div>
+          <div class="color-wheels">
+            <div class="color-wheel wheel-shadows"><div class="wheel-dot"></div></div>
+            <div class="color-wheel wheel-midtones"><div class="wheel-dot"></div></div>
+            <div class="color-wheel wheel-highlights"><div class="wheel-dot"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="waveform-container">
+        <svg class="svg-draw" viewBox="0 0 800 60" preserveAspectRatio="none">
+          <path d="M0,30 Q20,10 40,30 Q60,50 80,30 Q100,10 120,30 Q140,50 160,30 Q180,10 200,30 Q220,50 240,30 Q260,10 280,30 Q300,50 320,30 Q340,10 360,30 Q380,50 400,30 Q420,10 440,30 Q460,50 480,30 Q500,10 520,30 Q540,50 560,30 Q580,10 600,30 Q620,50 640,30 Q660,10 680,30 Q700,50 720,30 Q740,10 760,30 Q780,50 800,30" stroke="#BF5AF2" stroke-width="2" fill="none"/>
+          <path d="M0,30 Q25,20 50,30 Q75,40 100,30 Q125,15 150,30 Q175,45 200,30 Q225,18 250,30 Q275,42 300,30 Q325,20 350,30 Q375,40 400,30 Q425,15 450,30 Q475,45 500,30 Q525,18 550,30 Q575,42 600,30 Q625,20 650,30 Q675,40 700,30 Q725,15 750,30 Q775,45 800,30" stroke="#30D158" stroke-width="1.5" fill="none" opacity="0.6"/>
+          <path d="M0,30 Q30,25 60,30 Q90,35 120,30 Q150,22 180,30 Q210,38 240,30 Q270,25 300,30 Q330,35 360,30 Q390,22 420,30 Q450,38 480,30 Q510,25 540,30 Q570,35 600,30 Q630,22 660,30 Q690,38 720,30 Q750,25 780,30 Q795,32 800,30" stroke="#0A84FF" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     AUDIO SECTION
+     ======================================== -->
+<section id="audio" class="section section-full audio-section">
+  <div class="section audio-content" style="max-width:1200px; margin:0 auto;">
+    <h2 class="section-headline anim-element">Sound. Perfected.</h2>
+    <p class="section-subheadline anim-element" data-delay="100" style="margin:0 auto;">Multi-track mixing, spatial audio, and studio-quality mastering tools in a streamlined interface.</p>
+
+    <div class="audio-mockup anim-element" data-delay="200">
+      <div class="audio-top">
+        <div class="audio-waveform-row">
+          <span class="wave-label">Vocals</span>
+          <svg class="wave-svg svg-draw" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <path d="M0,17 Q10,5 20,17 Q30,29 40,17 Q50,3 60,17 Q70,31 80,17 Q90,7 100,17 Q110,27 120,17 Q130,5 140,17 Q150,29 160,17 Q170,8 180,17 Q190,26 200,17 Q210,4 220,17 Q230,30 240,17 Q250,7 260,17 Q270,27 280,17 Q290,5 300,17 Q310,29 320,17 Q330,8 340,17 Q350,26 360,17 Q370,4 380,17 Q390,30 400,17 Q410,7 420,17 Q430,27 440,17 Q450,5 460,17 Q470,29 480,17 Q490,8 500,17 Q510,26 520,17 Q530,4 540,17 Q550,30 560,17 Q570,7 580,17 Q590,27 600,17" stroke="#BF5AF2" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div class="audio-waveform-row">
+          <span class="wave-label">Guitar</span>
+          <svg class="wave-svg svg-draw" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <path d="M0,17 Q15,8 30,17 Q45,26 60,17 Q75,10 90,17 Q105,24 120,17 Q135,6 150,17 Q165,28 180,17 Q195,9 210,17 Q225,25 240,17 Q255,7 270,17 Q285,27 300,17 Q315,10 330,17 Q345,24 360,17 Q375,6 390,17 Q405,28 420,17 Q435,9 450,17 Q465,25 480,17 Q495,7 510,17 Q525,27 540,17 Q555,10 570,17 Q585,24 600,17" stroke="#0A84FF" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div class="audio-waveform-row">
+          <span class="wave-label">Drums</span>
+          <svg class="wave-svg svg-draw" viewBox="0 0 600 34" preserveAspectRatio="none">
+            <path d="M0,17 L10,17 L12,4 L14,30 L16,17 L40,17 L42,6 L44,28 L46,17 L80,17 L82,3 L84,31 L86,17 L120,17 L122,5 L124,29 L126,17 L160,17 L162,4 L164,30 L166,17 L200,17 L202,6 L204,28 L206,17 L240,17 L242,3 L244,31 L246,17 L280,17 L282,5 L284,29 L286,17 L320,17 L322,4 L324,30 L326,17 L360,17 L362,6 L364,28 L366,17 L400,17 L402,3 L404,31 L406,17 L440,17 L442,5 L444,29 L446,17 L480,17 L482,4 L484,30 L486,17 L520,17 L522,6 L524,28 L526,17 L560,17 L562,3 L564,31 L566,17 L600,17" stroke="#FF9F0A" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="audio-bottom">
+        <div class="channel-mixer">
+          <div class="mixer-title">Channel Mixer</div>
+          <div class="mixer-channels">
+            <div class="channel-bar" style="height:75px; background:linear-gradient(to top, #BF5AF2, #d97ff5);" data-bar-delay="0"></div>
+            <div class="channel-bar" style="height:55px; background:linear-gradient(to top, #0A84FF, #40a9ff);" data-bar-delay="100"></div>
+            <div class="channel-bar" style="height:90px; background:linear-gradient(to top, #30D158, #5ee87d);" data-bar-delay="200"></div>
+            <div class="channel-bar" style="height:40px; background:linear-gradient(to top, #FF9F0A, #ffb84d);" data-bar-delay="300"></div>
+            <div class="channel-bar" style="height:65px; background:linear-gradient(to top, #64D2FF, #8de0ff);" data-bar-delay="400"></div>
+            <div class="channel-bar" style="height:80px; background:linear-gradient(to top, #FF375F, #ff6b8a);" data-bar-delay="500"></div>
+            <div class="channel-bar" style="height:50px; background:linear-gradient(to top, #FFD60A, #ffe34d);" data-bar-delay="600"></div>
+            <div class="channel-bar" style="height:70px; background:linear-gradient(to top, #BF5AF2, #d97ff5);" data-bar-delay="700"></div>
+          </div>
+        </div>
+        <div class="eq-panel">
+          <div class="eq-title">Equalizer</div>
+          <svg class="eq-svg svg-draw" viewBox="0 0 400 80" preserveAspectRatio="none">
+            <path d="M0,60 Q30,58 60,55 Q90,45 120,30 Q150,15 180,20 Q210,25 240,35 Q270,25 300,18 Q330,22 360,40 Q380,50 400,55" stroke="#BF5AF2" stroke-width="2.5" fill="none"/>
+            <line x1="0" y1="70" x2="400" y2="70" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <line x1="0" y1="40" x2="400" y2="40" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="0" y1="10" x2="400" y2="10" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     DESIGN SECTION
+     ======================================== -->
+<section id="design" class="section section-dark section-full">
+  <div class="section design-content" style="max-width:1200px; margin:0 auto;">
+    <h2 class="section-headline anim-element">Design. Delivered.</h2>
+    <p class="section-subheadline anim-element" data-delay="100" style="margin:0 auto;">Vector-first design with pixel-perfect precision. From concept to production, effortlessly.</p>
+
+    <div class="design-mockup anim-element" data-delay="200">
+      <div class="design-toolbar">
+        <div class="tool-btn active">
+          <svg viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
+        </div>
+        <div class="tool-btn">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        </div>
+        <div class="tool-btn">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <div class="tool-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+        </div>
+        <div class="tool-btn">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+        </div>
+        <div class="tool-btn">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+      </div>
+      <div class="design-canvas">
+        <div class="canvas-shape shape-circle anim-element" data-delay="400"></div>
+        <div class="canvas-shape shape-rect anim-element" data-delay="500"></div>
+        <div class="canvas-shape shape-square anim-element" data-delay="600"></div>
+        <div class="canvas-shape shape-diamond anim-element" data-delay="700"></div>
+      </div>
+      <div class="layers-panel">
+        <div class="layers-title">Layers</div>
+        <div class="layer-item active">
+          <div class="layer-swatch" style="background: linear-gradient(135deg, var(--purple), var(--pink));"></div>
+          Circle
+        </div>
+        <div class="layer-item">
+          <div class="layer-swatch" style="background: linear-gradient(135deg, #0A84FF, #64D2FF);"></div>
+          Rectangle
+        </div>
+        <div class="layer-item">
+          <div class="layer-swatch" style="background: linear-gradient(135deg, #FF9F0A, #FFD60A);"></div>
+          Square
+        </div>
+        <div class="layer-item">
+          <div class="layer-swatch" style="background: linear-gradient(135deg, #30D158, #64D2FF);"></div>
+          Diamond
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     FEATURES GRID
+     ======================================== -->
+<section class="section section-full features-section">
+  <div class="section features-content" style="max-width:1200px; margin:0 auto;">
+    <h2 class="section-headline anim-element">Everything you need.</h2>
+    <p class="section-subheadline anim-element" data-delay="100">Built for professionals who demand the best tools for every creative challenge.</p>
+
+    <div class="features-grid">
+      <div class="feature-card anim-element" data-delay="0">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20"/><path d="M17 2v20"/><path d="M2 12h20"/></svg>
+        </div>
+        <h3>AI Scene Detection</h3>
+        <p>Automatically analyzes footage and creates intelligent cuts at scene boundaries, saving hours of manual editing.</p>
+      </div>
+      <div class="feature-card anim-element" data-delay="100">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <h3>Spatial Audio</h3>
+        <p>Mix in three-dimensional space with immersive spatial audio tools. Support for Dolby Atmos and Ambisonics.</p>
+      </div>
+      <div class="feature-card anim-element" data-delay="200">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Live Collaboration</h3>
+        <p>Work together in real-time. Share timelines, exchange feedback, and co-edit projects with your team seamlessly.</p>
+      </div>
+      <div class="feature-card anim-element" data-delay="300">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Plugin Ecosystem</h3>
+        <p>Access over 500 plugins from a thriving developer community. Extend every tool to match your workflow.</p>
+      </div>
+      <div class="feature-card anim-element" data-delay="400">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+        </div>
+        <h3>Cloud Rendering</h3>
+        <p>Offload heavy renders to the cloud. Export 8K projects in minutes, not hours. Pay only for what you use.</p>
+      </div>
+      <div class="feature-card anim-element" data-delay="500">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </div>
+        <h3>Version History</h3>
+        <p>Unlimited undo with full version history. Branch your timeline, experiment freely, and restore any previous state.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     PRICING
+     ======================================== -->
+<section id="pricing" class="section section-dark section-full">
+  <div class="section pricing-content" style="max-width:1200px; margin:0 auto;">
+    <h2 class="section-headline anim-element">Find your plan.</h2>
+    <p class="section-subheadline anim-element" data-delay="100" style="margin:0 auto;">Start free, upgrade when you are ready. Every plan includes all three apps.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card anim-element" data-delay="0">
+        <div class="pricing-tier">Creator</div>
+        <div class="pricing-price">$19<span>/mo</span></div>
+        <p class="pricing-desc">Everything you need to start creating professional content.</p>
+        <ul class="pricing-features">
+          <li>Video, Audio, Design apps</li>
+          <li>1080p export</li>
+          <li>100 GB cloud storage</li>
+          <li>200+ effects and templates</li>
+          <li>Email support</li>
+        </ul>
+        <button class="pricing-btn pricing-btn-secondary">Get Started</button>
+      </div>
+      <div class="pricing-card featured anim-element" data-delay="150">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price">$39<span>/mo</span></div>
+        <p class="pricing-desc">Advanced tools and cloud rendering for serious creators.</p>
+        <ul class="pricing-features">
+          <li>Everything in Creator</li>
+          <li>4K/8K export</li>
+          <li>1 TB cloud storage</li>
+          <li>Cloud rendering (20 hrs/mo)</li>
+          <li>AI Scene Detection</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="pricing-btn pricing-btn-primary">Get Started</button>
+      </div>
+      <div class="pricing-card anim-element" data-delay="300">
+        <div class="pricing-tier">Studio</div>
+        <div class="pricing-price">$99<span>/mo</span></div>
+        <p class="pricing-desc">Full power for teams and studios with enterprise features.</p>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>Unlimited cloud rendering</li>
+          <li>10 TB cloud storage</li>
+          <li>Live Collaboration</li>
+          <li>500+ plugins included</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <button class="pricing-btn pricing-btn-secondary">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     CTA
+     ======================================== -->
+<section class="section section-dark section-full cta-section">
+  <div class="section" style="max-width:800px; margin:0 auto;">
+    <h2 class="cta-headline anim-element">Your masterpiece starts here.</h2>
+    <div class="anim-element" data-delay="150">
+      <button class="btn-primary" style="font-size:19px; padding:16px 40px;">Try Prismix Free</button>
+    </div>
+    <p class="cta-note anim-element" data-delay="300">14-day free trial. No credit card required.</p>
+  </div>
+</section>
+
+<!-- ========================================
+     FOOTER
+     ======================================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">2026 Prismix. All rights reserved.</div>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Press</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- ========================================
+     JAVASCRIPT
+     ======================================== -->
+<script>
+(function() {
+  'use strict';
+
+  // Respect reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ========================================
+  // ScrollAnimator Class
+  // ========================================
+  class ScrollAnimator {
+    constructor() {
+      this.observers = [];
+      this.init();
+    }
+
+    init() {
+      this.setupStaggerReveal();
+      this.setupParallax();
+      this.setupTrackBars();
+      this.setupChannelBars();
+      this.setupSVGDraw();
+      this.setupClipReveal();
+      this.setupCounters();
+      this.triggerHeroAnimations();
+    }
+
+    // Hero entrance stagger
+    triggerHeroAnimations() {
+      const heroElements = document.querySelectorAll('.hero .anim-element');
+      heroElements.forEach(el => {
+        const delay = parseInt(el.dataset.delay) || 0;
+        if (prefersReducedMotion) {
+          el.classList.add('revealed');
+          return;
+        }
+        setTimeout(() => {
+          el.classList.add('revealed');
+        }, delay + 200); // 200ms initial wait
+      });
+
+      // Also trigger track bars in hero
+      setTimeout(() => {
+        const heroTracks = document.querySelectorAll('.hero .track-bar');
+        heroTracks.forEach(bar => {
+          const delay = parseInt(bar.dataset.trackDelay) || 0;
+          setTimeout(() => bar.classList.add('revealed'), delay + 800);
+        });
+      }, 0);
+    }
+
+    // Stagger reveal for sections
+    setupStaggerReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            if (el.closest('.hero')) return; // Hero handled separately
+            const delay = parseInt(el.dataset.delay) || 0;
+            if (prefersReducedMotion) {
+              el.classList.add('revealed');
+            } else {
+              setTimeout(() => el.classList.add('revealed'), delay);
+            }
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.anim-element').forEach(el => {
+        if (!el.closest('.hero')) {
+          observer.observe(el);
+        }
+      });
+
+      this.observers.push(observer);
+    }
+
+    // Parallax
+    setupParallax() {
+      if (prefersReducedMotion) return;
+      const parallaxElements = document.querySelectorAll('.parallax-element');
+      let ticking = false;
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            parallaxElements.forEach(el => {
+              const speed = parseFloat(el.dataset.parallax) || 0.3;
+              const rect = el.getBoundingClientRect();
+              const center = rect.top + rect.height / 2;
+              const viewCenter = window.innerHeight / 2;
+              const offset = (center - viewCenter) * speed * -0.3;
+              el.style.transform = `translateY(${offset}px)`;
+            });
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
+    // Track bars (timeline)
+    setupTrackBars() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll('.track-bar');
+            bars.forEach(bar => {
+              const delay = parseInt(bar.dataset.trackDelay) || 0;
+              if (prefersReducedMotion) {
+                bar.classList.add('revealed');
+              } else {
+                setTimeout(() => bar.classList.add('revealed'), delay);
+              }
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.timeline-tracks').forEach(el => {
+        if (!el.closest('.hero')) {
+          observer.observe(el);
+        }
+      });
+
+      this.observers.push(observer);
+    }
+
+    // Channel bars (audio mixer)
+    setupChannelBars() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll('.channel-bar');
+            bars.forEach(bar => {
+              const delay = parseInt(bar.dataset.barDelay) || 0;
+              if (prefersReducedMotion) {
+                bar.classList.add('revealed');
+              } else {
+                setTimeout(() => bar.classList.add('revealed'), delay);
+              }
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.mixer-channels').forEach(el => {
+        observer.observe(el);
+      });
+
+      this.observers.push(observer);
+    }
+
+    // SVG stroke draw
+    setupSVGDraw() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (prefersReducedMotion) {
+              entry.target.querySelectorAll('path, line').forEach(p => {
+                p.style.strokeDashoffset = '0';
+              });
+            }
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.svg-draw').forEach(el => {
+        observer.observe(el);
+      });
+
+      this.observers.push(observer);
+    }
+
+    // Clip-path reveal
+    setupClipReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.clip-reveal').forEach(el => {
+        observer.observe(el);
+      });
+
+      this.observers.push(observer);
+    }
+
+    // Counter animation
+    setupCounters() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            if (!target) return;
+            this.animateCounter(el, target);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.counter').forEach(el => {
+        observer.observe(el);
+      });
+
+      this.observers.push(observer);
+    }
+
+    animateCounter(el, target) {
+      if (prefersReducedMotion) {
+        el.textContent = target.toLocaleString() + '+';
+        return;
+      }
+      const duration = 2000;
+      const startTime = performance.now();
+
+      const update = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = current.toLocaleString() + '+';
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      };
+
+      requestAnimationFrame(update);
+    }
+  }
+
+  // ========================================
+  // Nav background on scroll
+  // ========================================
+  const nav = document.querySelector('.nav');
+  let navTicking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!navTicking) {
+      requestAnimationFrame(() => {
+        if (window.scrollY > 60) {
+          nav.style.background = 'rgba(0, 0, 0, 0.88)';
+        } else {
+          nav.style.background = 'rgba(0, 0, 0, 0.72)';
+        }
+        navTicking = false;
+      });
+      navTicking = true;
+    }
+  }, { passive: true });
+
+  // ========================================
+  // Initialize
+  // ========================================
+  document.addEventListener('DOMContentLoaded', () => {
+    new ScrollAnimator();
+  });
+
+})();
+</script>
+</body>
+</html>
