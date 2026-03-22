@@ -276,9 +276,52 @@ def _handle_init(args: list[str]) -> int:
     return 0
 
 
+def _handle_export(args: list[str]) -> int:
+    """Handle the 'export' subcommand for design token code generation."""
+    from scripts.exporter import EXPORT_FORMATS, export_tokens
+
+    if "--list" in args:
+        print(f"{'Format':<16} {'Output File':<24}")
+        print("-" * 40)
+        for name, cfg in EXPORT_FORMATS.items():
+            print(f"{name:<16} {cfg['filename']:<24}")
+        return 0
+
+    # Parse --format and --output
+    fmt_value = None
+    output_value = None
+    for i, arg in enumerate(args):
+        if arg == "--format" and i + 1 < len(args):
+            fmt_value = args[i + 1]
+        elif arg == "--output" and i + 1 < len(args):
+            output_value = args[i + 1]
+
+    if not fmt_value:
+        print("Usage: onemore export --format <format|all> [--output <dir>]")
+        print("       onemore export --list")
+        print(f"\nAvailable formats: {', '.join(EXPORT_FORMATS.keys())}")
+        return 1
+
+    if fmt_value == "all":
+        targets = list(EXPORT_FORMATS.keys())
+    else:
+        targets = [fmt_value]
+
+    for target in targets:
+        result = export_tokens(target, output_dir=output_value)
+        if "error" in result:
+            print(f"  ERROR  {result['error']}")
+        else:
+            print(f"  {result['status'].upper():<12} {result['format']:<16} -> {result['file']}")
+
+    return 0
+
+
 def main() -> int:
-    # Handle 'init' subcommand before argparse
+    # Handle subcommands before argparse
     raw_args = sys.argv[1:]
+    if raw_args and raw_args[0] == "export":
+        return _handle_export(raw_args[1:])
     if raw_args and raw_args[0] == "init":
         return _handle_init(raw_args[1:])
 
