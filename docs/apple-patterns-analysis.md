@@ -1505,3 +1505,477 @@ Xcode page features a multi-option download button:
 | `--r-globalnav-text-zoom-scale` | 1 | Text scaling factor |
 | `--r-localnav-menu-tray-natural-height` | 55-90px | Local nav tray height |
 | `--r-localnav-text-zoom-factor` | 0.94 | WWDC25 text zoom |
+
+---
+
+## 8. Apple Services, Card, Shop, Accessibility & Environment Pages
+
+### 8.1 Sources
+
+| # | File | Size (KB) | Lines | Page Type |
+|---|------|-----------|-------|-----------|
+| 21 | services.html | 212 KB | 1,172 | Services / Subscriptions |
+| 22 | apple-card.html | 254 KB | 1,270 | Financial Product |
+| 23 | shop.html | 429 KB | 1,502 | E-Commerce / Store |
+| 24 | accessibility.html | 305 KB | 1,691 | Values / Inclusive Design |
+| 25 | environment.html | 715 KB | 3,476 | Values / Data Storytelling |
+
+### 8.2 Animation Patterns
+
+#### Per-Page Animation Usage
+
+| File | `data-anim` | `opacity: 0` | `data-staggered` | `transform` | `transition` |
+|------|------------|-------------|-----------------|------------|-------------|
+| services.html | 7 | 0 | 0 | 12 | 7 |
+| apple-card.html | 47 | 0 | 0 | 26 | 9 |
+| shop.html | 0 | 0 | 0 | 14 | 30 |
+| accessibility.html | 17 | 0 | 0 | 6 | 5 |
+| environment.html | 9 | 22 | 0 | 21 | 6 |
+
+#### Apple Card -- Heaviest Animation in This Batch
+
+Apple Card uses the most `data-anim` attributes (47) of these five pages. It relies heavily on:
+
+- **TriggerAnimation** (11 instances) -- class-based triggers that fire when elements scroll into view
+- **data-anim-keyframes** with scroll-linked JSON -- same engine as product pages but used sparingly for hero parallax and interest wheel animations
+- **data-anim-classname** with `fadein` class and `disabledWhen: "reduced-motion, text-zoom"` -- respects user preferences
+- **Flip tiles** (14 open + 14 close buttons) -- card-flip interaction pattern unique to Apple Card, toggling front/back content
+- **VideoViewportSource** (3 instances) -- viewport-triggered video playback
+- **Parallax** component -- hero section depth effect
+- **ScrollGradient** -- gradient reveal on scroll
+
+#### Environment -- Lottie-Heavy Data Storytelling
+
+- **17 LottieAnimation** components -- the highest Lottie count of any page analyzed
+- Lottie icons represent lifecycle stages: design, make, product-use, recovery, shipping
+- Additional Lottie for progress indicators: water, tree icons
+- **22 `opacity: 0`** declarations -- elements hidden until scroll-reveal
+- **Scroll groups** named by section: "Section - Hero", "Section - Plan", "Section - Progress", "Section - People", "Section - You"
+
+#### Accessibility -- Moderate Animation with Inclusive Patterns
+
+- **HeaderReveal** (3 instances) -- section headers that reveal on scroll
+- **AnimationQueueItem + FeaturesTile + Modal** (2 instances) -- queued animation sequences
+- **ScrollGallery** (3 instances, including DeafPresident variant) -- horizontal scroll galleries
+- **Lottie** (2 instances) -- logo animation, accessibility icon
+- **data-anim-load** attributes (8) -- load-triggered animations (not scroll-dependent)
+- **OverviewHero + NavTheme + FocusManager** -- hero with theme-aware navigation
+
+#### Services -- Gallery-Centric
+
+- **DynamicGallery** (7 instances) -- dominant pattern, one per service section
+- **InlineVideo** (4 instances) -- video content for TV+, Music, etc.
+- No scroll-linked keyframe animations -- relies on gallery interaction instead
+
+#### Shop -- Zero Custom Animation
+
+- **No `data-anim`** attributes whatsoever -- the only non-developer page with zero
+- **30 `transition`** declarations -- highest in this batch, all CSS transitions (hover states, card interactions)
+- Relies entirely on CSS transitions rather than scroll-linked JavaScript animation
+- Uses the `rf-` (retail framework) component system instead of the product page animation engine
+
+### 8.3 Layout Patterns
+
+#### Services -- Section-Per-Service Layout
+
+Each Apple service gets its own full-width section:
+- `section section-hero theme-dark` -- dark hero
+- `section section-apple-music`
+- `section section-apple-tv-plus remove-transition-delay`
+- `section section-apple-fitness`
+- `section section-apple-podcasts`
+- `section section-apple-books`
+- `section section-apple-news-plus`
+- `section section-apple-one updated-apple-one-router`
+- `section section-apple-one-banner theme-dark`
+
+Pattern: Service sections use `section-content` containers (10 instances) with `DynamicGallery` components containing `dynamic-gallery-item-container` elements, some with `variable-width` and `manual-start` modifiers.
+
+Theme alternation: 7 `theme-dark` sections, creating dark-light-dark rhythm.
+
+#### Apple Card -- Tile Grid Layout
+
+- `section section-hero` -- no theme class (neutral/white)
+- `section section-tiles-grid` -- main content area with flip tiles
+- `section section-simplicity` -- single feature section
+- `section section-routers` / `section section-router` -- navigation sections
+- Grid: `large-5`, `large-10`, `medium-5`, `small-12` -- asymmetric layouts (5/7 splits)
+- No `theme-dark` or `theme-light` classes -- Apple Card uses a neutral white aesthetic throughout
+
+#### Shop -- Retail Framework Layout (Unique System)
+
+Shop uses an entirely different component system from all other Apple pages:
+
+**`rf-` (Retail Framework) Components:**
+| Component | Count | Purpose |
+|-----------|-------|---------|
+| `rf-cards-scroller-itemview` | 80 | Individual scrollable card items |
+| `rf-recommcard-content` | 25 | Recommendation cards (33% width) |
+| `rf-ccard-content` | 44 | Content cards (40% or 50% width) |
+| `rf-productnav-card` | 11 | Product navigation cards |
+| `rf-cards-scroller` | 9 | Horizontal card scrollers |
+| `rf-ccard-img-full` | 38 | Full-bleed card images |
+
+**`rs-` (Retail Store) Components:**
+| Component | Count | Purpose |
+|-----------|-------|---------|
+| `rs-cardsshelf` | 9 | Card shelf containers |
+| `rs-cardsshelf-mzone` | 4 | Marketing zone shelves |
+| `rs-quicklinks` | 1 | Quick navigation links |
+| `rs-quicklinks-item` | 5 | Individual quick link items |
+| `rs-shop-neareststore` | 1 | Store locator component |
+| `rs-sticky-chat` | 1 | Persistent chat support |
+
+Card size variants: `rf-recommcard-33` (33% width), `rf-ccard-40` (40%), `rf-ccard-50` (50%).
+
+#### Accessibility -- Responsive Content Sections
+
+- `section-content-responsive` (7 instances) -- responsive content containers (unique to values pages)
+- `section-header` (4 instances) with `section-header-headline` subcomponents
+- Feature gallery sections with `features-gallery scroll-gallery with-paddlenav paddlenav-bottom-outside responsive`
+- Stories gallery: `stories-gallery scroll-gallery with-paddlenav paddlenav-bottom-outside responsive`
+- Resources gallery: `resources-gallery values-gallery scroll-gallery`
+- Theme alternation: 15 `theme-dark` + 4 `theme-light` -- highest dark/light switching of any page
+
+#### Environment -- Plan + Progress Data Layout
+
+- `section-content-responsive` (12 instances) -- even more responsive containers than accessibility
+- Unique sections: `section-plan`, `section-progress`, `section-progress-reports`, `section-products`, `section-people`, `section-you`
+- **Plan items** with structured data: `plan-subhead` (10), `plan-item-description` (5 categories: design, make, product-use, recovery, shipping), `plan-item-progress`, `plan-item-approach`
+- **Progress reports**: `progress-reports-item` (17 items), `progress-reports-title` (17)
+- **Tile overlays**: 3 instances with `tile-overlay-toggle` for expand/collapse
+- **Drawer components**: 2 expandable drawer sections
+- **Product reports gallery** with archive gallery variant
+- Custom theme: `theme-green` (1 instance) -- unique to environment page
+
+### 8.4 Typography
+
+#### Page-Specific Typography Classes
+
+**Services** (7 unique classes):
+- `typography-heading-headline` (7) / `typography-heading-subheadline` (8) -- standard heading hierarchy
+- `typography-inline-video-caption` (9) -- video caption styling
+- `typography-hero-headline`, `typography-hero-paragraph` -- hero text
+- `typography-apple-one-banner` -- Apple One promotional text
+
+**Apple Card** (20 unique classes -- most typography variety):
+- `typography-tile-backface-content` (33) -- dominant class, flip-tile back content
+- `typography-tile-backface-link` (4) -- back-of-tile links
+- `typography-router-overview-headline/eyebrow/cta` (3 each) -- router navigation text
+- `typography-tile-cash-headline/intro` -- Daily Cash display
+- `typography-tile-physical-card` -- titanium card description
+- `typography-tile-interest`, `typography-tile-fees`, `typography-tile-pay-over-time-headline` -- financial terms
+- `typography-tile-exclusive-perks`, `typography-tile-partnerships`, `typography-tile-merchants` -- benefits
+- `typography-grid-intro` (2) -- grid section introductions
+
+**Shop** (3 classes only -- minimal typography system):
+- `typography-body-tight` (13) -- compact body text
+- `typography-body-reduced-tight` (13) -- even more compact body text
+- `typography-caption` (1) -- captions
+
+**Accessibility** (11 unique classes):
+- `typography-eyebrow-elevated` (18) / `typography-features-eyebrow` (9) -- eyebrow text
+- `typography-resources-copy` (18) -- resource section copy
+- `typography-stories-headline` (7) -- story headlines
+- `typography-section-header-cta` (8) -- section call-to-action links
+- `typography-headline-reduced` (6) / `typography-headline-super` (1) -- heading scale
+- `typography-secondary-section-headline` (3) -- sub-section headings
+- `typography-intro` (6) / `typography-body` (6) -- body text
+
+**Environment** (15 unique classes -- richest hierarchy):
+- `typography-eyebrow-elevated` (15) -- shared with accessibility
+- `typography-tout` (10) -- promotional callout text
+- `typography-products-eyebrow/headline` (10/7) -- product section text
+- `typography-plan-copy` (10) / `typography-plan-description` (5) -- plan data text
+- `typography-headline-tight` (8) / `typography-headline-tight-alt` (4) / `typography-headline-elevated-tight` (5)
+- `typography-products-overlay-copy` (3) -- tile overlay text
+- `typography-modal-copy` (3) / `typography-modal-callout` (3) -- modal content
+- `typography-label` (3) -- small label text
+
+### 8.5 Unique Components
+
+#### Service Tiles (services.html)
+- **DynamicGallery** -- horizontal scroll gallery per service (Music, TV+, Fitness+, etc.)
+- `dynamic-gallery-item-container` with `variable-width` and `manual-start` modifiers
+- Each service section is a self-contained unit with heading + gallery + CTA
+- Subscription pricing: 6 "subscription" mentions, 5 "free trial", 4 "/mo" pricing displays
+
+#### Apple Card Visuals (apple-card.html)
+- **Flip Tiles** -- 14 interactive cards that flip to reveal backface content (unique to Apple Card)
+  - `flip-tile-button open-tile` / `close-tile` -- toggle controls
+  - `typography-tile-backface-content backface-copy/headline` -- back content
+- **Interest Wheel** -- scroll-animated circular visualization for interest/APR
+- **Daily Cash Display** -- `tile-cash-headline`, `tile-cash-intro` typography
+- **Physical Card** -- `tile-physical-card` typography for titanium card imagery
+- **Financial Terms**: 45 "Daily Cash", 30 "interest", 13 "Goldman", 11 "titanium", 9 "APR" mentions
+- **Router Overview** -- section navigation with eyebrow/headline/CTA pattern
+
+#### Store Components (shop.html)
+- **Card Scroller System** -- `rf-cards-scroller` with 80 individual `itemview` elements
+- **Recommendation Cards** (`rf-recommcard`) -- 25 product recommendation tiles with:
+  - Color image swatch (`rf-recommcard-content-colorimage`, 69 instances)
+  - Price display (`rf-recommcard-content-price`)
+  - Swatch container (`rf-recommcard-content-swatchescontainer`, 16 instances)
+  - Violator badges (`rf-recommcard-content-violator`, 9 -- "New", "Save" labels)
+- **Content Cards** (`rf-ccard`) -- 44 marketing/content cards with full-bleed images
+- **Product Navigation** -- 11 product cards in a dedicated shelf
+- **Quick Links** -- 5 secondary-neutral buttons for common actions
+- **Nearest Store** -- store locator with content container
+- **Sticky Chat** -- persistent support chat widget
+- Commerce terms: 452 "store", 155 "trade-in", 54 "buy", 22 "financing", 12 "delivery", 5 "pickup"
+
+#### Accessibility Demos (accessibility.html)
+- **Feature Tiles with Modal** -- `AnimationQueueItem FeaturesTile Modal` for queued feature reveals
+- **Overview Features Gallery** -- 4 features with light/dark image pairs:
+  - Personal Voice, Magnifier, Live Listen, Assistive (each with `-dark` variant)
+- **Hearing Aid Feature** -- standalone gallery image
+- **Deaf President Gallery** -- specialized `ScrollGallery DeafPresident` variant
+- **Music Haptics** -- tile with `gallery-item-music-haptics` class
+- **Jordyn Zimmerman** -- named story tile in gallery
+- **OverviewFeaturesGallery** -- curated feature showcase component
+- **PrefersColorSchemeToggle** -- responds to user's OS color scheme preference
+- **SetupLinks + SetupFootnotes** -- setup flow navigation
+- Feature mentions: 50 "hearing", 48 "vision", 47 "magnifier", 46 "assistive", 4 "Live Captions", 4 "cognitive", 1 "Switch Control"
+
+#### Environmental Charts & Data (environment.html)
+- **Lottie Data Visualizations** -- 17 LottieAnimation components for animated data:
+  - `lottie-with-picture` (15) -- Lottie overlaid on static images
+  - `lottie-icon-*` variants: design, make, product-use, recovery, shipping
+  - `lottie-boxes`, `lottie-arrow` -- diagram animations
+  - `overview-icon-progress-water`, `overview-icon-progress-tree` -- progress icons
+- **Plan Gallery** -- `PlanGallery FocusManager` with paddle navigation
+- **Progress Gallery** -- `ScrollGallery ProgressGallery` variant
+- **Product Reports Gallery** -- `ProductReportsGallery` with archive
+- **Story Gallery** -- `StoryGallery` component
+- **Tile Overlays** -- 3 expandable product tiles (iPhone, Watch, Recovery, PackagingShipping, Bands)
+  - `ProductsTile` with product-specific variants: `ProductsTileWatch`, `ProductsTileIphone`, `ProductsTileRecovery`, `ProductsTilePackagingShipping`, `ProductsTileBands`
+- **Drawers** -- 2 expandable content drawers with `drawer-toggle`
+- **Tablist** -- tab navigation component
+- Environmental terms: 62 "recycl*", 32 "renewable", 12 "supply chain", 12 "greenhouse", 4 "solar", 4 "clean energy", 2 "carbon footprint", 1 "carbon neutral", 1 "zero waste"
+
+### 8.6 Key Insights
+
+#### What These Pages Teach That Product and Developer Pages Do Not
+
+**Services = Marketing + Pricing Hybrid**
+- Uses `DynamicGallery` instead of scroll-linked animations -- content is browseable, not cinematic
+- Each service is a self-contained section with its own gallery, creating a "catalog" feel
+- Subscription pricing is presented inline, not in a separate purchase flow
+- Moderate animation (7 `data-anim`) -- between developer (0) and product pages (20-44)
+- `theme-dark` dominant (7 sections) -- premium feel without heavy animation
+
+**Apple Card = Financial Product with Flip-Card Interaction**
+- Highest animation count in this batch (47 `data-anim`) -- approaches product page levels
+- **Flip tiles are unique** -- no other Apple page uses this card-flip interaction pattern
+- Financial products require more detail density -- 33 backface content blocks to explain terms
+- Uses scroll-linked keyframes but sparingly (5 keyframe sets vs. 30+ on product pages)
+- No theme classes at all -- neutral white creates trust/clarity for financial content
+
+**Shop = Entirely Separate Component System**
+- The only page using `rf-` (Retail Framework) and `rs-` (Retail Store) component prefixes
+- **Zero custom animation** -- relies on CSS `transition` only (30 instances)
+- E-commerce requires functional, fast-loading UI -- no cinematic scroll effects
+- Card-based browsing: horizontal scrollers (`rf-cards-scroller`) replace vertical scroll sections
+- Typography is minimal (3 classes) -- content speaks through product images and prices
+- Commerce UI patterns: sticky chat, nearest store, quick links, card shelf system
+
+**Accessibility = Inclusive Design Showcase**
+- Highest dark/light alternation (19 theme switches) -- demonstrates both modes extensively
+- `PrefersColorSchemeToggle` -- responds to OS preference (unique component)
+- Light/dark image pairs for every feature -- most thorough theme support of any page
+- `data-anim-load` (8 instances) -- prefers load-triggered over scroll-triggered animation, reducing motion dependency
+- Feature galleries use `paddlenav-bottom-outside responsive` -- accessible paddle navigation
+- Named story tiles (Jordyn Zimmerman, Deaf President) -- human-centered content structure
+
+**Environment = Data Storytelling Through Lottie**
+- **17 Lottie animations** -- highest of any page -- used for data visualization, not decoration
+- Lottie replaces traditional charts/graphs: each lifecycle stage (design, make, use, recover, ship) gets an animated icon
+- `theme-green` -- the only page with a custom theme color beyond dark/light
+- Progress reports with 17 structured items -- structured data display pattern
+- Tile overlays with product-specific variants show environmental impact per product category
+- Plan gallery with approach/progress/description structure -- educational content hierarchy
+- At 715 KB, the largest file analyzed -- data-heavy content requires more markup
+
+#### The Animation Spectrum Across Page Types
+
+| Page Type | Representative | `data-anim` | Animation Style |
+|-----------|---------------|-------------|-----------------|
+| Developer | developer-*.html | 0 | None -- static content |
+| Shop | shop.html | 0 | CSS transitions only |
+| Services | services.html | 7 | Gallery-based interaction |
+| Environment | environment.html | 9 | Lottie data viz |
+| Accessibility | accessibility.html | 17 | Load-triggered + galleries |
+| Apple Card | apple-card.html | 47 | Scroll-linked + flip tiles |
+| Product (light) | iphone.html | 13 | Scroll-linked |
+| Product (heavy) | macbook-pro.html | 41 | Full scroll + staggered + opacity |
+
+---
+
+## 9. Grand Summary -- All 25 Pages
+
+### 9.1 Universal Patterns (Appear on ALL Pages)
+
+Every Apple page analyzed shares these foundational patterns:
+
+1. **Global Navigation** -- `r-globalnav` with flyout menus, `--r-globalnav-flyout-rate: 240ms`
+2. **Local Navigation** -- `r-localnav` with page-specific sub-navigation
+3. **Footer** -- consistent footer with legal, privacy, sitemap links
+4. **SVG `<animate>`** elements -- hamburger menu and chevron animations in nav
+5. **`transition`** CSS property -- at minimum for navigation hover states
+6. **Responsive images** -- `srcset` with multiple resolutions
+7. **`reduced-motion` awareness** -- `disabledWhen` checks or `prefers-reduced-motion` media queries
+8. **Section-based structure** -- content organized in `<section>` elements with descriptive classes
+9. **Semantic HTML** -- proper heading hierarchy, landmark roles
+10. **Lazy loading** -- `loading="lazy"` or `data-anim-lazy-image` for below-fold content
+
+### 9.2 Page Type Classification
+
+| Type | Pages | Animation Level | Layout Approach | Typography Classes |
+|------|-------|----------------|-----------------|-------------------|
+| **Product** | 13 pages (iPhone, Mac, iPad, Watch, AirPods, Vision Pro, Apple Intelligence) | Heavy (13-128 `opacity:0`, 18-44 `data-anim`, 0-114 `data-staggered`) | Vertical scroll sections, `section-hero` + feature sections, `data-anim-keyframe` scroll engine | 40+ unique per page: `typography-site-*`, `typography-modal-*`, `typography-feature-card-*` |
+| **Developer** | 7 pages (home, Swift, Xcode, Design, ML, visionOS, WWDC25) | Zero (0 `data-anim`, 0 `opacity:0`) | Tile grid (`tile tile-rounded`), card galleries (`sc-gallery`), 12-col grid | `typography-card-headline`, `typography-tile-copy`, `typography-eyebrow-reduced` |
+| **Services** | 1 page (Services/Apple One) | Light (7 `data-anim`) | Section-per-service, `DynamicGallery` | `typography-heading-*`, `typography-inline-video-caption` |
+| **Financial** | 1 page (Apple Card) | Moderate-Heavy (47 `data-anim`) | Flip-tile grid, router overview sections | `typography-tile-backface-*`, `typography-router-overview-*` |
+| **E-Commerce** | 1 page (Shop) | None (0 `data-anim`, CSS transitions only) | `rf-`/`rs-` retail framework, card scrollers, product shelves | `typography-body-tight`, `typography-body-reduced-tight` |
+| **Values** | 2 pages (Accessibility, Environment) | Moderate (9-17 `data-anim`) | `section-content-responsive`, scroll galleries, feature tiles | `typography-eyebrow-elevated`, `typography-features-*`, `typography-plan-*` |
+
+### 9.3 The Apple Animation Spectrum
+
+```
+Zero Animation          Light              Moderate            Heavy
+|                       |                  |                   |
+Developer (0)     Services (7)     Accessibility (17)    Apple Card (47)
+Shop (0)          Environment (9)  Apple Intelligence (2) MacBook Pro (41)
+                                   iPhone (13)            MacBook Neo (44)
+                                                          MacBook Air (44)
+                                                          AirPods Pro (18)
+                                                          iMac (28)
+                                                          iPad Pro (26)
+                                                          Watch Ultra (19)
+                                                          Watch S11 (23)
+                                                          Vision Pro (23)
+                                                          iPad Air (21)
+                                                          iPhone 16 Pro (13)
+```
+
+#### When to Use Which Level
+
+- **Zero**: Reference/documentation content (developer), transactional pages (shop) -- users want information, not spectacle
+- **Light (1-10)**: Service catalogs, data-heavy storytelling -- animation supports content without dominating
+- **Moderate (11-25)**: Product pages with moderate feature sets, values/mission pages -- animation enhances but content leads
+- **Heavy (25-50)**: Flagship product launches, financial products with complex features -- animation IS the storytelling medium
+
+### 9.4 Master Numbers Tables
+
+#### All Spacing Values (ps-spacing-* system, from product + values pages)
+
+| Class | Count | Pixel Value |
+|-------|-------|-------------|
+| `ps-spacing-large-120` | 11 | 120px (desktop) |
+| `ps-spacing-medium-96` | 10 | 96px (tablet) |
+| `ps-spacing-small-72` | 10 | 72px (mobile) |
+| `ps-spacing-small-8` | 8 | 8px (mobile tight) |
+| `ps-spacing-large-10` | 8 | 10px (desktop tight) |
+| `ps-spacing-medium-72` | 7 | 72px (tablet) |
+| `ps-spacing-large-80` | 7 | 80px (desktop) |
+| `ps-spacing-small-64` | 6 | 64px (mobile) |
+| `ps-spacing-small-40` | 4 | 40px (mobile) |
+| `ps-spacing-large-0` | 4 | 0px (desktop flush) |
+| `ps-spacing-medium-92` | 2 | 92px (tablet) |
+| `ps-spacing-large-112` | 2 | 112px (desktop) |
+| `ps-spacing-medium-120` | 1 | 120px (tablet) |
+| `ps-spacing-medium-100` | 1 | 100px (tablet) |
+| `ps-spacing-large-96` | 1 | 96px (desktop) |
+| `ps-spacing-large-48` | 1 | 48px (desktop) |
+| `ps-spacing-large-32` | 1 | 32px (desktop) |
+| `ps-spacing-medium-24` | 1 | 24px (tablet) |
+
+Common spacing scale: 0, 8, 10, 24, 32, 40, 48, 64, 72, 80, 92, 96, 100, 112, 120
+
+#### All Typography Classes (Top 40 across 25 pages)
+
+| Class | Total Count | Found On |
+|-------|-------------|----------|
+| `typography-inner-container-modal-copy` | 224 | Product pages |
+| `typography-utility-modal-block-body` | 187 | Product pages |
+| `typography-caption-tile` | 183 | Product pages |
+| `typography-modal-header-headline` | 113 | Product pages |
+| `typography-site-body` | 98 | Product pages |
+| `typography-modal-header-topic-label` | 95 | Product pages |
+| `typography-feature-card-label` | 88 | Product pages |
+| `typography-feature-card-headline` | 88 | Product pages |
+| `typography-icon-card-body-copy` | 68 | Product pages |
+| `typography-feature-card-body` | 60 | Product pages |
+| `typography-section-header-headline` | 59 | Product pages |
+| `typography-eyebrow-elevated` | 55 | Values + product pages |
+| `typography-index-item-base` | 54 | Product pages |
+| `typography-drawer-caption` | 51 | Product pages |
+| `typography-card-headline` | 51 | Developer pages |
+| `typography-icon-card-headline` | 50 | Product pages |
+| `typography-callout-base` | 46 | Product pages |
+| `typography-headline` | 44 | Product + developer pages |
+| `typography-caption` | 42 | All page types |
+| `typography-section-header-link` | 37 | Product pages |
+| `typography-media-card-gallery-headline` | 35 | Product pages |
+| `typography-all-access-pass-pv-item-*` | 35 | Product pages (Vision Pro) |
+| `typography-intro` | 34 | Product + values pages |
+| `typography-tile-backface-content` | 33 | Apple Card only |
+| `typography-eyebrow-reduced` | 33 | Developer pages |
+| `typography-product-tile-*` | 22-29 | Product pages |
+| `typography-site-headline-reduced` | 28 | Product pages |
+| `typography-body-tight` | 19 | Shop + environment |
+| `typography-resources-copy` | 18 | Accessibility only |
+| `typography-tout` | 10 | Environment only |
+| `typography-plan-copy` | 10 | Environment only |
+
+#### All Animation Component Types (Top 30 across 25 pages)
+
+| Component (`data-component-list`) | Count | Page Types |
+|-----------------------------------|-------|------------|
+| `Card WillChange` | 138 | Product |
+| `StaggeredFadeIn` | 135 | Product |
+| `Modal` | 114 | Product + developer |
+| `InlineMedia` | 38 | Product |
+| `InlineMediaPlugins` | 36 | Product |
+| `WordAnim` | 29 | Product |
+| `IconCardModal` | 25 | Product |
+| `InlineMediaDefault` | 19 | Product |
+| `ScrollGallery` | 17 | Product + values + environment |
+| `LottieAnimation` | 17 | Environment (all 17) |
+| `AllAccessPassL2` | 14 | Product (Vision Pro) |
+| `ScrollGallery WillChange` | 13 | Product |
+| `CaptionTileGallery StaggeredFadeIn` | 12 | Product |
+| `TriggerAnimation` | 11 | Apple Card (all 11) |
+| `ProductViewerMediaDefault` | 10 | Product |
+| `L2Modal` | 10 | Product |
+| `CardGallery` | 9 | Product |
+| `VideoGallery` | 8 | Product |
+| `InlineVideo` | 8 | Product + services |
+| `Index` | 8 | Product |
+| `DynamicGallery` | 7 | Services (all 7) |
+| `Portal` | 7 | Product |
+| `TextIconControl` | 6 | Product |
+| `SlideGallery` | 6 | Product |
+| `MediaCardGallery` | 6 | Product |
+| `GraphGalleryInitialize` | 5 | Product |
+| `FadeGallery` | 5 | Product |
+| `Welcome` | 5 | Product |
+| `HeaderReveal` | 3 | Accessibility |
+| `DrawerComponent` | 2 | Environment |
+
+#### Theme Usage Across All 25 Pages
+
+| Theme | Product Pages | Developer | Services | Apple Card | Shop | Accessibility | Environment |
+|-------|--------------|-----------|----------|------------|------|---------------|-------------|
+| `theme-dark` | Dominant | Present | 7 | 0 | 0 | 15 | 2 |
+| `theme-light` | Present | Present | 0 | 0 | 0 | 4 | 0 |
+| `theme-green` | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+
+#### Navigation Timing Constants
+
+| Property | Value | Source |
+|----------|-------|--------|
+| `--r-globalnav-flyout-rate` | 240ms | All pages |
+| `--r-globalnav-flyout-height` | auto / 388px | All pages |
+| `--r-localnav-menu-tray-natural-height` | 55-90px | Product + developer |
+| `--r-localnav-text-zoom-factor` | 0.94 | WWDC25 |
