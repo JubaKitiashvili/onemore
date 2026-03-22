@@ -173,7 +173,7 @@ def _search_csv(
             return []
 
     # Build searchable text from all fields per row
-    docs = [" ".join(v for v in row.values()) for row in rows]
+    docs = [" ".join(str(v) for v in row.values() if v is not None) for row in rows]
 
     bm25 = BM25()
     bm25.fit(docs)
