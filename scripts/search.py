@@ -198,10 +198,55 @@ def build_parser() -> argparse.ArgumentParser:
 # Main
 # ---------------------------------------------------------------------------
 
+def _handle_init(args: list[str]) -> int:
+    """Handle the 'init' subcommand for multi-platform distribution."""
+    from scripts.platforms import init_platform, list_platforms, PLATFORMS
+
+    if "--list" in args:
+        platforms = list_platforms()
+        print(f"{'Platform':<16} {'Name':<18} {'Type':<10} {'Status':<12} Path")
+        print("-" * 80)
+        for p in platforms:
+            status = "installed" if p["installed"] else "-"
+            print(f"{p['platform']:<16} {p['name']:<18} {p['type']:<10} {status:<12} {p['path']}")
+        return 0
+
+    # Find --ai value
+    ai_value = None
+    for i, arg in enumerate(args):
+        if arg == "--ai" and i + 1 < len(args):
+            ai_value = args[i + 1]
+            break
+
+    if not ai_value:
+        print("Usage: onemore init --ai <platform>[,platform,...] | --ai all | init --list")
+        print(f"Available platforms: {', '.join(sorted(PLATFORMS.keys()))}")
+        return 1
+
+    # Determine which platforms to init
+    if ai_value == "all":
+        targets = [name for name, cfg in PLATFORMS.items() if cfg["type"] == "project"]
+    else:
+        targets = [t.strip() for t in ai_value.split(",")]
+
+    for platform_name in targets:
+        result = init_platform(platform_name)
+        if "error" in result:
+            print(f"  ERROR  {platform_name}: {result['error']}")
+        else:
+            print(f"  {result['status'].upper():<18} {result['platform']:<18} {result.get('path', '')}")
+
+    return 0
+
+
 def main() -> int:
+    # Handle 'init' subcommand before argparse
+    raw_args = sys.argv[1:]
+    if raw_args and raw_args[0] == "init":
+        return _handle_init(raw_args[1:])
+
     # Use parse_known_args to allow unknown domain/stack/platform values
     # without crashing, then validate manually so we can surface helpful messages.
-    raw_args = sys.argv[1:]
     parser = build_parser()
 
     # Patch: temporarily widen domain/stack/platform to accept any string so
