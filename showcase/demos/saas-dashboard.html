@@ -380,6 +380,90 @@ body {
   margin: 0 auto;
 }
 
+/* Dashboard internal animations */
+.kpi-value {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.kpi-value.animate { opacity: 1; transform: translateY(0); }
+
+.kpi-change {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease) 0.3s;
+}
+.kpi-change.animate { opacity: 1; }
+
+.chart-svg-wrap path[stroke="#5856D6"],
+.chart-svg-wrap path[stroke="var(--accent)"] {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  transition: stroke-dashoffset 2s var(--ease);
+}
+.chart-svg-wrap.animate path[stroke="#5856D6"],
+.chart-svg-wrap.animate path[stroke="var(--accent)"] {
+  stroke-dashoffset: 0;
+}
+
+.chart-svg-wrap path[fill="url(#areaGrad)"] {
+  opacity: 0;
+  transition: opacity 1.2s var(--ease) 0.8s;
+}
+.chart-svg-wrap.animate path[fill="url(#areaGrad)"] {
+  opacity: 1;
+}
+
+.donut-ring {
+  stroke-dasharray: 0 283;
+  transition: stroke-dasharray 1.5s var(--ease) 0.5s;
+}
+.donut-ring.seg1.animate { stroke-dasharray: 184.7 255; }
+.donut-ring.seg2.animate { stroke-dasharray: 123.2 316.5; }
+.donut-ring.seg3.animate { stroke-dasharray: 79.2 360.5; }
+
+.donut-center-text {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease) 1s;
+}
+.donut-center-text.animate { opacity: 1; }
+
+.sidebar-item {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.sidebar-item.animate { opacity: 1; transform: translateX(0); }
+
+/* Deep dive dashboard animations */
+.deep-kpi-card {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.deep-kpi-card.animate { opacity: 1; transform: translateY(0); }
+
+.deep-bar {
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.8s var(--ease);
+}
+.deep-bar.animate { transform: scaleY(1); }
+
+.table-row-anim {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.table-row-anim.animate { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .kpi-value, .kpi-change, .sidebar-item, .deep-kpi-card, .table-row-anim { opacity: 1; transform: none; transition: none; }
+  .chart-svg-wrap path { stroke-dashoffset: 0 !important; opacity: 1 !important; transition: none !important; }
+  .donut-ring { stroke-dasharray: unset !important; transition: none !important; }
+  .donut-center-text { opacity: 1; transition: none; }
+  .deep-bar { transform: scaleY(1); transition: none; }
+}
+
 .hero-mockup-scale {
   transform: scale(0.95);
   transition: transform 0.8s var(--ease);
@@ -1275,17 +1359,14 @@ body {
             <div class="chart-svg-wrap" style="justify-content: center; align-items: center;">
               <svg viewBox="0 0 200 200" width="180" height="180">
                 <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="24"/>
-                <circle cx="100" cy="100" r="70" fill="none" stroke="#5856D6" stroke-width="24"
-                  stroke-dasharray="184.7 255" stroke-dashoffset="0" transform="rotate(-90 100 100)"
-                  stroke-linecap="round"/>
-                <circle cx="100" cy="100" r="70" fill="none" stroke="#a5a4f3" stroke-width="24"
-                  stroke-dasharray="123.2 316.5" stroke-dashoffset="-184.7" transform="rotate(-90 100 100)"
-                  stroke-linecap="round"/>
-                <circle cx="100" cy="100" r="70" fill="none" stroke="#32d74b" stroke-width="24"
-                  stroke-dasharray="79.2 360.5" stroke-dashoffset="-307.9" transform="rotate(-90 100 100)"
-                  stroke-linecap="round"/>
-                <text x="100" y="95" text-anchor="middle" fill="#f5f5f7" font-size="24" font-weight="700" font-family="var(--font)">2,847</text>
-                <text x="100" y="115" text-anchor="middle" fill="#86868b" font-size="11" font-family="var(--font)">Total Visitors</text>
+                <circle class="donut-ring seg1" cx="100" cy="100" r="70" fill="none" stroke="#5856D6" stroke-width="24"
+                  stroke-dasharray="0 440" transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                <circle class="donut-ring seg2" cx="100" cy="100" r="70" fill="none" stroke="#a5a4f3" stroke-width="24"
+                  stroke-dasharray="0 440" stroke-dashoffset="-184.7" transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                <circle class="donut-ring seg3" cx="100" cy="100" r="70" fill="none" stroke="#32d74b" stroke-width="24"
+                  stroke-dasharray="0 440" stroke-dashoffset="-307.9" transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                <text class="donut-center-text" x="100" y="95" text-anchor="middle" fill="#f5f5f7" font-size="24" font-weight="700" font-family="var(--font)">2,847</text>
+                <text class="donut-center-text" x="100" y="115" text-anchor="middle" fill="#86868b" font-size="11" font-family="var(--font)">Total Visitors</text>
               </svg>
             </div>
           </div>
@@ -1679,6 +1760,7 @@ class ScrollAnimator {
     }
 
     this.setupHeroAnimation();
+    this.setupDashboardAnimations();
     this.setupStaggerObservers();
     this.setupParallax();
     this.setupCounters();
@@ -1717,6 +1799,89 @@ class ScrollAnimator {
 
     // Mark hero as already revealed so observer skips it
     heroSection.dataset.revealed = 'true';
+  }
+
+  // ---- Dashboard internal animations ----
+  setupDashboardAnimations() {
+    // Hero dashboard: animate after mockup reveals (delay 1200ms from page load)
+    const heroMockup = document.querySelector('[data-hero] .dashboard-body');
+    if (heroMockup) {
+      // Sidebar items stagger
+      const sidebarItems = heroMockup.querySelectorAll('.sidebar-item');
+      sidebarItems.forEach((el, i) => {
+        setTimeout(() => el.classList.add('animate'), 1200 + i * 100);
+      });
+
+      // KPI values stagger
+      const kpiValues = heroMockup.querySelectorAll('.kpi-value');
+      kpiValues.forEach((el, i) => {
+        setTimeout(() => el.classList.add('animate'), 1400 + i * 150);
+      });
+
+      // KPI change badges
+      const kpiChanges = heroMockup.querySelectorAll('.kpi-change');
+      kpiChanges.forEach((el, i) => {
+        setTimeout(() => el.classList.add('animate'), 1800 + i * 100);
+      });
+
+      // Chart draw animation
+      const chartWraps = heroMockup.querySelectorAll('.chart-svg-wrap');
+      chartWraps.forEach((el, i) => {
+        setTimeout(() => el.classList.add('animate'), 2000 + i * 300);
+      });
+
+      // Donut segments
+      const donutRings = heroMockup.querySelectorAll('.donut-ring');
+      donutRings.forEach((el, i) => {
+        setTimeout(() => el.classList.add('animate'), 2200 + i * 200);
+      });
+
+      // Donut center text
+      const donutText = heroMockup.querySelectorAll('.donut-center-text');
+      donutText.forEach(el => {
+        setTimeout(() => el.classList.add('animate'), 2800);
+      });
+    }
+
+    // Deep dive dashboard: animate on scroll
+    const deepDive = document.querySelector('.deep-dive-mockup');
+    if (deepDive) {
+      const deepObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.dashAnimated) {
+            entry.target.dataset.dashAnimated = 'true';
+
+            // KPI cards stagger
+            const deepKpis = deepDive.querySelectorAll('.kpi-card');
+            deepKpis.forEach((el, i) => {
+              el.classList.add('deep-kpi-card');
+              setTimeout(() => el.classList.add('animate'), i * 150);
+            });
+
+            // Chart draw
+            const deepCharts = deepDive.querySelectorAll('.chart-svg-wrap');
+            deepCharts.forEach((el, i) => {
+              setTimeout(() => el.classList.add('animate'), 400 + i * 200);
+            });
+
+            // Bar chart bars
+            const deepBars = deepDive.querySelectorAll('.bar-chart rect[fill]');
+            deepBars.forEach((el, i) => {
+              el.classList.add('deep-bar');
+              setTimeout(() => el.classList.add('animate'), 600 + i * 100);
+            });
+
+            // Table rows
+            const tableRows = deepDive.querySelectorAll('tbody tr');
+            tableRows.forEach((el, i) => {
+              el.classList.add('table-row-anim');
+              setTimeout(() => el.classList.add('animate'), 800 + i * 120);
+            });
+          }
+        });
+      }, { threshold: 0.15 });
+      deepObserver.observe(deepDive);
+    }
   }
 
   // ---- Stagger observers for scroll-triggered sections ----
