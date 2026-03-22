@@ -5,1103 +5,676 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flowstate — Focus on What Matters</title>
 <style>
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --text-primary: #1d1d1f;
-  --text-secondary: #86868b;
-  --text-tertiary: #aeaeb2;
-  --bg-primary: #fbfbfd;
-  --bg-card: #ffffff;
-  --bg-card-alt: #f5f5f7;
-  --border-color: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.12);
-  --nav-bg: rgba(251, 251, 253, 0.72);
-  --accent: #007AFF;
-  --accent-hover: #0062cc;
-  --accent-light: rgba(0, 122, 255, 0.1);
-  --success: #34C759;
-  --success-light: rgba(52, 199, 89, 0.1);
-  --destructive: #FF3B30;
-  --warning: #FF9F0A;
-  --purple: #AF52DE;
-  --orange: #FF9500;
-  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
-  --radius-btn: 12px;
-  --radius-card: 20px;
-  --radius-card-lg: 24px;
-}
-
-@media (prefers-color-scheme: dark) {
   :root {
-    --text-primary: #f5f5f7;
+    --accent: #007AFF;
+    --accent-light: #34AADC;
+    --text-primary: #1d1d1f;
     --text-secondary: #86868b;
-    --text-tertiary: #636366;
-    --bg-primary: #000000;
-    --bg-card: #1c1c1e;
-    --bg-card-alt: #2c2c2e;
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.12);
-    --nav-bg: rgba(0, 0, 0, 0.72);
-    --accent-light: rgba(0, 122, 255, 0.18);
-    --success-light: rgba(52, 199, 89, 0.15);
+    --bg: #fbfbfd;
+    --bg-alt: #000;
+    --card-bg: #fff;
+    --card-border: rgba(0,0,0,0.07);
+    --card-radius: 22px;
+    --btn-radius: 12px;
+    --section-pad: 120px;
+    --max-text: 980px;
+    --max-cards: 1200px;
   }
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  font-family: var(--font-stack);
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.47059;
-  letter-spacing: -0.022em;
-  overflow-x: hidden;
-}
-
-/* NAV */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  background: var(--nav-bg);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 0.5px solid var(--border-color);
-  height: 52px;
-}
-
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: -0.03em;
-  margin-right: auto;
-}
-
-.nav-logo-icon {
-  width: 28px; height: 28px;
-  background: var(--accent);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-
-.nav-logo-icon::after {
-  content: '';
-  width: 12px; height: 12px;
-  border: 2.5px solid #fff;
-  border-radius: 3px;
-  transform: rotate(45deg);
-}
-
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.3s var(--ease-apple);
-}
-
-.nav-links a:hover { color: var(--text-primary); }
-
-.nav-cta {
-  margin-left: 32px;
-  background: var(--accent);
-  color: #fff !important;
-  padding: 8px 20px;
-  border-radius: var(--radius-btn);
-  font-weight: 600;
-  font-size: 13px;
-  transition: background 0.3s var(--ease-apple), transform 0.2s var(--ease-apple);
-}
-
-.nav-cta:hover { background: var(--accent-hover); transform: scale(1.04); }
-
-/* SECTIONS */
-section {
-  padding: 100px 24px;
-}
-
-.section-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 12px;
-}
-
-.section-title {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.08;
-  margin-bottom: 16px;
-}
-
-.section-subtitle {
-  font-size: 21px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-  max-width: 600px;
-}
-
-/* FADE-IN */
-.fade-in {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s var(--ease-apple), transform 0.7s var(--ease-apple);
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* HERO */
-.hero {
-  padding-top: 160px;
-  padding-bottom: 80px;
-  text-align: center;
-}
-
-.hero .section-title {
-  font-size: 64px;
-  max-width: 700px;
-  margin: 0 auto 20px;
-}
-
-.hero .section-subtitle {
-  max-width: 520px;
-  margin: 0 auto 48px;
-}
-
-.hero-cta-row {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-bottom: 64px;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 14px 32px;
-  border-radius: var(--radius-btn);
-  font-size: 16px;
-  font-weight: 600;
-  font-family: var(--font-stack);
-  cursor: pointer;
-  transition: background 0.3s var(--ease-apple), transform 0.2s var(--ease-apple);
-}
-
-.btn-primary:hover { background: var(--accent-hover); transform: scale(1.04); }
-
-.btn-secondary {
-  background: var(--bg-card-alt);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  padding: 14px 32px;
-  border-radius: var(--radius-btn);
-  font-size: 16px;
-  font-weight: 600;
-  font-family: var(--font-stack);
-  cursor: pointer;
-  transition: background 0.3s var(--ease-apple), transform 0.2s var(--ease-apple);
-}
-
-.btn-secondary:hover { transform: scale(1.04); }
-
-/* TASK LIST MOCKUP */
-.task-mockup {
-  max-width: 520px;
-  margin: 0 auto;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card-lg);
-  padding: 24px;
-  text-align: left;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-}
-
-.task-mockup-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.task-mockup-title {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.task-mockup-count {
-  font-size: 13px;
-  color: var(--text-secondary);
-  background: var(--bg-card-alt);
-  padding: 4px 12px;
-  border-radius: 20px;
-}
-
-.task-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.task-item:last-child { border-bottom: none; }
-
-.task-checkbox {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  border: 2px solid var(--border-strong);
-  flex-shrink: 0;
-  transition: all 0.3s var(--ease-apple);
-  position: relative;
-}
-
-.task-checkbox.checked {
-  background: var(--success);
-  border-color: var(--success);
-}
-
-.task-checkbox.checked::after {
-  content: '';
-  position: absolute;
-  top: 4px; left: 6px;
-  width: 6px; height: 10px;
-  border: 2px solid #fff;
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg);
-}
-
-.task-info { flex: 1; }
-
-.task-name {
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.task-name.done {
-  text-decoration: line-through;
-  color: var(--text-tertiary);
-}
-
-.task-due {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
-
-.priority-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.priority-high { background: var(--destructive); }
-.priority-medium { background: var(--warning); }
-.priority-low { background: var(--accent); }
-
-/* KANBAN */
-.kanban-section {
-  background: var(--bg-card-alt);
-}
-
-.kanban-board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 48px;
-}
-
-@media (max-width: 768px) {
-  .kanban-board { grid-template-columns: 1fr; }
-}
-
-.kanban-column {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: 20px;
-}
-
-.kanban-col-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.kanban-col-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-}
-
-.kanban-col-name {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.kanban-col-count {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-left: auto;
-  background: var(--bg-card-alt);
-  padding: 2px 8px;
-  border-radius: 12px;
-}
-
-.kanban-card {
-  background: var(--bg-card-alt);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 10px;
-  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
-  cursor: grab;
-}
-
-.kanban-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-}
-
-.kanban-card:last-child { margin-bottom: 0; }
-
-.kanban-card-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.kanban-card-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.kanban-tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 8px;
-  border-radius: 6px;
-  background: var(--accent-light);
-  color: var(--accent);
-}
-
-.kanban-tag.green {
-  background: var(--success-light);
-  color: var(--success);
-}
-
-.kanban-tag.purple {
-  background: rgba(175, 82, 222, 0.1);
-  color: var(--purple);
-}
-
-.kanban-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.kanban-avatar {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-}
-
-.kanban-due {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-left: auto;
-}
-
-/* FEATURES ROW */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 48px;
-}
-
-@media (max-width: 768px) {
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-.feature-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: 28px 24px;
-  text-align: center;
-  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
-}
-
-.feature-icon {
-  width: 48px; height: 48px;
-  border-radius: 14px;
-  margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-}
-
-.feature-card h3 {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-
-.feature-card p {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-/* INTEGRATIONS */
-.integrations-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
-  margin-top: 48px;
-}
-
-@media (max-width: 768px) {
-  .integrations-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.integration-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 28px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
-}
-
-.integration-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
-}
-
-.integration-icon {
-  width: 48px; height: 48px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-
-.integration-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* PRICING */
-.pricing-section { text-align: center; }
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 720px;
-  margin: 48px auto 0;
-}
-
-@media (max-width: 600px) {
-  .pricing-grid { grid-template-columns: 1fr; }
-}
-
-.pricing-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card-lg);
-  padding: 36px 28px;
-  text-align: left;
-  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
-}
-
-.pricing-card.featured {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-  position: relative;
-}
-
-.pricing-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-}
-
-.pricing-badge {
-  position: absolute;
-  top: -12px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 16px;
-  border-radius: 20px;
-}
-
-.pricing-plan {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 4px;
-}
-
-.pricing-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-}
-
-.pricing-amount {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  margin-bottom: 4px;
-}
-
-.pricing-period {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-
-.pricing-features {
-  list-style: none;
-  margin-bottom: 28px;
-}
-
-.pricing-features li {
-  font-size: 14px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pricing-features li:last-child { border-bottom: none; }
-
-.check-icon {
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  background: var(--success-light);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-
-.check-icon::after {
-  content: '';
-  width: 5px; height: 9px;
-  border: 1.5px solid var(--success);
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg) translate(-0.5px, -0.5px);
-}
-
-.pricing-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: var(--radius-btn);
-  font-size: 15px;
-  font-weight: 600;
-  font-family: var(--font-stack);
-  cursor: pointer;
-  transition: all 0.3s var(--ease-apple);
-  border: none;
-}
-
-.pricing-btn.primary {
-  background: var(--accent);
-  color: #fff;
-}
-
-.pricing-btn.primary:hover { background: var(--accent-hover); }
-
-.pricing-btn.secondary {
-  background: var(--bg-card-alt);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-/* CTA */
-.cta-section {
-  text-align: center;
-  background: var(--bg-card-alt);
-}
-
-.cta-section .section-title {
-  margin-bottom: 16px;
-}
-
-.cta-section .section-subtitle {
-  margin: 0 auto 32px;
-}
-
-/* FOOTER */
-.footer {
-  padding: 48px 24px;
-  border-top: 1px solid var(--border-color);
-  text-align: center;
-}
-
-.footer-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-text {
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-
-.footer-links {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-}
-
-.footer-links a {
-  font-size: 13px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.3s var(--ease-apple);
-}
-
-.footer-links a:hover { color: var(--text-primary); }
-
-@media (max-width: 600px) {
-  .hero .section-title { font-size: 40px; }
-  .section-title { font-size: 36px; }
-  .footer-inner { flex-direction: column; gap: 16px; }
-  .nav-links { display: none; }
-}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-primary: #f5f5f7;
+      --bg: #000;
+      --bg-alt: #111113;
+      --card-bg: #1c1c1e;
+      --card-border: rgba(255,255,255,0.07);
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 52px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    background: rgba(251,251,253,0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    nav { background: rgba(0,0,0,0.72); border-bottom-color: rgba(255,255,255,0.08); }
+  }
+  .nav-brand {
+    font-size: 18px; font-weight: 700; letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta {
+    background: var(--accent); color: #fff; border: none; cursor: pointer;
+    padding: 8px 18px; border-radius: var(--btn-radius); font-size: 14px; font-weight: 500;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 120px 24px 80px; background: var(--bg);
+  }
+  .hero-inner {
+    max-width: var(--max-cards); margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  @media (max-width: 768px) { .hero-inner { grid-template-columns: 1fr; } }
+
+  .hero-content { max-width: 500px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,122,255,0.1); border: 1px solid rgba(0,122,255,0.2);
+    color: var(--accent); padding: 6px 14px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; margin-bottom: 28px;
+    opacity: 0; transform: translateY(30px);
+  }
+  h1 {
+    font-size: clamp(40px, 5vw, 68px); font-weight: 700;
+    letter-spacing: -2px; line-height: 1.04; margin-bottom: 20px;
+    opacity: 0; transform: translateY(30px);
+  }
+  .hero-sub {
+    font-size: 19px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px;
+    opacity: 0; transform: translateY(30px);
+  }
+  .hero-ctas {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    opacity: 0; transform: translateY(30px);
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff; border: none; cursor: pointer;
+    padding: 14px 26px; border-radius: var(--btn-radius); font-size: 16px; font-weight: 500;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,122,255,0.35);
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,122,255,0.45); }
+  .btn-ghost {
+    background: transparent; color: var(--accent); border: 1.5px solid var(--accent); cursor: pointer;
+    padding: 14px 26px; border-radius: var(--btn-radius); font-size: 16px; font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(0,122,255,0.08); transform: translateY(-2px); }
+
+  /* TASK MOCKUP */
+  .task-mockup {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 20px; padding: 28px; box-shadow: 0 24px 80px rgba(0,0,0,0.12);
+    opacity: 0; transform: translateY(30px);
+    max-width: 420px;
+  }
+  .mockup-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+  }
+  .mockup-title { font-size: 15px; font-weight: 600; }
+  .mockup-badge {
+    background: rgba(0,122,255,0.1); color: var(--accent);
+    font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px;
+  }
+  .task-item {
+    display: flex; align-items: center; gap: 14px; padding: 12px 0;
+    border-bottom: 1px solid var(--card-border); cursor: pointer;
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-check {
+    width: 22px; height: 22px; border-radius: 50%; border: 2px solid #d2d2d7;
+    flex-shrink: 0; position: relative; transition: all 0.2s; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .task-check.done { background: var(--accent); border-color: var(--accent); }
+  .task-check.done::after {
+    content: ''; width: 10px; height: 6px;
+    border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translateY(-1px); display: block;
+  }
+  .task-text { font-size: 14px; flex: 1; }
+  .task-text.strikethrough { text-decoration: line-through; color: var(--text-secondary); }
+  .priority-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .p-high { background: #FF3B30; }
+  .p-med { background: #FF9500; }
+  .p-low { background: #34C759; }
+
+  /* SECTIONS */
+  section { padding: var(--section-pad) 24px; }
+  .section-inner { max-width: var(--max-text); margin: 0 auto; }
+  .section-inner-wide { max-width: var(--max-cards); margin: 0 auto; }
+  .section-tag {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+    opacity: 0; transform: translateY(30px);
+  }
+  .section-headline {
+    font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.08;
+    margin-bottom: 18px; opacity: 0; transform: translateY(30px);
+  }
+  .section-sub {
+    font-size: 19px; color: var(--text-secondary); line-height: 1.6; max-width: 600px;
+    opacity: 0; transform: translateY(30px);
+  }
+
+  /* KANBAN */
+  .kanban-section { background: var(--bg-alt); }
+  @media (prefers-color-scheme: dark) { .kanban-section { background: #0a0a0c; } }
+  .kanban-section .section-headline { color: #f5f5f7; }
+  .kanban-section .section-tag, .kanban-section .section-sub { color: var(--accent); }
+  .kanban-section .section-sub { color: #86868b; }
+
+  .kanban-board {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-top: 56px;
+  }
+  @media (max-width: 640px) { .kanban-board { grid-template-columns: 1fr; } }
+  .kanban-col {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px; padding: 20px;
+    opacity: 0; transform: translateY(30px);
+  }
+  .kanban-col-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+  }
+  .kanban-col-title { font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .kanban-count {
+    background: rgba(255,255,255,0.08); color: #86868b;
+    font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 100px;
+  }
+  .kanban-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 14px; margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
+  }
+  .kanban-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .kanban-card:last-child { margin-bottom: 0; }
+  .kcard-tag {
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px;
+    margin-bottom: 8px; display: inline-block;
+  }
+  .kcard-title { font-size: 14px; font-weight: 500; color: #f5f5f7; margin-bottom: 10px; line-height: 1.4; }
+  .kcard-meta { display: flex; align-items: center; justify-content: space-between; }
+  .kcard-due { font-size: 12px; color: #86868b; }
+  .kcard-avatar {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;
+    margin-top: 56px;
+  }
+  .feature-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: var(--card-radius); padding: 32px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    opacity: 0; transform: translateY(30px); cursor: pointer;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: rgba(0,122,255,0.1); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .feature-card h3 { font-size: 19px; font-weight: 600; margin-bottom: 10px; }
+  .feature-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* INTEGRATIONS */
+  .integrations-section { background: var(--bg-alt); }
+  @media (prefers-color-scheme: dark) { .integrations-section { background: #0a0a0c; } }
+  .integrations-section .section-headline { color: #f5f5f7; }
+  .integrations-section .section-tag { color: var(--accent); }
+  .integrations-section .section-sub { color: #86868b; }
+
+  .integrations-grid {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-top: 56px;
+  }
+  .integration-chip {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 16px 24px;
+    transition: transform 0.2s, background 0.2s; cursor: pointer;
+    opacity: 0; transform: translateY(30px);
+  }
+  .integration-chip:hover { transform: translateY(-4px); background: rgba(255,255,255,0.1); }
+  .int-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .int-name { font-size: 15px; font-weight: 600; color: #f5f5f7; }
+  .int-type { font-size: 12px; color: #86868b; }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
+    margin-top: 56px; max-width: 640px;
+  }
+  .pricing-card {
+    border-radius: var(--card-radius); padding: 36px 32px;
+    border: 1px solid var(--card-border); background: var(--card-bg);
+    opacity: 0; transform: translateY(30px); transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+  .pricing-card.featured {
+    background: var(--accent); border-color: var(--accent);
+    box-shadow: 0 8px 40px rgba(0,122,255,0.35);
+  }
+  .plan-name { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .pricing-card.featured .plan-name { color: rgba(255,255,255,0.7); }
+  .plan-price { font-size: 52px; font-weight: 700; letter-spacing: -2px; margin-bottom: 6px; }
+  .pricing-card.featured .plan-price { color: #fff; }
+  .plan-price span { font-size: 20px; vertical-align: super; margin-right: 2px; }
+  .plan-period { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; }
+  .pricing-card.featured .plan-period { color: rgba(255,255,255,0.6); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .plan-features li { font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .pricing-card.featured .plan-features li { color: #fff; }
+  .check-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* DOWNLOAD CTA */
+  .cta-section { background: linear-gradient(135deg, #007AFF 0%, #34AADC 100%); text-align: center; }
+  .cta-section h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -1.5px; color: #fff; margin-bottom: 20px; opacity: 0; transform: translateY(30px); }
+  .cta-section p { font-size: 19px; color: rgba(255,255,255,0.75); margin-bottom: 40px; opacity: 0; transform: translateY(30px); }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0; transform: translateY(30px); }
+  .btn-white {
+    background: #fff; color: var(--accent); border: none; cursor: pointer;
+    padding: 14px 28px; border-radius: var(--btn-radius); font-size: 16px; font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+  .btn-outline-white {
+    background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.6); cursor: pointer;
+    padding: 14px 28px; border-radius: var(--btn-radius); font-size: 16px; font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+  footer {
+    background: #000; color: #86868b; text-align: center;
+    padding: 48px 24px; font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand { font-size: 18px; font-weight: 700; color: #007AFF; margin-bottom: 8px; }
+
+  .animate-ready { opacity: 0; transform: translateY(30px); }
+  .animate-in {
+    opacity: 1 !important; transform: translateY(0) !important;
+    transition: opacity 0.6s cubic-bezier(0.25,0.1,0.25,1), transform 0.6s cubic-bezier(0.25,0.1,0.25,1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .animate-ready { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon"></div>
-      Flowstate
-    </a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#integrations">Integrations</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#download" class="nav-cta">Download</a></li>
-    </ul>
-  </div>
+<nav>
+  <div class="nav-brand">Flowstate</div>
+  <ul class="nav-links">
+    <li><a href="#">Features</a></li>
+    <li><a href="#">Boards</a></li>
+    <li><a href="#">Integrations</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <button class="nav-cta">Get Free</button>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="section-inner fade-in">
-    <div class="section-label">Task Management</div>
-    <h1 class="section-title">Focus on What Matters</h1>
-    <p class="section-subtitle">A beautiful, distraction-free task manager designed for the way you actually work. Plan, prioritize, and accomplish.</p>
-    <div class="hero-cta-row">
-      <button class="btn-primary">Download Free</button>
-      <button class="btn-secondary">See Features</button>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag" id="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Built for deep work
+      </div>
+      <h1 id="hero-h1">Focus on What Matters</h1>
+      <p class="hero-sub" id="hero-sub">The task manager that gets out of your way. Smart lists, kanban boards, and AI prioritization — so you can stay in flow.</p>
+      <div class="hero-ctas" id="hero-ctas">
+        <button class="btn-primary">Start for Free</button>
+        <button class="btn-ghost">See How It Works</button>
+      </div>
     </div>
-
-    <div class="task-mockup">
-      <div class="task-mockup-header">
-        <span class="task-mockup-title">Today</span>
-        <span class="task-mockup-count">6 tasks</span>
+    <div class="task-mockup" id="hero-visual">
+      <div class="mockup-header">
+        <span class="mockup-title">Today's Focus</span>
+        <span class="mockup-badge">8 tasks</span>
       </div>
-      <div class="task-item">
-        <div class="task-checkbox checked"></div>
-        <div class="task-info">
-          <div class="task-name done">Review design system updates</div>
-          <div class="task-due">Completed at 9:15 AM</div>
-        </div>
-        <div class="priority-dot priority-high"></div>
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-check done"></div>
+        <span class="task-text strikethrough">Review product roadmap</span>
+        <span class="priority-dot p-high"></span>
       </div>
-      <div class="task-item">
-        <div class="task-checkbox checked"></div>
-        <div class="task-info">
-          <div class="task-name done">Send weekly report</div>
-          <div class="task-due">Completed at 10:30 AM</div>
-        </div>
-        <div class="priority-dot priority-medium"></div>
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-check done"></div>
+        <span class="task-text strikethrough">Send weekly report</span>
+        <span class="priority-dot p-med"></span>
       </div>
-      <div class="task-item">
-        <div class="task-checkbox"></div>
-        <div class="task-info">
-          <div class="task-name">Prepare presentation deck</div>
-          <div class="task-due">Due at 2:00 PM</div>
-        </div>
-        <div class="priority-dot priority-high"></div>
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-check"></div>
+        <span class="task-text">Design system audit</span>
+        <span class="priority-dot p-high"></span>
       </div>
-      <div class="task-item">
-        <div class="task-checkbox"></div>
-        <div class="task-info">
-          <div class="task-name">Code review: Auth module</div>
-          <div class="task-due">Due at 4:00 PM</div>
-        </div>
-        <div class="priority-dot priority-medium"></div>
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-check"></div>
+        <span class="task-text">Write Q1 OKRs</span>
+        <span class="priority-dot p-med"></span>
       </div>
-      <div class="task-item">
-        <div class="task-checkbox"></div>
-        <div class="task-info">
-          <div class="task-name">Schedule team standup</div>
-          <div class="task-due">Due at 5:00 PM</div>
-        </div>
-        <div class="priority-dot priority-low"></div>
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-check"></div>
+        <span class="task-text">1:1 with engineering lead</span>
+        <span class="priority-dot p-low"></span>
       </div>
-      <div class="task-item">
-        <div class="task-checkbox"></div>
-        <div class="task-info">
-          <div class="task-name">Update project roadmap</div>
-          <div class="task-due">Due tomorrow</div>
-        </div>
-        <div class="priority-dot priority-low"></div>
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-check"></div>
+        <span class="task-text">Update API documentation</span>
+        <span class="priority-dot p-low"></span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES / KANBAN -->
-<section class="kanban-section" id="features">
-  <div class="section-inner">
-    <div class="fade-in" style="text-align:center;">
-      <div class="section-label">Features</div>
-      <h2 class="section-title">Organize your way</h2>
-      <p class="section-subtitle" style="margin:0 auto;">Boards, lists, calendars, and tags. Flowstate adapts to your workflow, not the other way around.</p>
+<section class="kanban-section" style="padding: var(--section-pad) 24px;">
+  <div class="section-inner-wide">
+    <div class="section-inner">
+      <div class="section-tag animate-ready">Boards</div>
+      <h2 class="section-headline animate-ready" style="color: #f5f5f7;">Your Work, Visualized</h2>
+      <p class="section-sub animate-ready">Drag, drop, and organize with kanban boards that keep your whole team in sync.</p>
     </div>
-
-    <div class="kanban-board fade-in">
-      <!-- To Do -->
-      <div class="kanban-column">
+    <div class="kanban-board">
+      <div class="kanban-col animate-ready">
         <div class="kanban-col-header">
-          <div class="kanban-col-dot" style="background:var(--accent)"></div>
-          <span class="kanban-col-name">To Do</span>
-          <span class="kanban-col-count">3</span>
+          <span class="kanban-col-title">To Do</span>
+          <span class="kanban-count">4</span>
         </div>
         <div class="kanban-card">
-          <div class="kanban-card-title">Design landing page</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag">Design</span>
-            <span class="kanban-tag purple">High</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar"></div>
-            <span class="kanban-due">Mar 25</span>
-          </div>
+          <div class="kcard-tag" style="background: rgba(255,149,0,0.15); color: #FF9500;">Design</div>
+          <div class="kcard-title">Redesign onboarding flow</div>
+          <div class="kcard-meta"><span class="kcard-due">Mar 28</span><div class="kcard-avatar">K</div></div>
         </div>
         <div class="kanban-card">
-          <div class="kanban-card-title">Write API docs</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag green">Docs</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)"></div>
-            <span class="kanban-due">Mar 28</span>
-          </div>
+          <div class="kcard-tag" style="background: rgba(175,82,222,0.15); color: #AF52DE;">Research</div>
+          <div class="kcard-title">Competitive analysis for Q2</div>
+          <div class="kcard-meta"><span class="kcard-due">Apr 2</span><div class="kcard-avatar" style="background: #FF9500;">M</div></div>
         </div>
         <div class="kanban-card">
-          <div class="kanban-card-title">Set up CI/CD pipeline</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag">DevOps</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"></div>
-            <span class="kanban-due">Apr 1</span>
-          </div>
+          <div class="kcard-tag" style="background: rgba(0,122,255,0.15); color: #007AFF;">Dev</div>
+          <div class="kcard-title">API rate limiting implementation</div>
+          <div class="kcard-meta"><span class="kcard-due">Apr 5</span><div class="kcard-avatar" style="background: #34C759;">J</div></div>
         </div>
       </div>
-
-      <!-- In Progress -->
-      <div class="kanban-column">
+      <div class="kanban-col animate-ready">
         <div class="kanban-col-header">
-          <div class="kanban-col-dot" style="background:var(--warning)"></div>
-          <span class="kanban-col-name">In Progress</span>
-          <span class="kanban-col-count">2</span>
+          <span class="kanban-col-title">In Progress</span>
+          <span class="kanban-count">3</span>
         </div>
         <div class="kanban-card">
-          <div class="kanban-card-title">Build auth flow</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag">Engineering</span>
-            <span class="kanban-tag purple">Urgent</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"></div>
-            <span class="kanban-due">Mar 22</span>
-          </div>
+          <div class="kcard-tag" style="background: rgba(0,122,255,0.15); color: #007AFF;">Dev</div>
+          <div class="kcard-title">Dark mode support for dashboard</div>
+          <div class="kcard-meta"><span class="kcard-due">Mar 25</span><div class="kcard-avatar">A</div></div>
+        </div>
+        <div class="kanban-card" style="border-left: 3px solid #FF3B30;">
+          <div class="kcard-tag" style="background: rgba(255,59,48,0.15); color: #FF3B30;">Urgent</div>
+          <div class="kcard-title">Fix payment flow regression</div>
+          <div class="kcard-meta"><span class="kcard-due" style="color: #FF3B30;">Today</span><div class="kcard-avatar" style="background: #FF3B30;">S</div></div>
         </div>
         <div class="kanban-card">
-          <div class="kanban-card-title">User research interviews</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag green">Research</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar"></div>
-            <span class="kanban-due">Mar 24</span>
-          </div>
+          <div class="kcard-tag" style="background: rgba(52,199,89,0.15); color: #34C759;">Content</div>
+          <div class="kcard-title">Write changelog for v2.4</div>
+          <div class="kcard-meta"><span class="kcard-due">Mar 26</span><div class="kcard-avatar" style="background: #AF52DE;">L</div></div>
         </div>
       </div>
-
-      <!-- Done -->
-      <div class="kanban-column">
+      <div class="kanban-col animate-ready">
         <div class="kanban-col-header">
-          <div class="kanban-col-dot" style="background:var(--success)"></div>
-          <span class="kanban-col-name">Done</span>
-          <span class="kanban-col-count">2</span>
+          <span class="kanban-col-title">Done</span>
+          <span class="kanban-count">5</span>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">Project kickoff meeting</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag green">Complete</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar" style="background:linear-gradient(135deg,#fa709a,#fee140)"></div>
-            <span class="kanban-due">Mar 18</span>
-          </div>
+        <div class="kanban-card" style="opacity: 0.6;">
+          <div class="kcard-tag" style="background: rgba(52,199,89,0.12); color: #34C759;">Completed</div>
+          <div class="kcard-title" style="text-decoration: line-through; color: #86868b;">Mobile app v2.3 release</div>
+          <div class="kcard-meta"><span class="kcard-due">Mar 20</span><div class="kcard-avatar" style="background: #34C759;">R</div></div>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">Set up Flowstate workspace</div>
-          <div class="kanban-card-tags">
-            <span class="kanban-tag green">Complete</span>
-          </div>
-          <div class="kanban-card-meta">
-            <div class="kanban-avatar" style="background:linear-gradient(135deg,#667eea,#764ba2)"></div>
-            <span class="kanban-due">Mar 17</span>
-          </div>
+        <div class="kanban-card" style="opacity: 0.6;">
+          <div class="kcard-tag" style="background: rgba(52,199,89,0.12); color: #34C759;">Completed</div>
+          <div class="kcard-title" style="text-decoration: line-through; color: #86868b;">User interview synthesis</div>
+          <div class="kcard-meta"><span class="kcard-due">Mar 18</span><div class="kcard-avatar">K</div></div>
+        </div>
+        <div class="kanban-card" style="opacity: 0.6;">
+          <div class="kcard-tag" style="background: rgba(52,199,89,0.12); color: #34C759;">Completed</div>
+          <div class="kcard-title" style="text-decoration: line-through; color: #86868b;">Q1 retrospective doc</div>
+          <div class="kcard-meta"><span class="kcard-due">Mar 15</span><div class="kcard-avatar" style="background: #AF52DE;">M</div></div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Sub-features -->
-    <div class="features-grid fade-in" style="margin-top:64px;">
-      <div class="feature-card">
-        <div class="feature-icon" style="background:var(--accent-light);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2" stroke="var(--accent)" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="2" stroke="var(--accent)" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="2" stroke="var(--accent)" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="2" stroke="var(--accent)" stroke-width="2"/></svg>
+<section style="background: var(--bg); padding: var(--section-pad) 24px;">
+  <div class="section-inner-wide">
+    <div class="section-inner">
+      <div class="section-tag animate-ready">Features</div>
+      <h2 class="section-headline animate-ready">Everything You Need</h2>
+      <p class="section-sub animate-ready">Powerful tools that adapt to your workflow — not the other way around.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card animate-ready">
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         </div>
-        <h3>Kanban Boards</h3>
-        <p>Drag and drop tasks across columns to visualize your workflow.</p>
+        <h3>Smart Boards</h3>
+        <p>Kanban, list, or calendar view. Switch instantly and your tasks follow you wherever you work best.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:rgba(175,82,222,0.1);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="feature-card animate-ready">
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
         </div>
         <h3>Smart Lists</h3>
-        <p>Auto-sort tasks by priority, due date, or custom filters.</p>
+        <p>AI automatically prioritizes your tasks based on deadlines, dependencies, and your work patterns.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:rgba(255,149,0,0.1);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" stroke="var(--orange)" stroke-width="2"/><circle cx="16" cy="8" r="3" stroke="var(--orange)" stroke-width="2"/><circle cx="12" cy="16" r="3" stroke="var(--orange)" stroke-width="2"/></svg>
+      <div class="feature-card animate-ready">
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
         </div>
-        <h3>Tags</h3>
-        <p>Color-code and categorize tasks with flexible tag system.</p>
+        <h3>Tags &amp; Labels</h3>
+        <p>Color-code projects, filter instantly, and find anything in seconds with a powerful tag system.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon" style="background:var(--success-light);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" stroke="var(--success)" stroke-width="2"/><path d="M3 10h18M8 4v4M16 4v4" stroke="var(--success)" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="feature-card animate-ready">
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
-        <h3>Calendar View</h3>
-        <p>See all deadlines at a glance with integrated calendar.</p>
+        <h3>Calendar Sync</h3>
+        <p>Two-way sync with Google Calendar and Apple Calendar. Your schedule and tasks, unified in one view.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INTEGRATIONS -->
-<section id="integrations">
+<section class="integrations-section" style="padding: var(--section-pad) 24px;">
+  <div class="section-inner-wide">
+    <div class="section-inner">
+      <div class="section-tag animate-ready">Integrations</div>
+      <h2 class="section-headline animate-ready" style="color: #f5f5f7;">Works With Your Stack</h2>
+      <p class="section-sub animate-ready">Connect your favorite tools in seconds. No more tab switching.</p>
+    </div>
+    <div class="integrations-grid">
+      <div class="integration-chip animate-ready">
+        <div class="int-icon" style="background: rgba(74,144,226,0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div><div class="int-name">Slack</div><div class="int-type">Messaging</div></div>
+      </div>
+      <div class="integration-chip animate-ready">
+        <div class="int-icon" style="background: rgba(234,67,53,0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </div>
+        <div><div class="int-name">Gmail</div><div class="int-type">Email</div></div>
+      </div>
+      <div class="integration-chip animate-ready">
+        <div class="int-icon" style="background: rgba(0,78,230,0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004EE6" stroke-width="2" stroke-linecap="round"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div><div class="int-name">Notion</div><div class="int-type">Docs</div></div>
+      </div>
+      <div class="integration-chip animate-ready">
+        <div class="int-icon" style="background: rgba(255,149,0,0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF9500" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div><div class="int-name">Asana</div><div class="int-type">Projects</div></div>
+      </div>
+      <div class="integration-chip animate-ready">
+        <div class="int-icon" style="background: rgba(36,41,47,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f5f5f7" stroke-width="2" stroke-linecap="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </div>
+        <div><div class="int-name">GitHub</div><div class="int-type">Code</div></div>
+      </div>
+      <div class="integration-chip animate-ready">
+        <div class="int-icon" style="background: rgba(0,122,255,0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div><div class="int-name">Calendar</div><div class="int-type">Scheduling</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--bg); padding: var(--section-pad) 24px;">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;">
-      <div class="section-label">Integrations</div>
-      <h2 class="section-title">Works with everything</h2>
-      <p class="section-subtitle" style="margin:0 auto;">Flowstate connects to the tools you already use, so nothing falls through the cracks.</p>
-    </div>
-
-    <div class="integrations-grid fade-in">
-      <div class="integration-item">
-        <div class="integration-icon" style="background:rgba(255,59,48,0.1);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#FF3B30" stroke-width="2"/><path d="M3 10h18M8 4v4M16 4v4" stroke="#FF3B30" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="integration-name">Calendar</span>
+    <div class="section-tag animate-ready">Pricing</div>
+    <h2 class="section-headline animate-ready">Free to Start, Powerful to Scale</h2>
+    <p class="section-sub animate-ready">No credit card required. Upgrade when your team is ready.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card animate-ready">
+        <div class="plan-name">Personal</div>
+        <div class="plan-price"><span></span>$0</div>
+        <div class="plan-period">forever free</div>
+        <ul class="plan-features">
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>5 boards</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Basic views</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>2 integrations</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Mobile app</li>
+        </ul>
+        <button class="btn-ghost" style="width: 100%;">Get Started</button>
       </div>
-      <div class="integration-item">
-        <div class="integration-icon" style="background:var(--accent-light);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3" stroke="var(--accent)" stroke-width="2"/><path d="M3 8l9 5 9-5" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="integration-name">Mail</span>
-      </div>
-      <div class="integration-item">
-        <div class="integration-icon" style="background:rgba(255,204,0,0.1);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" stroke="#FFCC00" stroke-width="2"/><path d="M8 8h8M8 12h6M8 16h4" stroke="#FFCC00" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="integration-name">Notes</span>
-      </div>
-      <div class="integration-item">
-        <div class="integration-icon" style="background:rgba(175,82,222,0.1);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" stroke="var(--purple)" stroke-width="2"/><path d="M8 10v4l3-2-3-2zM14 10h2M14 14h2" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="integration-name">Slack</span>
-      </div>
-      <div class="integration-item">
-        <div class="integration-icon" style="background:rgba(0,0,0,0.06);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="var(--text-primary)" stroke-width="2"/><path d="M12 7v5l3 3" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="integration-name">GitHub</span>
-      </div>
-      <div class="integration-item">
-        <div class="integration-icon" style="background:rgba(0,0,0,0.06);">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3" stroke="var(--text-primary)" stroke-width="2"/><path d="M9 4v16M4 9h5" stroke="var(--text-primary)" stroke-width="2"/></svg>
-        </div>
-        <span class="integration-name">Notion</span>
+      <div class="pricing-card featured animate-ready">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price"><span>$</span>8</div>
+        <div class="plan-period">per month, billed annually</div>
+        <ul class="plan-features">
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Unlimited boards</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>AI prioritization</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>All integrations</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Custom views</li>
+          <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Priority support</li>
+        </ul>
+        <button class="btn-white" style="background: #fff; color: #007AFF; border: none; cursor: pointer; padding: 14px 26px; border-radius: 12px; font-size: 16px; font-weight: 600; width: 100%; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">Start Pro Trial</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="pricing-section" id="pricing" style="background:var(--bg-card-alt);">
+<section class="cta-section" style="padding: var(--section-pad) 24px;">
   <div class="section-inner">
-    <div class="fade-in">
-      <div class="section-label">Pricing</div>
-      <h2 class="section-title">Start free. Grow with Pro.</h2>
-      <p class="section-subtitle" style="margin:0 auto;">No credit card required. Upgrade when you need more power.</p>
-    </div>
-
-    <div class="pricing-grid fade-in">
-      <div class="pricing-card">
-        <div class="pricing-plan">Personal</div>
-        <div class="pricing-desc">Everything you need to stay organized</div>
-        <div class="pricing-amount">$0</div>
-        <div class="pricing-period">Free forever</div>
-        <ul class="pricing-features">
-          <li><span class="check-icon"></span> Unlimited tasks</li>
-          <li><span class="check-icon"></span> 3 projects</li>
-          <li><span class="check-icon"></span> Tags and filters</li>
-          <li><span class="check-icon"></span> Calendar view</li>
-          <li><span class="check-icon"></span> iOS, Mac, and Web</li>
-        </ul>
-        <button class="pricing-btn secondary">Get Started</button>
-      </div>
-      <div class="pricing-card featured">
-        <div class="pricing-badge">Most Popular</div>
-        <div class="pricing-plan">Pro</div>
-        <div class="pricing-desc">For power users and teams</div>
-        <div class="pricing-amount">$8<span style="font-size:20px;color:var(--text-secondary)">/mo</span></div>
-        <div class="pricing-period">Billed annually</div>
-        <ul class="pricing-features">
-          <li><span class="check-icon"></span> Everything in Personal</li>
-          <li><span class="check-icon"></span> Unlimited projects</li>
-          <li><span class="check-icon"></span> Kanban boards</li>
-          <li><span class="check-icon"></span> Team collaboration</li>
-          <li><span class="check-icon"></span> Integrations</li>
-          <li><span class="check-icon"></span> Priority support</li>
-        </ul>
-        <button class="pricing-btn primary">Start Free Trial</button>
-      </div>
+    <h2 class="animate-ready">Ready to Find Your Flow?</h2>
+    <p class="animate-ready">Join 200,000+ people who've transformed how they work.</p>
+    <div class="cta-buttons animate-ready">
+      <button class="btn-white">Download for Mac</button>
+      <button class="btn-outline-white">Get iOS App</button>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="download">
-  <div class="section-inner fade-in">
-    <h2 class="section-title">Ready to focus?</h2>
-    <p class="section-subtitle">Download Flowstate and take control of your day. Available on Mac, iPhone, iPad, and the web.</p>
-    <div class="hero-cta-row">
-      <button class="btn-primary">Download for Mac</button>
-      <button class="btn-secondary">Open Web App</button>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <span class="footer-text">2026 Flowstate. All rights reserved.</span>
-    <ul class="footer-links">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-      <li><a href="#">Support</a></li>
-      <li><a href="#">Twitter</a></li>
-    </ul>
-  </div>
+<footer>
+  <div class="footer-brand">Flowstate</div>
+  <p>Copyright &copy; 2026 Flowstate Inc. All rights reserved.</p>
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+function toggleTask(item) {
+  const check = item.querySelector('.task-check');
+  const text = item.querySelector('.task-text');
+  const isDone = check.classList.toggle('done');
+  text.classList.toggle('strikethrough', isDone);
+}
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+class ScrollAnimator {
+  constructor() {
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (this.reducedMotion) return;
+    this.initHeroStagger();
+    this.initIntersectionObserver();
+    this.initParallax();
+  }
+
+  initHeroStagger() {
+    const items = [
+      { el: document.getElementById('hero-badge'), delay: 0 },
+      { el: document.getElementById('hero-h1'), delay: 150 },
+      { el: document.getElementById('hero-sub'), delay: 300 },
+      { el: document.getElementById('hero-ctas'), delay: 450 },
+      { el: document.getElementById('hero-visual'), delay: 600 },
+    ];
+    items.forEach(({ el, delay }) => {
+      if (!el) return;
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.6s cubic-bezier(0.25,0.1,0.25,1), transform 0.6s cubic-bezier(0.25,0.1,0.25,1)';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, delay + 100);
+    });
+  }
+
+  initIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const delay = parseInt(el.dataset.delay || '0');
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.6s cubic-bezier(0.25,0.1,0.25,1), transform 0.6s cubic-bezier(0.25,0.1,0.25,1)';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, delay);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+
+    const elements = document.querySelectorAll('.animate-ready');
+    let sectionDelay = 0;
+    let lastSection = null;
+    elements.forEach(el => {
+      const section = el.closest('section');
+      if (section !== lastSection) { sectionDelay = 0; lastSection = section; }
+      else { sectionDelay += 120; }
+      el.dataset.delay = sectionDelay;
+      observer.observe(el);
+    });
+  }
+
+  initParallax() {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const mockup = document.getElementById('hero-visual');
+      if (mockup) {
+        mockup.style.setProperty('--parallax-offset', `${scrollY * 0.3}px`);
+        if (scrollY < window.innerHeight) {
+          mockup.style.transform = `translateY(calc(${scrollY * 0.1}px))`;
+        }
+      }
+    }, { passive: true });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => new ScrollAnimator());
 </script>
 </body>
 </html>
