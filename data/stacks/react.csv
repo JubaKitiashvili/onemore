@@ -1,0 +1,26 @@
+keyword,pattern,implementation,anti_pattern,notes,priority
+css-variables,CSS custom properties for Apple spacing,--spacing-xs: 4px; --spacing-sm: 8px; --spacing-md: 16px; --spacing-lg: 24px; --spacing-xl: 48px,Hardcoded pixel values scattered across stylesheets,Single source of truth for spacing scale,critical
+spring-animation,Framer Motion spring,motion.div animate={{ opacity: 1 y: 0 }} transition={{ type: spring stiffness: 300 damping: 30 }},CSS ease-in-out transitions for interactive elements,Spring physics match Apple's UIKit spring feel,critical
+font-stack,-apple-system font stack,font-family: -apple-system BlinkMacSystemFont 'Inter' 'Segoe UI' system-ui sans-serif,font-family: Arial or Helvetica,SF Pro on Apple devices; Inter on others,critical
+semantic-colors,Semantic color CSS variables,--color-text-primary: #1d1d1f; --color-text-secondary: #86868b; --color-bg: #fbfbfd,Static color values without dark mode variants,Variables flip values in dark mode automatically,critical
+dark-mode,prefers-color-scheme media query,@media (prefers-color-scheme: dark) { :root { --color-bg: #000000; --color-text-primary: #f5f5f7; } },JavaScript-based dark mode toggle only,System-level dark mode without JS dependency,critical
+backdrop-filter,Glass effect nav,backdrop-filter: saturate(180%) blur(20px); background: rgba(255 255 255 / 0.72),Opaque nav backgrounds,Signature Apple frosted glass for navigation,critical
+continuous-corners,Continuous corners via SVG mask,border-radius: 20px combined with SVG squircle mask or clip-path,border-radius alone for hero cards,True squircle matches Apple device corner shape,high
+touch-targets,44px minimum touch targets,min-height: 44px; min-width: 44px on all interactive elements,Small icon buttons without padding,Meets Apple HIG minimum tap target size,critical
+typography-scale,System-ui typography scale,--text-body: 17px; --text-subhead: 15px; --text-footnote: 13px; --text-caption: 12px,Random font sizes without a defined scale,iOS-matched type scale for web counterparts,high
+apple-easing,CSS transitions matching Apple easing,transition: all 0.3s cubic-bezier(0.25 0.1 0.25 1),transition: all 0.3s ease-in-out,Apple's default easing curve from Core Animation,high
+css-grid,CSS Grid for layout,display: grid; grid-template-columns: repeat(auto-fit minmax(300px 1fr)); gap: 24px,Floats or table-based layout,Modern layout matching Apple's grid system,high
+pointer-cursor,pointer-events and cursor,cursor: pointer; pointer-events: auto on interactive non-button elements,Missing cursor feedback on custom interactive elements,Matches native app tap feedback expectation,medium
+aria-labels,Accessible labels,aria-label="Close dialog" role="button" on custom interactive elements,Missing aria attributes on icon-only buttons,Required for VoiceOver compatibility matching HIG,critical
+reduced-motion,prefers-reduced-motion,@media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; } },No animation preference handling,Respects iOS Reduce Motion accessibility setting,critical
+scroll-margin,Scroll margin for safe areas,scroll-margin-top: env(safe-area-inset-top); scroll-padding-top: 60px,No scroll margin causing content hidden under fixed nav,Prevents content jumping under navbar on scroll-to,high
+env-safe-area,CSS env() safe area,padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom),Hardcoded padding for notch/island clearance,Adapts to Dynamic Island and home indicator,critical
+letter-spacing,Hero letter-spacing,letter-spacing: -0.003em to -0.005em on large headings,Default browser letter-spacing on display text,Tight tracking is the defining Apple typographic trait,high
+large-hero,Large hero text,font-size: clamp(48px 8vw 96px); font-weight: 700; letter-spacing: -0.004em,Standard paragraph-sized hero sections,Apple uses oversized bold headlines as primary brand element,high
+section-rhythm,Generous vertical rhythm,padding-block: clamp(60px 10vw 120px) on section elements,Tight sections with minimal vertical spacing,Apple sites use breathing room between content blocks,high
+will-change,GPU layer promotion,will-change: transform on elements that animate position,Applying will-change to all elements globally,Hints browser to composite layer for smooth animation,medium
+intersection-observer,Scroll reveal animations,IntersectionObserver API triggering opacity/transform transitions,ScrollEvent listener for reveal animations,Performant scroll-linked animations without jank,medium
+focus-visible,Keyboard focus ring,outline: 2px solid #2997ff; outline-offset: 2px on :focus-visible,Removing outline entirely with outline: none,Keyboard navigation visibility matching Apple's blue focus,high
+image-lazy,Lazy loading images,loading="lazy" decoding="async" on all below-fold img elements,Eager loading all images,Reduces initial page weight and matches native lazy patterns,medium
+max-width-content,Content width constraint,max-width: 980px; margin-inline: auto on text content sections,Full viewport width text blocks,Apple constrains reading width for comfortable line length,high
+color-scheme-meta,Color scheme meta tag,<meta name="color-scheme" content="light dark">,No color scheme meta causing flash of wrong theme,Prevents flash of unstyled content on dark mode load,medium

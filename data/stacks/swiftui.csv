@@ -1,0 +1,31 @@
+keyword,pattern,implementation,anti_pattern,notes,priority
+font-body,.font modifier,.font(.body),Hardcoding font sizes with .font(.system(size: 17)),Respects Dynamic Type automatically,critical
+font-headline,.font modifier,.font(.headline),Custom UIFont bridging for headline weight,Adapts to user accessibility settings,high
+accent-color,Color.accentColor,Color.accentColor for interactive elements,Hardcoding Color.blue,Follows app tint and system theme,critical
+material-background,Material backgrounds,.background(.regularMaterial),Using Color.white for frosted backgrounds,Provides automatic vibrancy and blur,critical
+thinMaterial,Thin material,.background(.thinMaterial),Manual blur with UIVisualEffectView,Ultra-light glass effect for overlays,high
+ultraThickMaterial,Ultra thick material,.background(.ultraThickMaterial),Opaque color backgrounds on sheets,Maximum vibrancy for prominent surfaces,medium
+continuous-corner,Continuous corners,RoundedRectangle(cornerRadius: 16 style: .continuous),RoundedRectangle(cornerRadius: 16) without style,Matches Apple's squircle display corners,critical
+spring-animation,Spring animation,.spring() or .spring(duration: 0.4 bounce: 0.2),Linear or easeInOut animations,.spring() is the canonical Apple feel,critical
+navigation-stack,NavigationStack,NavigationStack { } with navigationDestination,NavigationView (deprecated in iOS 16+),Type-safe navigation with value-based routing,critical
+sheet-presentation,.sheet modifier,.sheet(isPresented:) with .presentationDetents,Custom modal implementations,Native sheets with detents for bottom sheets,critical
+alert-modifier,.alert modifier,.alert(title: isPresented:) with Button actions,UIAlertController bridging,Declarative alert presentation,high
+observable-macro,@Observable macro,@Observable class ViewModel { },ObservableObject with @Published,Swift 5.9+ observation; avoids AnyPublisher overhead,critical
+sensory-feedback,.sensoryFeedback,.sensoryFeedback(.impact .selection .success .warning .error),UIImpactFeedbackGenerator direct calls,Declarative haptic feedback tied to state changes,high
+dynamic-type,.dynamicTypeSize,.dynamicTypeSize(.xSmall ... .accessibility5),Fixed font sizes ignoring user preferences,Supports full range of accessibility text sizes,critical
+color-scheme,.preferredColorScheme,.preferredColorScheme(.dark/.light) on root view,Force overriding system appearance globally,Use sparingly; prefer adaptive colors,high
+inset-grouped-list,List style,List { } .listStyle(.insetGrouped),Custom VStack-based list simulations,Native grouped list with swipe actions and separators,critical
+destructive-button,Button role,Button(Delete role: .destructive) { },Manually coloring a button red,.role controls system tinting and confirmation behavior,high
+tint-modifier,.tint modifier,.tint(Color.accentColor) or custom tint on controls,Overriding button foreground colors manually,Cascades to all tintable child views,high
+toolbar,.toolbar modifier,.toolbar { ToolbarItem(placement: .navigationBarTrailing) },Overlaying buttons on top of navigation bar,Proper placement-aware toolbar items,critical
+searchable,.searchable modifier,.searchable(text: $query placement: .navigationBarDrawer),Custom search text field implementations,Integrates with NavigationStack search UX,high
+navigation-title,.navigationTitle modifier,.navigationTitle(Title),Setting title via UINavigationController,Enables large title and inline title transitions,critical
+tab-item,.tabItem modifier,Tab { } .tabItem { Label(Home systemImage: home) },Custom tab bar with ZStack overlays,Native tab bar with SF Symbol support,critical
+sf-symbols,SF Symbols,Image(systemName: star.fill),UIImage(systemName:) bridging or custom icons,Vector symbols that match text weight and color,critical
+symbol-effect,.symbolEffect modifier,Image(systemName: wifi).symbolEffect(.variableColor),Manual symbol animation with UIImageView,Declarative symbol animation for state changes,high
+environment-colorscheme,@Environment colorScheme,@Environment(\\.colorScheme) var colorScheme,UserDefaults or custom dark mode flag,Access system color scheme reactively,high
+container-frame,.containerRelativeFrame,.containerRelativeFrame(.horizontal) { size _ in },GeometryReader for simple relative sizing,Simpler responsive sizing without GeometryReader,high
+content-transition,.contentTransition modifier,.contentTransition(.numericText()) on changing text,No transition when updating text values,Smooth text change animations,medium
+matched-geometry,.matchedGeometryEffect,@Namespace var ns; .matchedGeometryEffect(id: in: ns),Hero animations via UIKit view controller transitions,Declarative hero/shared element transitions,high
+list-row-separator,List separators,.listRowSeparator(.hidden) or .listRowInsets,Manually adding Divider() between rows,Fine-grained separator control per row,medium
+safe-area-inset,.safeAreaInset modifier,.safeAreaInset(edge: .bottom) { FloatingBar() },Hardcoding bottom padding for floating UI,Pushes content above overlapping floating views,high

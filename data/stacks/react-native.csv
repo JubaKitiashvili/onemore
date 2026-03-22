@@ -1,0 +1,26 @@
+keyword,pattern,implementation,anti_pattern,notes,priority
+continuous-border,Continuous border curve,borderCurve: 'continuous' paired with borderRadius on View styles,borderRadius alone without borderCurve,Produces squircle corners matching iPhone display shape,critical
+haptics,expo-haptics for feedback,Haptics.impactAsync(ImpactFeedbackStyle.Medium) on press actions,No haptic feedback on interactive elements,Matches iOS tap and selection feedback patterns,critical
+sf-symbols,expo-symbols for SF Symbols,<SFSymbol name="star.fill" weight="semibold" size={24} />,Custom icon fonts or PNG icon assets,Native vector symbols matching iOS visual language,critical
+platform-select,Platform.select for iOS-specific,Platform.select({ ios: { shadowOpacity: 0.15 } android: { elevation: 4 } }),Applying iOS shadow props to all platforms,Correct per-platform shadow implementation,high
+spring-animation,Animated.spring() with physics,Animated.spring(value { toValue: 1 tension: 200 friction: 20 }).start(),Animated.timing() with easeInOut for interactive responses,Physics-based spring matches UIKit's default animation,critical
+bottom-sheet,react-native-bottom-sheet,BottomSheet with snapPoints and backdropComponent,ScrollView inside Modal for sheet-like UI,Native feel with velocity-aware gesture dismissal,high
+segmented-control,@react-native-segmented-control,<SegmentedControl values={['Day' 'Week']} selectedIndex={idx} />,Custom tab row with Pressable buttons,Native UISegmentedControl on iOS,high
+safe-area,react-native-safe-area-context,useSafeAreaInsets() and SafeAreaView from library,Hardcoded paddingTop: 44 for status bar clearance,Adapts to Dynamic Island notch and home indicator,critical
+dynamic-type,Dynamic Type via allowFontScaling,allowFontScaling={true} on all Text components (default); never set to false,allowFontScaling={false} to fix layout,Respects user accessibility text size preferences,critical
+pressable,Pressable not TouchableOpacity,<Pressable style={({ pressed }) => [styles.btn pressed && styles.pressed]}>,<TouchableOpacity> or <TouchableHighlight>,Finer-grained press state control; recommended in RN 0.63+,critical
+stylesheet,StyleSheet.create,const styles = StyleSheet.create({ container: { flex: 1 } }),Inline style objects {{ flex: 1 }} inside JSX,Registered on native thread; avoids per-render object creation,critical
+color-scheme,useColorScheme for dark mode,const scheme = useColorScheme(); const colors = scheme === 'dark' ? darkColors : lightColors,Hardcoded color values without dark mode variants,Reactive to system appearance changes,critical
+flashlist,FlashList for long lists,<FlashList data={items} renderItem={renderItem} estimatedItemSize={60} />,<ScrollView> with mapped children for long lists,Recycled native cells; significantly faster than FlatList,high
+expo-blur,expo-blur for materials,<BlurView intensity={80} tint="light" style={StyleSheet.absoluteFill} />,React Native's built-in Animated opacity for blur simulation,True native blur matching iOS material system,high
+keyboard-avoiding,KeyboardAvoidingView,<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>,No keyboard handling causing input occlusion,Standard pattern for forms and input screens,high
+list-section,SectionList for grouped data,<SectionList sections={data} renderItem={} renderSectionHeader={} />,FlatList with manual section header injection,Native section headers with proper scroll behavior,high
+color-adaptive,PlatformColor for adaptive colors,PlatformColor('label' 'secondaryLabel') for iOS semantic colors,Static #000000 for text ignoring dark mode,Maps to iOS UIColor semantic palette,high
+gesture-handler,react-native-gesture-handler,Gesture.Pan() with GestureDetector for swipe interactions,PanResponder legacy API for gestures,Runs on UI thread; avoids JS bridge lag,high
+reanimated,Reanimated for smooth animation,useSharedValue + useAnimatedStyle + withSpring(),Animated.Value from core RN for complex animations,Runs on UI thread; 60/120fps without JS bottleneck,critical
+modal-presentation,Native modal presentation,<Modal animationType="slide" presentationStyle="formSheet">,Custom animated overlay with absolute positioning,Matches iOS modal presentation metaphor natively,high
+image-component,expo-image with blurhash,<Image source={uri} placeholder={blurhash} contentFit="cover" />,<Image> from react-native with no placeholder,Blurhash placeholder prevents layout shift; better caching,high
+scroll-indicator,ScrollView indicator style,<ScrollView indicatorStyle="black">,No scroll indicator styling,Matches iOS dark/light indicator conventions,low
+text-role,accessibilityRole on text,accessibilityRole="header" on section headings,No accessibility roles on structural text,VoiceOver announces heading level matching HIG,high
+status-bar,StatusBar component,<StatusBar barStyle={scheme === 'dark' ? 'light-content' : 'dark-content'} />,Ignoring status bar style changes on screen transitions,Correct content color contrast over app backgrounds,high
+list-item-separator,ItemSeparatorComponent,FlatList ItemSeparatorComponent={Separator} with custom Separator view,Margin-bottom on list items for separation,Correct separator rendering without double-spacing at ends,medium

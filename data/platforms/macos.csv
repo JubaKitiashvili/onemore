@@ -1,0 +1,16 @@
+keyword,element,metric,value,unit,context,min_os,priority
+titlebar,TitleBar,height,28,pt,standard,11.0,critical
+titlebar,TitleBar,height,52,pt,with toolbar,11.0,high
+toolbar,Toolbar,height,38,pt,standard,11.0,high
+sidebar,Sidebar,width-min,240,pt,default minimum,11.0,high
+sidebar,Sidebar,width-default,280,pt,default width,11.0,medium
+menubar,MenuBar,height,24,pt,system,10.0,critical
+traffic-lights,TrafficLights,width,54,pt,three buttons,10.0,critical
+traffic-lights,TrafficLights,offset-x,7,pt,from window edge,10.0,high
+traffic-lights,TrafficLights,offset-y,7,pt,from top edge,10.0,high
+touch,ClickTarget,minimum,20,pt,all interactive,10.0,critical
+body-text,BodyText,size,13,pt,system default,10.0,critical
+window,Window,min-width,480,pt,recommended minimum,11.0,medium
+window,Window,min-height,320,pt,recommended minimum,11.0,medium
+scroll,ScrollBar,width,7,pt,overlay style,10.0,low
+spacing,ContentMargin,width,20,pt,standard,10.0,high
