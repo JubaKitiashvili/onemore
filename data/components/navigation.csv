@@ -1,0 +1,15 @@
+keyword,component,variant,height_pt,usage,platform,priority
+navigation-bar-inline,NavigationBar,inline,44,Standard navigation with inline title,iOS,high
+navigation-bar-large,NavigationBar,large-title,96,Expanded large title at scroll top,iOS,high
+navigation-bar-macos,NavigationBar,macOS toolbar,38,Toolbar with controls and title,macOS,medium
+tab-bar-standard,TabBar,standard,49,Bottom tab navigation without home indicator,iOS,high
+tab-bar-home-indicator,TabBar,with-home-indicator,83,Bottom tab nav on devices with home indicator,iOS,high
+tab-bar-macos,TabBar,macOS sidebar,240,Sidebar-style tab navigation,macOS,medium
+tab-bar-visionos,TabBar,visionOS vertical,49,Vertical ornament-based tab bar,visionOS,low
+toolbar-standard,Toolbar,standard,44,Bottom toolbar with action buttons,iOS,high
+toolbar-macos,Toolbar,macOS,38,Window toolbar with controls,macOS,medium
+sidebar-macos,Sidebar,macOS,240,Collapsible navigation sidebar minimum width,macOS,high
+sidebar-ipad,Sidebar,iPad,320,Split view primary column width,iPadOS,high
+sidebar-visionos,Sidebar,visionOS leading ornament,320,Leading ornament panel,visionOS,low
+search-bar-inline,SearchBar,inline,36,Inline search within content area,iOS,medium
+search-bar-nav,SearchBar,navigation bar integrated,36,Search embedded in navigation bar,iOS,high

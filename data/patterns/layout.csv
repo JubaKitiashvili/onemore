@@ -1,0 +1,13 @@
+keyword,pattern,description,usage,platform,priority
+navigation-stack,Navigation Stack,Push-pop stack of views with back button navigation,Hierarchical content with drill-down flow,iOS macOS,high
+tab-based,Tab-Based Navigation,Root-level tab bar switching between independent sections,Apps with 2-5 parallel top-level sections,iOS macOS,high
+split-view,Split View,Primary and secondary columns side by side,Master-detail on larger screens,iPadOS macOS,high
+sidebar-detail,Sidebar-Detail,Three-column layout with sidebar list and detail pane,Complex navigation with categories and content,iPadOS macOS,high
+modal-sheet,Modal Sheet,Overlay sheet at medium or large detent over parent,Task flows that do not replace current context,iOS,high
+popover,Popover,Anchored floating panel pointing to source element,Contextual options and pickers on iPad and macOS,iPadOS macOS,high
+disclosure-group,Disclosure Group,Expandable section header revealing child content,Progressive disclosure of hierarchical data,iOS macOS,medium
+page-scroll,Page Scroll,Horizontal or vertical paging through full-screen views,Onboarding carousels and media galleries,iOS iPadOS,medium
+master-detail,Master-Detail,Persistent list alongside replaceable detail area,iPad email or settings-style layouts,iPadOS macOS,high
+floating-panel,Floating Panel,Detached resizable inspector or tool panel,Tool palettes and inspector panels,macOS,medium
+ornament,Ornament,Attached floating panel anchored to a window edge,Controls and navigation in spatial context,visionOS,low
+full-screen-modal,Full-Screen Modal,Full screen cover with no visible parent,Immersive tasks such as camera and media capture,iOS,medium

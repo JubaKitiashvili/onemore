@@ -1,0 +1,11 @@
+keyword,name,type,min_duration,usage,platform,priority
+tap,tap,discrete,0,Primary selection and activation of controls,iOS iPadOS macOS,high
+double-tap,double-tap,discrete,0,Secondary action or zoom toggle on content,iOS iPadOS,medium
+long-press,long-press,discrete,0.5,Context menu presentation and drag initiation,iOS iPadOS macOS,high
+swipe,swipe,continuous,0,Directional navigation or reveal of swipe actions,iOS iPadOS,high
+edge-pan,edge-pan,continuous,0,Back navigation via screen left-edge pan gesture,iOS,high
+pinch,pinch,continuous,0,Zoom in and out on maps images and content,iOS iPadOS,high
+rotation,rotation,continuous,0,Rotate maps images and placed objects,iOS iPadOS,medium
+drag,drag,continuous,0,Reorder list items or drag-and-drop between apps,iOS iPadOS macOS,high
+haptic-touch,haptic-touch,discrete,0.5,Peek preview via long press replacing 3D Touch,iOS,high
+scroll-momentum,scroll-momentum,continuous,0,Inertial scrolling with rubber-band bounce at edges,iOS iPadOS,high

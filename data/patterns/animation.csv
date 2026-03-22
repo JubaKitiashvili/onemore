@@ -1,0 +1,13 @@
+keyword,name,type,response,damping_fraction,blend_duration,usage,source,platform
+smooth,smooth,spring,0.5,1.0,0,General view transitions and state changes,SwiftUI preset,iOS macOS
+snappy,snappy,spring,0.35,1.0,0,Quick confirmatory actions and feedback,SwiftUI preset,iOS macOS
+bouncy,bouncy,spring,0.5,0.7,0,Playful delightful interactions,SwiftUI preset,iOS macOS
+interactive,interactive,spring,0.15,0.86,0.25,Gesture-driven real-time following,SwiftUI preset,iOS
+button-press,button-press,spring,0.3,0.8,0,Button tap scale feedback,Observed,iOS macOS
+card-expansion,card-expansion,spring,0.3,0.82,0,Card expanding to detail view,Observed,iOS
+sheet-presentation,sheet-presentation,spring,0.45,0.9,0,Sheet and modal show and hide,Observed,iOS
+keyboard,keyboard,spring,0.35,1.0,0,Layout adjustment when keyboard appears,Observed,iOS
+default-balanced,default-balanced,spring,0.55,0.75,0,General purpose balanced spring,Common,iOS macOS
+dramatic,dramatic,spring,0.9,0.95,0,Slow modal or hero transitions,Common,iOS macOS
+web-ease,web-ease,css,0.3s,n/a,n/a,Standard cubic-bezier(0.25 0.1 0.25 1) ease,apple.com,web
+web-scroll-reveal,web-scroll-reveal,css,0.6s,n/a,n/a,Fade and translateY on scroll into viewport,apple.com,web
