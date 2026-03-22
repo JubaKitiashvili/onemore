@@ -167,3 +167,10 @@ class TestDesignSystemFlag:
         result = run_cli("--design-system")
         assert result.returncode == 0
         assert len(result.stdout) > 0
+
+
+class TestInitSubcommand:
+    def test_init_list(self):
+        r = run_cli("init", "--list")
+        assert r.returncode == 0
+        assert "cursor" in r.stdout.lower()
