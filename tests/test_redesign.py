@@ -13,6 +13,7 @@ if str(_PROJECT_ROOT) not in sys.path:
 
 from scripts.redesign import (
     analyze_file,
+    detect_project_context,
     generate_report,
     scan_directory,
     scan_project,
@@ -303,6 +304,89 @@ class TestEdgeCases:
 # ---------------------------------------------------------------------------
 # CLI integration
 # ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# Expo / React Native detection
+# ---------------------------------------------------------------------------
+
+
+def test_expo_detection(tmp_path):
+    """Detect Expo project via app.json"""
+    (tmp_path / "app.json").write_text('{"expo": {"name": "MyApp"}}')
+    (tmp_path / "App.tsx").write_text("import { TouchableOpacity } from 'react-native';")
+    result = scan_project(tmp_path)
+    # Should detect Expo-specific violations
+    assert any(
+        "TouchableOpacity" in v.get("current", "") or "EXPO" in v.get("rule_id", "")
+        for v in result["violations"]
+    )
+
+
+def test_nativewind_detection(tmp_path):
+    """Detect NativeWind via package.json"""
+    (tmp_path / "package.json").write_text(
+        '{"dependencies": {"nativewind": "^4.0.0", "expo": "~51.0.0"}}'
+    )
+    ctx = detect_project_context(tmp_path)
+    assert ctx["has_nativewind"] is True
+    assert ctx["is_expo"] is True
+
+
+def test_expo_detection_via_app_config_js(tmp_path):
+    """Detect Expo project via app.config.js"""
+    (tmp_path / "app.config.js").write_text("module.exports = { expo: { name: 'App' } };")
+    ctx = detect_project_context(tmp_path)
+    assert ctx["is_expo"] is True
+
+
+def test_react_native_detection_via_package_json(tmp_path):
+    """Detect React Native via package.json dependency"""
+    (tmp_path / "package.json").write_text(
+        '{"dependencies": {"react-native": "0.73.0"}}'
+    )
+    ctx = detect_project_context(tmp_path)
+    assert ctx["is_react_native"] is True
+    assert ctx["framework_override"] == "react-native"
+
+
+def test_non_expo_project_no_override(tmp_path):
+    """Plain web project should have no framework override"""
+    (tmp_path / "package.json").write_text('{"dependencies": {"react": "^18.0.0"}}')
+    ctx = detect_project_context(tmp_path)
+    assert ctx["is_expo"] is False
+    assert ctx["is_react_native"] is False
+    assert ctx["has_nativewind"] is False
+    assert ctx["framework_override"] is None
+
+
+def test_expo_touchable_opacity_violation(tmp_path):
+    """EXPO-001 fires when TouchableOpacity is used in an Expo project"""
+    (tmp_path / "app.json").write_text('{"expo": {"name": "MyApp"}}')
+    f = tmp_path / "Button.tsx"
+    f.write_text("import { TouchableOpacity, Text } from 'react-native';")
+    result = scan_project(tmp_path)
+    rule_ids = {v["rule_id"] for v in result["violations"]}
+    assert "EXPO-001" in rule_ids
+
+
+def test_expo_image_violation(tmp_path):
+    """EXPO-003 fires when react-native Image is used in an Expo project"""
+    (tmp_path / "app.json").write_text('{"expo": {"name": "MyApp"}}')
+    f = tmp_path / "Avatar.tsx"
+    f.write_text("import { Image, View } from 'react-native';")
+    result = scan_project(tmp_path)
+    rule_ids = {v["rule_id"] for v in result["violations"]}
+    assert "EXPO-003" in rule_ids
+
+
+def test_expo_rules_not_triggered_in_web_project(tmp_path):
+    """Expo-specific rules must NOT fire in a plain React/web project"""
+    f = tmp_path / "App.tsx"
+    f.write_text("import { TouchableOpacity } from 'react-native';")
+    result = scan_project(tmp_path)
+    rule_ids = {v["rule_id"] for v in result["violations"]}
+    assert "EXPO-001" not in rule_ids
 
 
 class TestCLI:

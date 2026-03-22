@@ -1,6 +1,6 @@
 """Tests for CSV config and search functions in scripts/core.py."""
 import pytest
-from scripts.core import _load_csv, search, detect_domain
+from scripts.core import _load_csv, search, detect_domain, search_stack
 
 
 class TestLoadCSV:
@@ -43,3 +43,35 @@ class TestDetectDomain:
 
     def test_detect_default_fallback(self):
         assert detect_domain("something completely unrelated") == "colors"
+
+
+# ---------------------------------------------------------------------------
+# NativeWind stack search
+# ---------------------------------------------------------------------------
+
+
+def test_search_nativewind_stack():
+    """Verify nativewind stack is searchable and returns results."""
+    r = search_stack("className Pressable", "nativewind")
+    assert "error" not in r
+    assert len(r) > 0
+
+
+def test_search_nativewind_pressable():
+    """Pressable keyword should rank well in nativewind stack."""
+    r = search_stack("Pressable touch target", "nativewind")
+    assert len(r) > 0
+    keywords = [row.get("keyword", "") for row in r]
+    assert any("pressable" in k.lower() or "touch" in k.lower() for k in keywords)
+
+
+def test_search_nativewind_haptics():
+    """expo-haptics should be findable in nativewind stack."""
+    r = search_stack("haptics feedback onPress", "nativewind")
+    assert len(r) > 0
+
+
+def test_search_nativewind_unknown_stack():
+    """Unknown stack name returns empty list not error."""
+    r = search_stack("anything", "nonexistent-stack")
+    assert r == []

@@ -27,6 +27,81 @@ IGNORED_DIRS = {
     ".next", ".nuxt", "vendor", "Pods",
 }
 
+
+# ---------------------------------------------------------------------------
+# Expo / React Native Project Context Detection
+# ---------------------------------------------------------------------------
+
+def detect_project_context(path) -> dict:
+    """Detect if a project is Expo, React Native, or NativeWind.
+
+    Walks up from *path* looking for app.json / app.config.js / app.config.ts
+    that reference "expo", and inspects package.json for relevant dependencies.
+
+    Returns:
+        {
+            "is_expo": bool,
+            "is_react_native": bool,
+            "has_nativewind": bool,
+            "framework_override": "nativewind" | "react-native" | None,
+        }
+    """
+    path = Path(path)
+
+    is_expo = False
+    is_react_native = False
+    has_nativewind = False
+
+    # Search current dir and up to 3 parent levels for Expo config files
+    search_paths = [path] + list(path.parents)[:3]
+
+    for search_dir in search_paths:
+        for config_name in ("app.json", "app.config.js", "app.config.ts"):
+            config_file = search_dir / config_name
+            if config_file.exists():
+                try:
+                    content = config_file.read_text(errors="ignore")
+                    if "expo" in content.lower():
+                        is_expo = True
+                except Exception:
+                    pass
+
+        pkg_file = search_dir / "package.json"
+        if pkg_file.exists():
+            try:
+                content = pkg_file.read_text(errors="ignore")
+                pkg = json.loads(content)
+                all_deps = {}
+                all_deps.update(pkg.get("dependencies", {}))
+                all_deps.update(pkg.get("devDependencies", {}))
+                all_deps.update(pkg.get("peerDependencies", {}))
+                dep_str = " ".join(all_deps.keys()).lower()
+                if "react-native" in dep_str:
+                    is_react_native = True
+                if "expo" in dep_str:
+                    is_expo = True
+                if "nativewind" in dep_str:
+                    has_nativewind = True
+            except Exception:
+                pass
+        # Stop climbing once we find a package.json
+        if pkg_file.exists():
+            break
+
+    if has_nativewind:
+        framework_override = "nativewind"
+    elif is_expo or is_react_native:
+        framework_override = "react-native"
+    else:
+        framework_override = None
+
+    return {
+        "is_expo": is_expo,
+        "is_react_native": is_react_native,
+        "has_nativewind": has_nativewind,
+        "framework_override": framework_override,
+    }
+
 # ---------------------------------------------------------------------------
 # HIG Violation Rules
 # ---------------------------------------------------------------------------
@@ -284,15 +359,74 @@ HIG_RULES = [
 ]
 
 # ---------------------------------------------------------------------------
+# Expo / React Native Specific Violation Rules
+# ---------------------------------------------------------------------------
+
+EXPO_RULES = [
+    {
+        "id": "EXPO-001",
+        "category": "expo",
+        "description": "Using TouchableOpacity instead of Pressable",
+        "patterns": [
+            r"""\bTouchableOpacity\b""",
+        ],
+        "fix": "Use Pressable, not TouchableOpacity",
+        "severity": "high",
+        "platforms": ["react-native", "nativewind"],
+    },
+    {
+        "id": "EXPO-002",
+        "category": "expo",
+        "description": "Missing expo-haptics for interactive elements",
+        "patterns": [
+            r"""onPress\s*=\s*\{(?!.*[Hh]aptic)""",
+        ],
+        "fix": "Add haptic feedback with expo-haptics",
+        "severity": "low",
+        "platforms": ["react-native", "nativewind"],
+    },
+    {
+        "id": "EXPO-003",
+        "category": "expo",
+        "description": "Using Image from react-native instead of expo-image",
+        "patterns": [
+            r"""import\s+.*\bImage\b.*from\s+['"]react-native['"]""",
+            r"""from\s+['"]react-native['"]\s*.*\bImage\b""",
+        ],
+        "fix": "Use expo-image for better performance and blurhash",
+        "severity": "high",
+        "platforms": ["react-native", "nativewind"],
+    },
+    {
+        "id": "EXPO-004",
+        "category": "expo",
+        "description": "Missing borderCurve: 'continuous' on rounded elements",
+        "patterns": [
+            r"""borderRadius\s*:\s*\d+(?!.*borderCurve)""",
+        ],
+        "fix": "Add borderCurve: 'continuous' for Apple squircle corners",
+        "severity": "medium",
+        "platforms": ["react-native", "nativewind"],
+    },
+]
+
+# ---------------------------------------------------------------------------
 # Scanner
 # ---------------------------------------------------------------------------
 
-def scan_directory(path):
-    """Recursively find all UI files, returning (filepath, framework) tuples."""
+def scan_directory(path, project_context=None):
+    """Recursively find all UI files, returning (filepath, framework) tuples.
+
+    When *project_context* is provided (from detect_project_context()), .tsx
+    and .jsx files are re-tagged to "react-native" or "nativewind" so that
+    Expo-specific rules are applied to them.
+    """
     path = Path(path)
     results = []
     if not path.is_dir():
         return results
+
+    framework_override = (project_context or {}).get("framework_override")
 
     for item in path.rglob("*"):
         # Skip ignored directories
@@ -303,6 +437,9 @@ def scan_directory(path):
         ext = item.suffix.lower()
         if ext in UI_FILE_EXTENSIONS:
             framework = UI_FILE_EXTENSIONS[ext]
+            # Override framework for .tsx/.jsx files in Expo/RN projects
+            if framework_override and ext in (".tsx", ".jsx", ".ts"):
+                framework = framework_override
             # For .ts files, only include if they contain JSX-like patterns
             if ext == ".ts":
                 try:
@@ -326,7 +463,11 @@ def analyze_file(filepath, framework):
     lines = content.split("\n")
     violations = []
 
-    for rule in HIG_RULES:
+    all_rules = list(HIG_RULES)
+    if framework in ("react-native", "nativewind"):
+        all_rules = all_rules + list(EXPO_RULES)
+
+    for rule in all_rules:
         platforms = rule.get("platforms", ["all"])
         if "all" not in platforms and framework not in platforms:
             continue
@@ -383,16 +524,20 @@ def analyze_file(filepath, framework):
 def scan_project(path):
     """Full project scan — returns dict with files_scanned, violations, summary."""
     path = Path(path)
-    files = scan_directory(path)
+    project_context = detect_project_context(path)
+    files = scan_directory(path, project_context=project_context)
     all_violations = []
     for filepath, framework in files:
         violations = analyze_file(filepath, framework)
         all_violations.extend(violations)
-    return {
+    result = {
         "files_scanned": len(files),
         "violations": all_violations,
         "summary": summarize(all_violations),
     }
+    if project_context["framework_override"]:
+        result["project_context"] = project_context
+    return result
 
 
 def summarize(violations):
