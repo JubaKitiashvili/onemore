@@ -174,3 +174,8 @@ class TestInitSubcommand:
         r = run_cli("init", "--list")
         assert r.returncode == 0
         assert "cursor" in r.stdout.lower()
+
+    def test_init_auto(self):
+        r = run_cli("init")
+        assert r.returncode == 0
+        assert "detect" in r.stdout.lower() or "platform" in r.stdout.lower()

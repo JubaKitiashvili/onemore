@@ -8,17 +8,50 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).parent.parent
 
 PLATFORMS = {
-    "claude-code": {"type": "global", "path": "~/.claude/skills/onemore", "name": "Claude Code"},
-    "codex": {"type": "global", "path": "~/.codex/skills/onemore", "name": "Codex"},
-    "qoder": {"type": "global", "path": "~/.qoder/skills/onemore", "name": "Qoder"},
-    "antigravity": {"type": "global", "path": "~/.antigravity/plugins/onemore", "name": "Antigravity"},
-    "cursor": {"type": "project", "path": ".cursor/rules/onemore.mdc", "name": "Cursor"},
-    "windsurf": {"type": "project", "path": ".windsurf/rules/onemore.md", "name": "Windsurf"},
-    "copilot": {"type": "project", "path": ".github/copilot-instructions.md", "name": "GitHub Copilot", "mode": "append"},
-    "gemini": {"type": "project", "path": "GEMINI.md", "name": "Gemini CLI", "mode": "append"},
-    "cline": {"type": "project", "path": ".clinerules/onemore.md", "name": "Cline"},
-    "roo": {"type": "project", "path": ".roo/rules/onemore.md", "name": "Roo Code"},
-    "kiro": {"type": "project", "path": ".kiro/rules/onemore.md", "name": "Kiro"},
+    "claude-code": {
+        "type": "global", "path": "~/.claude/skills/onemore", "name": "Claude Code",
+        "detect": {"dirs": ["~/.claude"], "commands": ["claude"]}
+    },
+    "codex": {
+        "type": "global", "path": "~/.codex/skills/onemore", "name": "Codex",
+        "detect": {"dirs": ["~/.codex"], "commands": ["codex"]}
+    },
+    "qoder": {
+        "type": "global", "path": "~/.qoder/skills/onemore", "name": "Qoder",
+        "detect": {"dirs": ["~/.qoder"], "commands": ["qoder"]}
+    },
+    "antigravity": {
+        "type": "global", "path": "~/.antigravity/plugins/onemore", "name": "Antigravity",
+        "detect": {"dirs": ["~/.antigravity"], "commands": ["antigravity"]}
+    },
+    "cursor": {
+        "type": "project", "path": ".cursor/rules/onemore.mdc", "name": "Cursor",
+        "detect": {"project_dirs": [".cursor"], "commands": ["cursor"]}
+    },
+    "windsurf": {
+        "type": "project", "path": ".windsurf/rules/onemore.md", "name": "Windsurf",
+        "detect": {"project_dirs": [".windsurf"], "commands": ["windsurf"]}
+    },
+    "copilot": {
+        "type": "project", "path": ".github/copilot-instructions.md", "name": "GitHub Copilot", "mode": "append",
+        "detect": {"project_dirs": [".github"], "commands": ["gh"]}
+    },
+    "gemini": {
+        "type": "project", "path": "GEMINI.md", "name": "Gemini CLI", "mode": "append",
+        "detect": {"dirs": [], "commands": ["gemini"]}
+    },
+    "cline": {
+        "type": "project", "path": ".clinerules/onemore.md", "name": "Cline",
+        "detect": {"project_dirs": [".clinerules"], "commands": []}
+    },
+    "roo": {
+        "type": "project", "path": ".roo/rules/onemore.md", "name": "Roo Code",
+        "detect": {"project_dirs": [".roo"], "commands": []}
+    },
+    "kiro": {
+        "type": "project", "path": ".kiro/rules/onemore.md", "name": "Kiro",
+        "detect": {"project_dirs": [".kiro"], "commands": ["kiro"]}
+    },
 }
 
 def generate_project_rules():
@@ -167,6 +200,97 @@ def _init_project(platform_name, config, project_dir):
 
     target.write_text(content)
     return {"status": "installed", "platform": config["name"], "path": str(target)}
+
+
+def detect_platforms(project_dir=None):
+    """Auto-detect which AI platforms are installed.
+
+    Detection strategy:
+    - Global platforms: check if config dir exists in home (~/.claude, ~/.codex, etc) OR command in PATH
+    - Project platforms: check if project dir exists (.cursor/, .windsurf/, etc) OR command in PATH
+
+    Returns list of dicts with platform name, detected (bool), and reason.
+    """
+    project_dir = Path(project_dir) if project_dir else Path.cwd()
+    results = []
+
+    for name, config in PLATFORMS.items():
+        detect = config.get("detect", {})
+        detected = False
+        reason = ""
+
+        # Check global dirs (home directory)
+        for d in detect.get("dirs", []):
+            expanded = Path(d).expanduser()
+            if expanded.exists():
+                detected = True
+                reason = f"found {d}"
+                break
+
+        # Check project dirs (current project)
+        if not detected:
+            for d in detect.get("project_dirs", []):
+                if (project_dir / d).exists():
+                    detected = True
+                    reason = f"found {d}/ in project"
+                    break
+
+        # Check commands in PATH
+        if not detected:
+            for cmd in detect.get("commands", []):
+                if shutil.which(cmd):
+                    detected = True
+                    reason = f"'{cmd}' command found"
+                    break
+
+        # Check if OneMore already installed for this platform
+        if config["type"] == "global":
+            install_path = Path(config["path"]).expanduser()
+        else:
+            install_path = project_dir / config["path"]
+        already_installed = install_path.exists() or install_path.is_symlink()
+
+        results.append({
+            "platform": name,
+            "name": config["name"],
+            "type": config["type"],
+            "detected": detected,
+            "reason": reason,
+            "already_installed": already_installed
+        })
+
+    return results
+
+
+def auto_init(project_dir=None):
+    """Detect platforms and install OneMore for all detected ones.
+
+    Returns dict with detected platforms, installed platforms, and skipped (already installed).
+    """
+    detected = detect_platforms(project_dir)
+    installed = []
+    skipped = []
+    not_detected = []
+
+    for p in detected:
+        if not p["detected"]:
+            not_detected.append(p)
+            continue
+        if p["already_installed"]:
+            skipped.append(p)
+            continue
+        result = init_platform(p["platform"], project_dir=project_dir)
+        if result.get("status") == "installed":
+            installed.append(p)
+        else:
+            skipped.append(p)
+
+    return {
+        "detected": [p for p in detected if p["detected"]],
+        "installed": installed,
+        "skipped": skipped,
+        "not_detected": not_detected
+    }
 
 
 def list_platforms():
