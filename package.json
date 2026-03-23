@@ -1,0 +1,51 @@
+{
+  "name": "onemore",
+  "version": "1.0.0",
+  "description": "Apple HIG Design Intelligence — Generate Apple-quality UI across every platform",
+  "main": "scripts/search.py",
+  "bin": {
+    "onemore": "./bin/onemore.js"
+  },
+  "scripts": {
+    "test": "python3 -m pytest tests/ -v"
+  },
+  "keywords": [
+    "apple",
+    "hig",
+    "human-interface-guidelines",
+    "design-system",
+    "ui",
+    "ux",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "ai-agent",
+    "swiftui",
+    "react",
+    "react-native",
+    "flutter",
+    "tailwind"
+  ],
+  "author": "Juba Kitiashvili (https://github.com/JubaKitiashvili)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JubaKitiashvili/onemore.git"
+  },
+  "homepage": "https://jubakitiashvili.github.io/onemore/",
+  "bugs": {
+    "url": "https://github.com/JubaKitiashvili/onemore/issues"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "data/",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ]
+}
