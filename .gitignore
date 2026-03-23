@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Session/tool artifacts
+.context-mem/
+.playwright-mcp/
+.firecrawl/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node (for future npm publish)
+node_modules/
+npm-debug.log*
+
+# Temp screenshots
+*.tmp.png
