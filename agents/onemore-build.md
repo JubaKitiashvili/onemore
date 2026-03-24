@@ -17,6 +17,7 @@ Before writing any code, read the relevant rule files from the project root:
 3. **`docs/animation-rules.md`** — Framer Motion, GSAP + ScrollTrigger, Three.js + R3F, Lottie, CSS scroll-driven animations, SVG animation, oklch color, View Transitions, WAAPI, GLSL, performance
 4. **`docs/visual-rules.md`** — SVG illustrations, CSS gradient art, Canvas generative graphics, SVG filters/textures, CSS device mockups, placeholder system for photos
 5. **`docs/icons-rules.md`** — 70+ inline SVG icons, component system, feature icon patterns. NEVER use emoji or keyboard symbols as icons
+6. **`docs/patterns-rules.md`** — Liquid Glass material (CSS approximation), navigation (tab bar, nav bar, sidebar), modality (sheets, alerts, popovers, action sheets), loading states
 
 Match to the task:
 - **Landing page / full build** → read all four
@@ -24,6 +25,7 @@ Match to the task:
 - **Add animation** → read animation-rules.md + craft sections 1-3
 - **Style/color work** → read design-system-rules.md sections 1-3, 7
 - **Visual elements needed** → read visual-rules.md (SVG, gradients, Canvas, mockups)
+- **Navigation / modals / Liquid Glass** → read patterns-rules.md
 
 ## Working with a Creative Brief
 
