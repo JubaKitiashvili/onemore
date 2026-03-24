@@ -1,0 +1,45 @@
+{
+  "skill_name": "onemore",
+  "evals": [
+    {
+      "id": 1,
+      "name": "build-saas-landing-page",
+      "prompt": "build me a landing page for a SaaS product that helps restaurants manage online orders. the product is called OrderFlow. make it feel premium and modern, dark theme.",
+      "expected_output": "Should route to vision agent first to produce a creative brief (7 sections, design direction, what we say NO to), then ask user to confirm, then route to build agent to produce a complete HTML file with Apple HIG standards: spring animations, 8pt grid, semantic colors, dark mode, 44px touch targets, inline SVG icons (no emoji), prefers-reduced-motion support.",
+      "route": "vision → build → review",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "fix-hover-animation",
+      "prompt": "the cards on my landing page have a weird jerky hover animation, they use ease-in-out and it feels robotic. can you fix them to feel more natural like apple.com?",
+      "expected_output": "Should route directly to animate agent (no vision needed). Should replace ease-in-out with spring physics or Apple's cubic-bezier(0.25, 0.1, 0.25, 1). Should add translateY(-4px) + shadow increase on hover. Should add scale(0.97) on active/press. Must include prefers-reduced-motion fallback.",
+      "route": "animate (directly)",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "accessibility-audit",
+      "prompt": "check my landing page for accessibility issues. I want it to pass WCAG 2.2 AA and work well with VoiceOver on Mac.",
+      "expected_output": "Should route directly to a11y agent. Should check: contrast ratios (4.5:1 text, 3:1 UI), focus-visible styles, keyboard navigation (Tab/Enter/Escape), semantic HTML (button not div), aria-labels on icon buttons, skip link, prefers-reduced-motion, touch targets 44px, heading hierarchy, alt text on images.",
+      "route": "a11y (directly)",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "review-existing-code",
+      "prompt": "I just finished building this dashboard component. can you review it and tell me what's wrong with it from an Apple HIG perspective?",
+      "expected_output": "Should route directly to review agent. Should run the full checklist: physics & motion, visual craft, interaction, accessibility, structure. Should report pass/fail per category with specific line numbers and fixes. Should auto-fix simple issues.",
+      "route": "review (directly)",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "improve-existing-section",
+      "prompt": "the hero section of my landing page looks too plain. add some visual depth — maybe floating gradient orbs, a noise texture overlay, and make the headline text have a subtle gradient shimmer animation.",
+      "expected_output": "Should route directly to build agent (fixing/improving existing code, no vision needed). Should use techniques from visual-rules.md: CSS gradient orbs with filter:blur(80px), SVG feTurbulence noise overlay at 3% opacity, CSS background-clip gradient text with animation. All with prefers-reduced-motion fallback and dark mode support.",
+      "route": "build (directly)",
+      "files": []
+    }
+  ]
+}

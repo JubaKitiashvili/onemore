@@ -1,0 +1,82 @@
+[
+  {
+    "query": "I need to build a landing page for my new fitness tracking app, something that feels like apple.com with nice scroll animations and a dark hero section",
+    "should_trigger": true
+  },
+  {
+    "query": "the buttons on my dashboard look flat and lifeless, can you make them feel more tactile with better hover and press states? like how apple does it",
+    "should_trigger": true
+  },
+  {
+    "query": "run an accessibility audit on my index.html, I need WCAG AA compliance before we launch next week and my PM is asking about VoiceOver support",
+    "should_trigger": true
+  },
+  {
+    "query": "I have this 15 second screen recording of a website with really nice parallax scroll effects and staggered card reveals, can you analyze it and recreate something similar for my project?",
+    "should_trigger": true
+  },
+  {
+    "query": "my react native app needs a settings screen with toggles, a profile section with an avatar, and a dark mode switch. make it feel native and polished on iOS",
+    "should_trigger": true
+  },
+  {
+    "query": "redesign my saas pricing page, the current one looks like every other boring pricing page out there. I want something that actually makes people want to upgrade",
+    "should_trigger": true
+  },
+  {
+    "query": "add some floating gradient orbs and a subtle noise grain texture to the hero section of my portfolio site, and make the heading text shimmer with a gradient animation",
+    "should_trigger": true
+  },
+  {
+    "query": "the cards in my features section have jerky hover animations using ease-in-out and the spacing feels random. fix the motion to feel smooth like apple.com and align everything to a proper grid",
+    "should_trigger": true
+  },
+  {
+    "query": "review my checkout flow component for design quality — I want to make sure the typography, spacing, colors, and interactions all meet Apple HIG standards before I ship it",
+    "should_trigger": true
+  },
+  {
+    "query": "I'm building a SwiftUI app and need to set up the tab bar navigation with proper SF Symbols, system colors, and spring animations on the tab transitions",
+    "should_trigger": true
+  },
+  {
+    "query": "can you help me set up a PostgreSQL database with tables for users, orders, and products? I need proper indexes and foreign key constraints",
+    "should_trigger": false
+  },
+  {
+    "query": "write unit tests for my authentication middleware in Express.js, I need to cover the JWT verification and refresh token rotation logic",
+    "should_trigger": false
+  },
+  {
+    "query": "I need to deploy my Next.js app to Vercel with a custom domain and set up the DNS records. Also need to configure environment variables for production",
+    "should_trigger": false
+  },
+  {
+    "query": "fix the memory leak in my Node.js websocket server, it's consuming 2GB after running for 3 hours and I think it's related to the event listener cleanup",
+    "should_trigger": false
+  },
+  {
+    "query": "help me write a Python script that reads a CSV file with 500k rows, filters by date range and category, then generates a summary report as a PDF",
+    "should_trigger": false
+  },
+  {
+    "query": "set up CI/CD with GitHub Actions for my monorepo — I need separate workflows for the frontend and backend with caching and parallel test runs",
+    "should_trigger": false
+  },
+  {
+    "query": "I need to implement rate limiting on my REST API endpoints using Redis, with different limits per tier (free: 100/hr, pro: 1000/hr, enterprise: unlimited)",
+    "should_trigger": false
+  },
+  {
+    "query": "migrate my app from class components to React hooks, specifically the ones using componentDidMount, componentWillUnmount, and getDerivedStateFromProps",
+    "should_trigger": false
+  },
+  {
+    "query": "can you analyze the performance of my SQL queries? I have a slow dashboard page and I think it's the JOIN between orders and line_items tables that's causing the 4 second load time",
+    "should_trigger": false
+  },
+  {
+    "query": "help me configure my webpack build to reduce the bundle size, I need tree shaking, code splitting by route, and lazy loading for the heavy chart library",
+    "should_trigger": false
+  }
+]
