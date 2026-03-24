@@ -24,3 +24,7 @@ npm-debug.log*
 
 # Temp screenshots
 *.tmp.png
+
+# Apple Design Resources (large binary assets, local only)
+data/resources/bezels/
+data/resources/icon-composer/*.png

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <!-- Apple App Icon Grid Template -->
+  <!-- Based on Apple's official Icon Composer grid -->
+  <!-- Use this as a guide layer when designing app icons -->
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="white" fill-opacity="0.95"/>
+
+  <!-- iOS Squircle Boundary (continuous corners) -->
+  <!-- Apple's superellipse mask - approximated with large corner radius -->
+  <rect x="0" y="0" width="1024" height="1024" rx="224" ry="224"
+        stroke="#00BFFF" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Grid Lines - Vertical -->
+  <line x1="128" y1="0" x2="128" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="256" y1="0" x2="256" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="384" y1="0" x2="384" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="512" y1="0" x2="512" y2="1024" stroke="#00BFFF" stroke-width="1" opacity="0.5"/>
+  <line x1="640" y1="0" x2="640" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="768" y1="0" x2="768" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="896" y1="0" x2="896" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Grid Lines - Horizontal -->
+  <line x1="0" y1="128" x2="1024" y2="128" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="256" x2="1024" y2="256" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="384" x2="1024" y2="384" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="512" x2="1024" y2="512" stroke="#00BFFF" stroke-width="1" opacity="0.5"/>
+  <line x1="0" y1="640" x2="1024" y2="640" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="768" x2="1024" y2="768" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="896" x2="1024" y2="896" stroke="#00BFFF" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Diagonal Guide Lines (corner to corner) -->
+  <line x1="0" y1="0" x2="1024" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.3"/>
+  <line x1="1024" y1="0" x2="0" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Keyline Shapes -->
+
+  <!-- Large Circle (primary shape boundary) -->
+  <circle cx="512" cy="512" r="440" stroke="#4A90D9" stroke-width="1" fill="none" opacity="0.6"/>
+
+  <!-- Medium Circle -->
+  <circle cx="512" cy="512" r="352" stroke="#4A90D9" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Small Circle (inner content area) -->
+  <circle cx="512" cy="512" r="176" stroke="#4A90D9" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Tiny Circle (center point reference) -->
+  <circle cx="512" cy="512" r="64" stroke="#4A90D9" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Square Keyline (rotated 45deg diamond would also be here) -->
+  <rect x="152" y="152" width="720" height="720" stroke="#4A90D9" stroke-width="0.5" fill="none" opacity="0.3"/>
+
+  <!-- Landscape Rectangle Keyline -->
+  <rect x="128" y="216" width="768" height="592" rx="8" stroke="#4A90D9" stroke-width="0.5" fill="none" opacity="0.3"/>
+
+  <!-- Portrait Rectangle Keyline -->
+  <rect x="216" y="128" width="592" height="768" rx="8" stroke="#4A90D9" stroke-width="0.5" fill="none" opacity="0.3"/>
+
+  <!-- Center Point -->
+  <circle cx="512" cy="512" r="4" fill="#4A90D9" opacity="0.8"/>
+
+  <!-- Corner Diagonal Guides -->
+  <!-- Top-left -->
+  <line x1="0" y1="224" x2="224" y2="0" stroke="#00BFFF" stroke-width="0.5" opacity="0.3"/>
+  <!-- Top-right -->
+  <line x1="800" y1="0" x2="1024" y2="224" stroke="#00BFFF" stroke-width="0.5" opacity="0.3"/>
+  <!-- Bottom-left -->
+  <line x1="0" y1="800" x2="224" y2="1024" stroke="#00BFFF" stroke-width="0.5" opacity="0.3"/>
+  <!-- Bottom-right -->
+  <line x1="800" y1="1024" x2="1024" y2="800" stroke="#00BFFF" stroke-width="0.5" opacity="0.3"/>
+</svg>

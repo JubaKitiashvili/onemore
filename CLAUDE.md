@@ -11,19 +11,26 @@ OneMore is an Apple Human Interface Guidelines (HIG) design intelligence skill f
 ## Tech Stack
 
 - **Core:** Python 3.10+ (stdlib only), BM25 search engine over CSV databases
-- **Skill:** SKILL.md entry point for Claude Code
+- **Skill:** SKILL.md orchestrator + 6 specialized agents
 - **Website:** Pure HTML/CSS/JS, zero external dependencies, GitHub Pages
 
 ## Project Structure
 
 ```
+SKILL.md           — Orchestrator: classifies intent, routes to agents
+agents/            — 6 specialized agents:
+  onemore-vision.md    — Steve Jobs: prompt → creative brief (vision-rules.md)
+  onemore-build.md     — Jony Ive: brief → production code (craft + design-system + animation rules)
+  onemore-review.md    — Quality Gate: code → pass/fail checklist (all rules)
+  onemore-animate.md   — Motion Expert: animation tasks (animation-rules + craft 1-3, 7)
+  onemore-a11y.md      — Accessibility Auditor: WCAG 2.2 audit (design-system 9, craft 12)
+  onemore-analyze.md   — Video Analyzer: reference video → motion spec (ffmpeg mosaic)
+docs/              — 4 rules files + Apple patterns analysis
 scripts/           — Python CLI (search.py, core.py, design_system.py, exporter.py, platforms.py, redesign.py)
 data/              — 34 CSV files (foundations, components, patterns, platforms, stacks, audit, reasoning)
 tests/             — 146 tests (pytest)
 showcase/demos/    — 12 HTML showcase demos
-docs/              — Specs, plans, Apple patterns analysis (1,981 lines from 25 apple.com pages)
 index.html         — Landing page (GitHub Pages)
-SKILL.md           — Claude Code skill entry point
 ```
 
 ## Key Features
@@ -94,6 +101,101 @@ User plans to buy a custom domain. Setup:
 
 ### 5. npm Publish (Later)
 Package for npm distribution — after visual polish and testing.
+
+## Agent Architecture
+
+OneMore uses a single `/onemore` command that intelligently routes to specialized agents:
+
+```
+/onemore "build me a SaaS landing page"
+    → vision agent → [brief, user confirms] → build agent → review agent
+
+/onemore "fix the hover animation on cards"
+    → animate agent (directly)
+
+/onemore "check accessibility"
+    → a11y agent (directly)
+
+/onemore [video.mp4] "make it like this"
+    → analyze agent → mosaic frames → motion spec → animate/build agent
+```
+
+| Route | Triggers | Pipeline |
+|-------|----------|----------|
+| Build from scratch | build, create, design, make | vision → build → review |
+| Fix / improve | fix, improve, update, change | build (directly) |
+| Animate | animate, scroll, transition, hover, parallax | animate (specialist) |
+| Review | review, check, audit, quality | review (directly) |
+| Accessibility | a11y, contrast, screen reader, WCAG | a11y (specialist) |
+| Video reference | video file attached | analyze → animate/build |
+| Redesign | redesign, rethink, reimagine | vision → build → review |
+
+## Design & Animation Rules Reference
+
+**MUST read before any UI/animation work.** Two comprehensive rule files:
+
+### `docs/animation-rules.md` — Animation & Motion (11 topics)
+1. Framer Motion (variants, AnimatePresence, layout, gestures)
+2. GSAP + ScrollTrigger + @gsap/react (useGSAP, timelines, pinning, scrub)
+3. Three.js + R3F + Drei (scene setup, useFrame, dispose, helpers)
+4. Lottie (loadAnimation, destroy, React integration)
+5. CSS Scroll-Driven Animations (scroll(), view(), animation-range)
+6. SVG Animation & Filters (path drawing, feTurbulence, noise/grain)
+7. Modern CSS Color (oklch, color-mix, light-dark)
+8. View Transitions API (SPA/MPA, view-transition-name)
+9. Web Animations API (element.animate, promises, stagger)
+10. GLSL Basics (vertex/fragment shaders, noise, uniforms)
+11. Animation Performance (GPU compositing, will-change, CLS/INP, RAF)
+
+### `docs/design-system-rules.md` — Design System & Platforms (9 topics)
+1. Apple HIG Typography (text styles, SF Pro web stack, sizes, weights, tracking)
+2. Apple HIG Layout & Spacing (8pt grid, content widths, corner radii, safe areas)
+3. Apple HIG Color System (semantic colors, materials, vibrancy, dark mode)
+4. SwiftUI Patterns (@Observable, NavigationStack, layout, state management)
+5. Tailwind CSS v4 (@theme, oklch colors, container queries, CSS nesting)
+6. shadcn/ui (oklch theming, CSS variables, component patterns, dark mode)
+7. NativeWind v5 (setup, className, platform variants, dark mode)
+8. Modern CSS (container queries, CSS nesting, :has(), subgrid)
+9. Accessibility / WCAG 2.2 (contrast, focus, target size, ARIA, reduced motion)
+
+### `docs/vision-rules.md` — Vision: "Think Like Steve Jobs" (prompt → brief pipeline)
+- The 7 Questions (who, what, why, feel, one-more-thing, say-no, identity)
+- One-Sentence Distillation (≤12 word hero headline formula)
+- Narrative Arc (7-section story structure, not "sections")
+- Creative Brief Template (complete handoff format for implementation)
+- Full transformation example (vague prompt → detailed brief)
+- Tone guide (Steve Jobs voice formula)
+- When to ask user vs. decide yourself
+
+**MUST run this process before ANY UI work — even "simple" requests.**
+
+### `docs/visual-rules.md` — Visual Generation: Code-Based Art (6 topics)
+1. SVG Illustrations (hero compositions, isometric cards, feature icons, abstract art)
+2. CSS Gradient Art (gradient mesh, aurora effects, gradient text, glass cards, floating orbs)
+3. Canvas Generative Art (particle constellation, wave animation, animated charts)
+4. SVG Filters & Textures (noise/grain, glow, morphing blobs, gradient borders)
+5. CSS Device Mockups (iPhone, browser window, MacBook frames)
+6. Placeholder System (structured placeholders for real photos with data attributes)
+
+### `docs/icons-rules.md` — Icon System: Zero Emoji, Pure SVG (4 topics)
+1. Core Icon Library (70+ inline SVG icons: navigation, status, content, objects, data, social)
+2. Icon Component System (CSS wrapper, size variants, stroke-weight matching font-weight)
+3. Feature Icon Patterns (filled circle, gradient background, list decorators)
+4. Rules (NEVER emoji/keyboard symbols/unicode — ALWAYS inline SVG with currentColor)
+
+### `docs/craft-rules.md` — Craft & Physics: "Feels Like Apple" (12 topics)
+1. Spring Physics (mass, stiffness, damping — Apple presets, web equivalents)
+2. Rubber Banding (overscroll physics, elastic bounds, iOS feel)
+3. Gesture Velocity & Momentum (velocity-driven animations, deceleration curves)
+4. Optical Corrections (visual centering, text alignment, icon weight compensation)
+5. Material Depth System (5-layer hierarchy, blur levels, shadow mapping, scrim)
+6. P3 Wide Gamut Color (Display P3 on web, oklch P3 extension, fallbacks)
+7. Micro-Interactions (button press, toggle, checkbox, pull-to-refresh, long press)
+8. Proportional Systems (modular scale, golden ratio, aspect ratios)
+9. Icon Construction (Apple grid, SF Symbols principles, web icon rules)
+10. Progressive Disclosure (information architecture, reveal patterns)
+11. Sensory Pairing (haptic + visual + audio synchronization matrix)
+12. Reduced Motion — Complete (replace, don't disable — crossfade over slide)
 
 ## Apple Design Analysis Reference
 
