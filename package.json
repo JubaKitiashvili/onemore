@@ -1,7 +1,7 @@
 {
   "name": "onemore-design",
-  "version": "1.0.0",
-  "description": "Apple HIG Design Intelligence — Generate Apple-quality UI across every platform",
+  "version": "2.0.0",
+  "description": "Apple HIG Design Intelligence — 6 specialized agents, 42 design topics, spring physics, video analysis. One command: /onemore",
   "main": "scripts/search.py",
   "bin": {
     "onemore": "./bin/onemore.js"
@@ -44,6 +44,8 @@
     "bin/",
     "scripts/",
     "data/",
+    "agents/",
+    "docs/*-rules.md",
     "SKILL.md",
     "README.md",
     "LICENSE"
