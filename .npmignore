@@ -1,0 +1,16 @@
+# Large binary assets — not needed for npm package
+data/resources/bezels/
+data/resources/icon-composer/*.png
+
+# Development files
+tests/
+showcase/
+docs/apple-patterns-analysis.md
+.claude/
+.firecrawl/
+.context-mem/
+.playwright-mcp/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
