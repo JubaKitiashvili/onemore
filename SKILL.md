@@ -1,28 +1,157 @@
 ---
 name: onemore
-description: "Apple HIG design intelligence. Generates Apple-quality UI across all platforms (iOS, macOS, watchOS, visionOS, web). Actions: design, build, create, implement, review, audit, fix, improve UI/UX code. Styles: Apple HIG, Cupertino, SF Pro, system colors, spring animations, materials, vibrancy. Projects: iOS app, macOS app, website, landing page, dashboard, mobile app, SwiftUI, React, React Native, Flutter. Elements: navigation bar, tab bar, toolbar, button, toggle, slider, picker, sheet, alert, list, card, search bar. Topics: spacing, typography, color system, dark mode, accessibility, dynamic type, haptics, gestures, continuous corners, SF Symbols."
+description: "Apple HIG design intelligence with specialized agents. One command for everything: build landing pages, fix animations, review accessibility, analyze reference videos. Automatically routes to the right specialist. Actions: design, build, create, implement, review, audit, fix, improve, animate, analyze UI/UX. Styles: Apple HIG, spring physics, materials, vibrancy. Projects: website, landing page, dashboard, iOS app, macOS app, mobile app, SwiftUI, React, React Native, Flutter, Tailwind, shadcn/ui. Topics: scroll animations, GSAP, Framer Motion, Three.js, Lottie, typography, color system, dark mode, accessibility, haptics, gestures."
 ---
 
 # OneMore — Apple HIG Design Intelligence
 
 One more thing your design needs.
 
-OneMore is an Apple HIG design intelligence skill for Claude Code. It provides authoritative, up-to-date Apple Human Interface Guidelines data, searchable by domain, platform, and stack, so every UI decision you make is grounded in Apple-quality design principles.
+OneMore is an Apple HIG design intelligence system with specialized agents. You say `/onemore` — it figures out the rest. Creative vision, implementation, animation, accessibility review, and video motion analysis — each handled by a dedicated specialist loaded with the exact rules it needs.
+
+---
+
+## How It Works
+
+When the user invokes `/onemore`, classify their intent and dispatch the right agent(s) automatically. The user never needs to know which agent runs — they just get Apple-quality results.
+
+---
+
+## Intent Classification & Routing
+
+Read the user's message and match to ONE of these routes:
+
+### Route 1: BUILD FROM SCRATCH
+**Triggers:** "build", "create", "design", "make me", "landing page", "new website", "new app", "new dashboard"
+**Also triggers on:** vague prompts like "SaaS analytics product" with no existing code referenced
+
+```
+Pipeline: onemore-vision → [user confirms brief] → onemore-build → onemore-review
+```
+
+**Steps:**
+1. Dispatch `onemore-vision` agent — it produces a creative brief
+2. Present the brief to the user, ask for confirmation
+3. On confirmation, dispatch `onemore-build` agent with the brief
+4. After build completes, dispatch `onemore-review` agent for quality gate
+5. If review finds critical issues, fix them. Then ship.
+
+### Route 2: FIX / IMPROVE / UPDATE
+**Triggers:** "fix", "improve", "update", "change", "modify", "refactor", "adjust", "tweak"
+**Context:** references existing code or components
+
+```
+Pipeline: onemore-build (directly)
+```
+
+**Steps:**
+1. Dispatch `onemore-build` agent with the task
+2. No vision needed — working on existing code
+3. Optional: dispatch `onemore-review` if the change is significant
+
+### Route 3: ANIMATE / MOTION
+**Triggers:** "animate", "animation", "scroll", "transition", "hover effect", "parallax", "motion", "GSAP", "Framer Motion", "Three.js", "Lottie", "spring"
+
+```
+Pipeline: onemore-animate (specialist)
+```
+
+**Steps:**
+1. Dispatch `onemore-animate` agent — it has deep animation knowledge
+2. Focused context: only animation + craft physics rules loaded
+3. Optional: dispatch `onemore-review` for quality check
+
+### Route 4: REVIEW / AUDIT
+**Triggers:** "review", "check", "audit", "quality", "is this good", "what's wrong"
+
+```
+Pipeline: onemore-review (directly)
+```
+
+**Steps:**
+1. Dispatch `onemore-review` agent on the specified code
+2. It runs all checklists and reports pass/fail with fixes
+
+### Route 5: ACCESSIBILITY
+**Triggers:** "accessibility", "a11y", "contrast", "screen reader", "keyboard", "WCAG", "focus", "reduced motion", "VoiceOver"
+
+```
+Pipeline: onemore-a11y (specialist)
+```
+
+**Steps:**
+1. Dispatch `onemore-a11y` agent — WCAG 2.2 + Apple HIG accessibility specialist
+2. It audits and auto-fixes what it can
+
+### Route 6: VIDEO REFERENCE
+**Triggers:** user attaches a video file (.mp4, .mov, .webm, .gif), or says "like this video", "match this animation", "reference video"
+
+```
+Pipeline: onemore-analyze → onemore-animate or onemore-build
+```
+
+**Steps:**
+1. Dispatch `onemore-analyze` agent — it extracts frames as mosaic sheets using ffmpeg
+2. Analyzes animation patterns, timing, easing, choreography
+3. Produces a motion spec
+4. Dispatch `onemore-animate` or `onemore-build` with the spec
+
+### Route 7: REDESIGN
+**Triggers:** "redesign", "rethink", "reimagine", "redo", "start over"
+
+```
+Pipeline: onemore-vision → [user confirms brief] → onemore-build → onemore-review
+```
+
+Same as Route 1, but the vision agent also reads the existing code to understand what's being redesigned.
+
+---
+
+## Agent Dispatch Reference
+
+| Agent | File | Knowledge | Role |
+|-------|------|-----------|------|
+| `onemore-vision` | `agents/onemore-vision.md` | vision-rules.md | Creative brief from vague prompts |
+| `onemore-build` | `agents/onemore-build.md` | craft + design-system + animation rules | Implementation |
+| `onemore-animate` | `agents/onemore-animate.md` | animation-rules + craft sections 1-3, 7 | Motion specialist |
+| `onemore-review` | `agents/onemore-review.md` | All rules (checklists only) | Quality gate |
+| `onemore-a11y` | `agents/onemore-a11y.md` | design-system section 9, craft section 12 | Accessibility audit |
+| `onemore-analyze` | `agents/onemore-analyze.md` | ffmpeg + motion analysis | Video reference → motion spec |
+
+---
+
+## Dispatching Agents
+
+When dispatching an agent, use the Agent tool:
+- Read the agent's `.md` file from the `agents/` directory
+- Include the agent's instructions as the prompt
+- Pass the user's request and any relevant context (brief, code paths, video path)
+- Set appropriate tools for the agent
+
+Example dispatch pattern:
+```
+1. Read agents/onemore-vision.md
+2. Agent tool: prompt = [agent instructions] + [user request]
+3. Wait for agent output
+4. Present to user or chain to next agent
+```
 
 ---
 
 ## Apple HIG Core Principles
 
-- **Clarity** — Text is legible, icons precise, adornments subtle. Function drives form.
-- **Deference** — UI helps people understand and interact with content without competing with it.
-- **Depth** — Visual layers and realistic motion convey hierarchy and aid understanding.
-- **Consistency** — Familiar standards and paradigms let people transfer knowledge across apps.
-- **Direct Manipulation** — Interaction with content feels immediate and results are visible.
-- **Feedback** — Every action has a response; status is always communicated clearly.
+These apply to ALL agents:
+
+- **Clarity** — Text is legible, icons precise, adornments subtle
+- **Deference** — UI helps people understand content without competing with it
+- **Depth** — Visual layers and realistic motion convey hierarchy
+- **Consistency** — Familiar standards let people transfer knowledge across apps
+- **Direct Manipulation** — Interaction feels immediate, results visible
+- **Feedback** — Every action has a response, status always communicated
 
 ---
 
-## Priority Rules Quick Reference
+## Priority Rules
 
 | Priority | Category | Impact |
 |----------|----------|--------|
@@ -37,133 +166,18 @@ OneMore is an Apple HIG design intelligence skill for Claude Code. It provides a
 
 ---
 
-## Apple Design Maxims
-
-These rules separate Apple-quality design from generic AI output:
-
-### One Focal Point Per Section
-Every section gets ONE headline, ONE visual, ONE CTA. If you're adding a second visual or third button, the section is too busy. Split it or simplify.
-
-### Dark for Product, Light for Text
-Product showcases and hero visuals use dark/black backgrounds. Text-heavy sections (features, pricing, FAQ) use light backgrounds. Alternate between them for visual rhythm.
-
-### Apple Product Page Animation Standard (Default)
-The default animation approach matches Apple's product pages — the most iconic Apple experience:
-
-**Hero (on load, not scroll):**
-- Staggered entrance: tag → headline → subtitle → CTAs → visual mockup
-- Each element: opacity 0→1, translateY(30px→0), 600ms cubic-bezier(0.25, 0.1, 0.25, 1)
-- Stagger delay: 150-200ms between elements
-
-**Every Section (scroll-triggered):**
-- Use IntersectionObserver (threshold: 0.15) to trigger reveals
-- Section headline fades up first, then content staggers in
-- Each element: opacity 0→1, translateY(30px→0)
-- Stagger delay: 100-150ms between sibling elements
-
-**Visual Elements (scroll-linked):**
-- Product mockups/dashboards: parallax effect (move at 0.3x scroll speed)
-- Large visuals: clip-path reveal (inset 8%→0%) as they scroll into view
-- Charts/graphs: draw animation (SVG stroke-dasharray)
-- Numbers: count-up animation with ease-out cubic
-
-**Hover Interactions:**
-- Cards: translateY(-4px) + shadow increase, 200ms transition
-- Buttons: subtle scale(1.02) or background shift
-- Links: color transition 150ms
-
-**Easing:** Always cubic-bezier(0.25, 0.1, 0.25, 1) — Apple's standard curve
-**Performance:** Only animate transform and opacity (GPU-accelerated)
-**Accessibility:** All animations disabled when prefers-reduced-motion is set
-
-**When to use LESS animation:**
-- Developer documentation / technical content → zero scroll animation
-- E-commerce / transactional pages → minimal, speed-first
-- Data-heavy dashboards → animate data viz only, not chrome
-
-### Generous Negative Space
-Apple's exact spacing scale from 25 pages analyzed:
-- Between elements: 8, 16, 20, 24px
-- Section internal padding: 32, 40, 48px
-- Between sections: 56, 64, 72, 80, 96, 120px
-- Desktop sections: 80-120px vertical padding
-- Tablet sections: 72-96px
-- Mobile sections: 40-72px
-- Content max-width: 980px for text, 1200px for card grids
-
-### Accent Color Identity
-Every project gets ONE accent color (not always systemBlue). Choose from the reasoning database based on app category. Use it sparingly — primary CTAs and key highlights only.
-
----
-
 ## Quick Reference
 
-- **Accessibility**: 4.5:1 contrast ratio minimum, VoiceOver labels on all interactive elements, Dynamic Type support required
-- **Touch**: 44pt minimum touch target on iOS, 60pt minimum on visionOS
-- **Typography**: SF Pro on native Apple platforms, Inter or system-ui on web; body text 17pt iOS / 13pt macOS
-- **Colors**: Always use semantic color tokens, support dark mode, never hardcode hex values
-- **Spacing**: 4pt grid — values: 4 / 8 / 12 / 16 / 20 / 24 / 32 / 48
-- **Components**: Prefer native controls, use continuous corners on all rounded rects
-- **Animation**: Spring physics only — never `linear` or `ease` for UI motion
-- **Platform**: iOS, macOS, and visionOS have distinct patterns — verify per-platform before shipping
-
----
-
-## How to Use
-
-**Step 1: Analyze requirements**
-Identify the product type (app, website, dashboard), target platform (iOS, macOS, visionOS, web), and tech stack (SwiftUI, React, React Native, Flutter).
-
-**Step 2: Generate a design system**
-```
-python3 scripts/search.py "query" --design-system -p "ProjectName"
-```
-
-**Step 3: Search specific domains**
-```
-python3 scripts/search.py "keyword" --domain colors
-```
-Available domains: `colors`, `typography`, `spacing`, `components`, `animation`, `patterns`, `accessibility`
-
-**Step 4: Get platform guidelines**
-```
-python3 scripts/search.py "keyword" --platform ios
-```
-Available platforms: `ios`, `macos`, `watchos`, `visionos`, `web`
-
-**Step 5: Get stack implementation**
-```
-python3 scripts/search.py "keyword" --stack swiftui
-```
-Available stacks: `swiftui`, `react`, `react-native`, `flutter`, `html-tailwind`
-
----
-
-## Font Licensing Note
-
-SF Pro and SF New York are licensed exclusively for use on Apple platforms (iOS, macOS, watchOS, visionOS). Do not embed or serve them on the web.
-
-For web projects, use the following font stack:
-```css
-font-family: -apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
-```
-
----
-
-## Pre-Delivery Checklist
-
-- [ ] Uses Apple spacing scale (4pt grid)
-- [ ] Typography: SF Pro (native) or Inter/system-ui (web)
-- [ ] Semantic color tokens, dark mode tested
-- [ ] Continuous corners (`borderCurve: continuous`)
-- [ ] Touch targets min 44pt (60pt visionOS)
-- [ ] Spring animations, no linear/ease
-- [ ] Dynamic Type / font scaling supported
-- [ ] No emoji icons — SF Symbols or Lucide/Heroicons
-- [ ] Platform-appropriate patterns
-- [ ] Accessibility: VoiceOver, 4.5:1 contrast, focus states
-- [ ] Materials/vibrancy where appropriate
-- [ ] Safe areas respected
+- **Font stack (web):** `-apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif`
+- **Easing:** `cubic-bezier(0.25, 0.1, 0.25, 1)` — Apple's standard (springs preferred)
+- **Spacing:** 4pt grid — 4 / 8 / 12 / 16 / 20 / 24 / 32 / 48
+- **Touch targets:** 44px minimum (60px visionOS)
+- **Contrast:** 4.5:1 minimum for text
+- **Content width:** 980px text, 1200px grids
+- **Colors:** Never #000 or #fff — use #1d1d1f and #fbfbfd
+- **Corners:** Continuous corners, concentric radii (inner = outer - padding)
+- **Motion:** prefers-reduced-motion always respected
+- **SF Pro:** Apple platforms only — never serve on web
 
 ---
 
@@ -174,7 +188,9 @@ font-family: -apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
 | `border-radius: 8px` | Continuous corners, platform-correct radii |
 | Arial/Helvetica | SF Pro (native), Inter (web) |
 | Random spacing | 4pt grid |
-| Flat lifeless UI | Materials, vibrancy, shadows |
+| Flat lifeless UI | Materials, vibrancy, depth layers |
 | `ease-in-out` | Spring physics |
-| `#000000` text | Semantic label color (`#1d1d1f` on web) |
-| Emoji icons | SF Symbols or equivalent SVG |
+| `#000000` text | Semantic label color (`#1d1d1f`) |
+| Emoji icons | SF Symbols or Lucide/Heroicons |
+| Feature dump landing page | Story arc: hook → problem → reveal → wow → close |
+| Same animation everywhere | Choreography: stagger, sequence, hierarchy |
