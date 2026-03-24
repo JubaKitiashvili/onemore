@@ -183,6 +183,11 @@ OneMore uses a single `/onemore` command that intelligently routes to specialize
 3. Feature Icon Patterns (filled circle, gradient background, list decorators)
 4. Rules (NEVER emoji/keyboard symbols/unicode — ALWAYS inline SVG with currentColor)
 
+### `docs/patterns-rules.md` — UI Patterns: Liquid Glass, Navigation & Modality (3 topics)
+1. Liquid Glass (CSS web approximation, glass buttons, segmented controls, scroll edge, app icons)
+2. Navigation Patterns (tab bar, nav bar, sidebar, large title, hierarchy types)
+3. Modality (sheets with drag-to-dismiss, alerts, popovers, action sheets, loading states)
+
 ### `docs/craft-rules.md` — Craft & Physics: "Feels Like Apple" (12 topics)
 1. Spring Physics (mass, stiffness, damping — Apple presets, web equivalents)
 2. Rubber Banding (overscroll physics, elastic bounds, iOS feel)
