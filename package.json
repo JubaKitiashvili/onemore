@@ -1,6 +1,6 @@
 {
   "name": "onemore-design",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Apple HIG Design Intelligence — 6 specialized agents, 42 design topics, spring physics, video analysis. One command: /onemore",
   "main": "scripts/search.py",
   "bin": {
