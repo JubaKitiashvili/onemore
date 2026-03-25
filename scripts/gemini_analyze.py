@@ -26,9 +26,11 @@ import mimetypes
 
 # === MODEL PRIORITY ===
 GEMINI_MODELS = [
-    "gemini-2.5-flash",          # default — fast, cheap, good quality
-    "gemini-2.5-pro",            # premium — best available quality
-    "gemini-2.0-flash",          # fallback
+    "gemini-3.1-pro-preview",    # best quality (preview)
+    "gemini-3.1-flash-lite-preview",  # fast 3.1 option
+    "gemini-2.5-flash",          # stable fallback — fast, cheap
+    "gemini-2.5-pro",            # stable fallback — premium
+    "gemini-2.0-flash",          # last resort
 ]
 
 OPENAI_MODEL = "gpt-4o"
