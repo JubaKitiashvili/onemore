@@ -121,7 +121,7 @@ Same as Route 1, but the vision agent also reads the existing code to understand
 | `onemore-animate` | `agents/onemore-animate.md` | animation-rules + craft sections 1-3, 7 | Motion specialist |
 | `onemore-review` | `agents/onemore-review.md` | All rules (checklists only) | Quality gate |
 | `onemore-a11y` | `agents/onemore-a11y.md` | design-system section 9, craft section 12 | Accessibility audit |
-| `onemore-analyze` | `agents/onemore-analyze.md` | Gemini API (optional) + ffmpeg + motion analysis | Video reference → motion spec |
+| `onemore-analyze` | `agents/onemore-analyze.md` | Gemini API + OpenAI API (optional) + ffmpeg + motion analysis | Video reference → motion spec |
 
 ---
 

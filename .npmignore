@@ -10,6 +10,7 @@ docs/apple-patterns-analysis.md
 .firecrawl/
 .context-mem/
 .playwright-mcp/
+onemore-workspace/
 __pycache__/
 *.pyc
 .pytest_cache/

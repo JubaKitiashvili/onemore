@@ -26,9 +26,9 @@ import mimetypes
 
 # === MODEL PRIORITY ===
 GEMINI_MODELS = [
-    "gemini-3.1-flash",          # default — fast, cheap, 90% quality
-    "gemini-3.1-pro-preview",    # premium — best quality
-    "gemini-2.5-flash",          # fallback
+    "gemini-2.5-flash",          # default — fast, cheap, good quality
+    "gemini-2.5-pro",            # premium — best available quality
+    "gemini-2.0-flash",          # fallback
 ]
 
 OPENAI_MODEL = "gpt-4o"
@@ -280,36 +280,44 @@ def gemini_analyze(file_uri: str, api_key: str, mime_type: str, model_override: 
 # === OPENAI PROVIDER ===
 
 def openai_analyze(video_path: str, api_key: str, model_override: str = None) -> dict:
-    """Send video frames to OpenAI GPT-4o for analysis."""
-    model = model_override or OPENAI_MODEL
-    mime_type = get_mime_type(video_path)
+    """Extract frames from video and send to OpenAI GPT-4o via Chat Completions API."""
+    import subprocess
+    import tempfile
 
-    # Encode video as base64
-    with open(video_path, "rb") as f:
-        video_b64 = base64.b64encode(f.read()).decode()
+    model = model_override or OPENAI_MODEL
+
+    # Extract frames as base64 images (GPT-4o doesn't accept raw video via Chat Completions)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Extract 1 frame per second at 512px width
+        subprocess.run([
+            "ffmpeg", "-i", video_path, "-vf", "fps=1,scale=512:-1",
+            "-q:v", "2", f"{tmpdir}/frame_%03d.jpg"
+        ], capture_output=True)
+
+        # Collect frames as base64
+        image_parts = []
+        for fname in sorted(os.listdir(tmpdir)):
+            if fname.endswith(".jpg"):
+                with open(os.path.join(tmpdir, fname), "rb") as f:
+                    b64 = base64.b64encode(f.read()).decode()
+                image_parts.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{b64}", "detail": "high"}
+                })
+
+    if not image_parts:
+        raise RuntimeError("Failed to extract frames from video for OpenAI analysis")
+
+    print(f"  Extracted {len(image_parts)} frames for GPT-4o", file=sys.stderr)
+
+    # Build Chat Completions payload
+    content = image_parts + [{"type": "text", "text": ANALYSIS_PROMPT + "\n\nRespond with ONLY the JSON object, no markdown or explanation."}]
 
     payload = {
         "model": model,
-        "messages": [
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "input_video",
-                        "input_video": {
-                            "data": video_b64,
-                            "media_type": mime_type,
-                        },
-                    },
-                    {
-                        "type": "input_text",
-                        "text": ANALYSIS_PROMPT,
-                    },
-                ],
-            }
-        ],
+        "messages": [{"role": "user", "content": content}],
         "temperature": 0.1,
-        "max_output_tokens": 8192,
+        "max_tokens": 8192,
     }
 
     data = json.dumps(payload).encode()
@@ -318,15 +326,14 @@ def openai_analyze(video_path: str, api_key: str, model_override: str = None) ->
         "Authorization": f"Bearer {api_key}",
     }
     req = urllib.request.Request(
-        "https://api.openai.com/v1/responses", data=data, headers=headers, method="POST"
+        "https://api.openai.com/v1/chat/completions", data=data, headers=headers, method="POST"
     )
 
     print(f"  Trying: {model}...", file=sys.stderr)
     resp = urllib.request.urlopen(req, timeout=180)
     result = json.loads(resp.read().decode())
 
-    # Extract text from response
-    text = result["output"][0]["content"][0]["text"]
+    text = result["choices"][0]["message"]["content"]
     print(f"  Success: {model}", file=sys.stderr)
     return _parse_json_response(text), model
 
@@ -477,7 +484,7 @@ def main():
     if len(sys.argv) < 4:
         print("Usage: gemini_analyze.py <video_path> <provider:api_key> <output_dir> [model]", file=sys.stderr)
         print("  provider: gemini | openai", file=sys.stderr)
-        print("  example: gemini:AIzaSy... /path/to/video.mp4 ./output", file=sys.stderr)
+        print("  example: python3 gemini_analyze.py video.mp4 gemini:AIzaSy... ./output", file=sys.stderr)
         sys.exit(1)
 
     video_path = sys.argv[1]

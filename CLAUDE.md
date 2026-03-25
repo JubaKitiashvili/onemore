@@ -53,12 +53,19 @@ python3 scripts/search.py redesign ./src/         # Scan for HIG violations
 python3 scripts/gemini_analyze.py video.mp4 $KEY out/  # Gemini video analysis (optional)
 ```
 
-## Gemini Video Analysis (Optional)
+## Video Analysis API (Optional)
 
-The video analyzer supports Google Gemini API for faster, more accurate motion detection. To enable:
+The video analyzer supports cloud AI for faster, more accurate motion detection:
+
+**Google Gemini (recommended):**
 1. Get a free API key at https://aistudio.google.com/apikey
-2. Add it to `~/.claude/skills/onemore/onemore.local.md` in the `gemini_api_key` field
-3. When analyzing videos, Gemini will be used automatically (fallback to ffmpeg if unavailable)
+2. Add to `~/.claude/skills/onemore/onemore.local.md`: `gemini_api_key: "AIzaSy..."`
+
+**OpenAI GPT-4o (alternative):**
+1. Get key at https://platform.openai.com/api-keys
+2. Add to `~/.claude/skills/onemore/onemore.local.md`: `openai_api_key: "sk-..."`
+
+Auto-fallback: Gemini → OpenAI → built-in ffmpeg (free, no keys needed)
 
 ## IMPORTANT: Use OneMore's Own Skill
 

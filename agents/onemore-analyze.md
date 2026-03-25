@@ -146,7 +146,7 @@ Parse the YAML frontmatter for `gemini_api_key`. If it exists and is non-empty:
    **IMPORTANT: Append user context to the analysis.** If the user specified a platform or focus, the agent should enhance the Gemini result by noting the target platform in blueprint.md and tailoring build-prompt.md accordingly (e.g., Reanimated code for RN, Framer Motion for React, GSAP for vanilla).
 
 3. **Check result:** If stdout contains `GEMINI_SUCCESS`:
-   - Read `$OUTPUT_DIR/gemini_analysis.json` for the raw structured data
+   - Read `$OUTPUT_DIR/analysis.json` for the raw structured data
    - Read `$OUTPUT_DIR/build-prompt.md` (auto-generated from JSON)
    - Review the build-prompt.md — enhance it if needed (add code snippets, refine values)
    - Write `$OUTPUT_DIR/blueprint.md` noting "Analysis by: Google Gemini API + OneMore"

@@ -6,6 +6,7 @@
 .context-mem/
 .playwright-mcp/
 .firecrawl/
+onemore-workspace/
 
 # Editor
 .vscode/

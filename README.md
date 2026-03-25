@@ -50,7 +50,7 @@ Record any website or app, send the video to OneMore, and get a complete impleme
 
 | Tier | Method | Speed | Accuracy | Cost |
 |------|--------|-------|----------|------|
-| **Gemini API** | Google Gemini 3.1 native video | ~15-30s | Best | ~$0.01-0.04/video |
+| **Gemini API** | Google Gemini 2.5 native video | ~15-30s | Best | ~$0.01-0.04/video |
 | **OpenAI API** | GPT-4o vision | ~20-40s | Great | ~$0.04/video |
 | **Built-in** | ffmpeg frames + Claude vision | ~3-4min | Good | Free |
 
@@ -64,7 +64,7 @@ OneMore reads your `package.json` (or `pubspec.yaml`, `Package.swift`, etc.) and
 /onemore [video.mp4] "make my app look like this"
 
 > Detected: React Native (Expo) with Reanimated 3, NativeWind
-> Analyzing video... (Gemini 3.1 Flash, 14s)
+> Analyzing video... (Gemini 2.5 Flash, 14s)
 > Blueprint ready — 7 animations, 5 components, RN code snippets
 ```
 
@@ -79,7 +79,7 @@ OneMore reads your `package.json` (or `pubspec.yaml`, `Package.swift`, etc.) and
 ---
 gemini_api_key: "AIzaSy..."    # Google Gemini (recommended)
 openai_api_key: "sk-..."       # OpenAI GPT-4o (alternative)
-video_model: "auto"             # auto | gemini-3.1-pro-preview | gemini-3.1-flash | gpt-4o
+video_model: "auto"             # auto | gemini-2.5-pro | gemini-2.5-flash | gpt-4o
 ---
 ```
 
