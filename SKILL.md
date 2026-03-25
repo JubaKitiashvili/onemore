@@ -91,10 +91,15 @@ Pipeline: onemore-analyze → onemore-animate or onemore-build
 ```
 
 **Steps:**
-1. Dispatch `onemore-analyze` agent — it extracts frames as mosaic sheets using ffmpeg
-2. Analyzes animation patterns, timing, easing, choreography
-3. Produces a motion spec
-4. Dispatch `onemore-animate` or `onemore-build` with the spec
+1. Check if user provided context (target platform, focus area). If only a video with no description — the analyze agent will ask one clarifying question before proceeding.
+2. Dispatch `onemore-analyze` agent — uses Gemini API (if configured) or ffmpeg frame analysis
+3. Produces implementation blueprint (blueprint.md + build-prompt.md)
+4. Dispatch `onemore-animate` or `onemore-build` with build-prompt.md
+
+**Best results when user provides context with video:**
+- "Recreate this in React Native" → RN-focused analysis
+- "I want these scroll animations on my Next.js site" → GSAP/Framer focus
+- "Extract the card component design" → component-specific analysis
 
 ### Route 7: REDESIGN
 **Triggers:** "redesign", "rethink", "reimagine", "redo", "start over"
@@ -116,7 +121,7 @@ Same as Route 1, but the vision agent also reads the existing code to understand
 | `onemore-animate` | `agents/onemore-animate.md` | animation-rules + craft sections 1-3, 7 | Motion specialist |
 | `onemore-review` | `agents/onemore-review.md` | All rules (checklists only) | Quality gate |
 | `onemore-a11y` | `agents/onemore-a11y.md` | design-system section 9, craft section 12 | Accessibility audit |
-| `onemore-analyze` | `agents/onemore-analyze.md` | ffmpeg + motion analysis | Video reference → motion spec |
+| `onemore-analyze` | `agents/onemore-analyze.md` | Gemini API (optional) + ffmpeg + motion analysis | Video reference → motion spec |
 
 ---
 
