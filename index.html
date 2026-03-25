@@ -240,7 +240,23 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 122, 255, 0.06) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 15% 80%, rgba(88, 86, 214, 0.03) 0%, transparent 50%), radial-gradient(ellipse 40% 50% at 85% 70%, rgba(0, 122, 255, 0.02) 0%, transparent 50%);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 122, 255, 0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 15% 80%, rgba(88, 86, 214, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 50% at 85% 70%, rgba(0, 122, 255, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 70% 20%, rgba(52, 199, 89, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse 35% 35% at 30% 40%, rgba(255, 149, 0, 0.02) 0%, transparent 50%);
+      animation: mesh-shift 20s var(--ease) infinite alternate;
+    }
+
+    @keyframes mesh-shift {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.9; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-mesh { animation: none; }
     }
 
     .hero-glow {
@@ -393,164 +409,129 @@
       height: 16px;
     }
 
-    /* ── Hero SVG Layers Illustration ── */
-    .hero-layers {
+    /* ── Hero Code Preview ── */
+    .hero-preview {
       position: relative;
       z-index: 2;
       width: 100%;
-      height: 480px;
-      perspective: 1400px;
     }
 
     @media (max-width: 960px) {
-      .hero-layers {
-        height: 360px;
+      .hero-preview {
         margin: 40px auto 0;
         max-width: 500px;
       }
     }
 
-    .layer {
-      position: absolute;
-      left: 50%;
-      width: 440px;
-      border-radius: 16px;
-      will-change: transform;
-      transition: transform 1.2s var(--ease), opacity 0.8s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      cursor: default;
-    }
-    .layer:hover {
-      box-shadow: 0 16px 48px rgba(0,0,0,0.12), 0 0 0 2px rgba(0,122,255,0.25) !important;
-      border-color: rgba(0,122,255,0.25) !important;
-      z-index: 10 !important;
-    }
-    .l1:hover { box-shadow: 0 16px 48px rgba(0,122,255,0.15), 0 0 0 2px rgba(0,122,255,0.3) !important; }
-    .l3:hover { box-shadow: 0 16px 48px rgba(52,199,89,0.12), 0 0 0 2px rgba(52,199,89,0.25) !important; border-color: rgba(52,199,89,0.25) !important; }
-    .l4:hover { box-shadow: 0 16px 48px rgba(255,149,0,0.12), 0 0 0 2px rgba(255,149,0,0.25) !important; border-color: rgba(255,149,0,0.25) !important; }
-    .l5:hover { box-shadow: 0 16px 48px rgba(255,59,48,0.12), 0 0 0 2px rgba(255,59,48,0.25) !important; border-color: rgba(255,59,48,0.25) !important; }
-
-    @media (max-width: 960px) {
-      .layer {
-        width: 320px;
-      }
-    }
-
-    /* Default state */
-    .l1, .l2, .l3, .l4, .l5 { height: 72px; }
-    .l1 { z-index:5; background:linear-gradient(135deg,rgba(0,122,255,0.10),rgba(88,86,214,0.08)); border:1px solid rgba(0,122,255,0.15); box-shadow:0 8px 30px rgba(0,122,255,0.08),0 2px 8px rgba(0,0,0,0.04); }
-    .l2 { z-index:4; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.06); box-shadow:0 8px 30px rgba(0,0,0,0.06),0 2px 8px rgba(0,0,0,0.03); }
-    .l3 { z-index:3; background:linear-gradient(135deg,rgba(52,199,89,0.08),rgba(52,199,89,0.04)); border:1px solid rgba(52,199,89,0.12); box-shadow:0 8px 30px rgba(52,199,89,0.06),0 2px 8px rgba(0,0,0,0.03); }
-    .l4 { z-index:2; background:linear-gradient(135deg,rgba(255,149,0,0.08),rgba(255,149,0,0.04)); border:1px solid rgba(255,149,0,0.10); box-shadow:0 8px 30px rgba(255,149,0,0.06),0 2px 8px rgba(0,0,0,0.03); }
-    .l5 { z-index:1; background:linear-gradient(135deg,rgba(255,59,48,0.08),rgba(255,59,48,0.04)); border:1px solid rgba(255,59,48,0.10); box-shadow:0 8px 30px rgba(255,59,48,0.06),0 2px 8px rgba(0,0,0,0.03); }
-
-    .layer-tag {
-      position: absolute;
-      top: 10px;
-      left: 16px;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .l1 .layer-tag {
-      color: var(--accent);
-    }
-
-    .l2 .layer-tag {
-      color: var(--text-dim);
-    }
-
-    .l3 .layer-tag {
-      color: #34C759;
-    }
-
-    .l4 .layer-tag {
-      color: #FF9500;
-    }
-
-    .l5 .layer-tag {
-      color: #FF3B30;
-    }
-
-    .l-dots {
-      position: absolute;
-      top: 32px;
-      left: 16px;
-      display: flex;
-      gap: 5px;
-    }
-
-    .l-dots span {
-      width: 18px;
-      height: 18px;
-      border-radius: 5px;
-      display: block;
-    }
-
-    .l-bars {
-      position: absolute;
-      top: 30px;
-      left: 16px;
-      right: 16px;
+    .hero-code-split {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 12px;
     }
 
-    .l-bars span {
-      height: 5px;
-      border-radius: 2px;
-      background: rgba(0, 0, 0, 0.06);
-      display: block;
+    .hero-code-card {
+      border-radius: 14px;
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
     }
 
-    .l-grid {
-      position: absolute;
-      top: 30px;
-      left: 16px;
-      right: 16px;
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 3px;
-    }
-
-    .l-grid span {
-      height: 14px;
-      border-radius: 3px;
-      border: 1px solid rgba(52, 199, 89, 0.10);
-      display: block;
-    }
-
-    .l-rects {
-      position: absolute;
-      top: 32px;
-      left: 16px;
+    .hero-code-header {
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
       display: flex;
-      gap: 6px;
+      align-items: center;
+      gap: 8px;
     }
 
-    .l-rects span {
-      width: 44px;
-      height: 36px;
-      border-radius: 6px;
-      background: rgba(255, 149, 0, 0.06);
-      border: 1px solid rgba(255, 149, 0, 0.12);
-      display: block;
+    .hero-code-header-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
     }
 
-    .l-wave {
-      position: absolute;
-      top: 28px;
-      left: 16px;
-      right: 16px;
+    .hero-code-body {
+      padding: 12px 16px 16px;
     }
 
-    .l-wave svg {
-      width: 100%;
-      height: 22px;
+    /* "Before" card — dull generic output */
+    .hero-code-before {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s var(--ease), transform 0.8s var(--ease);
+    }
+
+    .hero-code-before.hc-on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-code-before .hero-code-header {
+      background: rgba(0, 0, 0, 0.02);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      color: #86868b;
+    }
+
+    .hero-code-before .hero-code-body {
+      color: var(--text-dark-dim);
+    }
+
+    /* "After" card — Apple HIG polished */
+    .hero-code-after {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 40px rgba(0, 122, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s var(--ease) 0.3s, transform 0.8s var(--ease) 0.3s;
+    }
+
+    .hero-code-after.hc-on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-code-after .hero-code-header {
+      background: rgba(0, 0, 0, 0.02);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--text-dark-dim);
+    }
+
+    .hero-code-after .hero-code-body {
+      color: var(--text-dark-dim);
+    }
+
+    /* Connector arrow between cards */
+    .hero-code-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.5s var(--ease) 0.15s;
+    }
+
+    .hero-code-arrow.hc-on {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-code-before,
+      .hero-code-after,
+      .hero-code-arrow {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     /* Stars canvas */
@@ -585,6 +566,133 @@
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.6;
+    }
+
+    /* ── Pitch comparison strip ── */
+    .pitch-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 860px;
+      margin: 64px auto 0;
+    }
+
+    @media (max-width: 640px) {
+      .pitch-compare {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 400px;
+      }
+    }
+
+    .pitch-card {
+      border-radius: 20px;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .pitch-card-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 24px 0;
+    }
+
+    .pitch-card-inner {
+      padding: 16px 24px 24px;
+    }
+
+    /* "Without" card — dull, generic */
+    .pitch-card-without {
+      background: #e8e8ed;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .pitch-card-without .pitch-card-label {
+      color: #86868b;
+    }
+
+    .pitch-card-without .pc-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #6e6e73;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .pitch-card-without .pc-text {
+      height: 8px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+
+    .pitch-card-without .pc-text:last-child {
+      width: 65%;
+      margin-bottom: 0;
+    }
+
+    .pitch-card-without .pc-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pitch-card-without .pc-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+    }
+
+    /* "With OneMore" card — polished, Apple HIG */
+    .pitch-card-with {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 40px rgba(0, 122, 255, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .pitch-card-with .pitch-card-label {
+      color: var(--accent);
+    }
+
+    .pitch-card-with .pc-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 980px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 122, 255, 0.2);
+    }
+
+    .pitch-card-with .pc-text {
+      height: 8px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .pitch-card-with .pc-text:last-child {
+      width: 65%;
+      margin-bottom: 0;
+    }
+
+    .pitch-card-with .pc-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pitch-card-with .pc-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
     }
 
     /* ════════════════════════════════════════
@@ -654,6 +762,488 @@
       margin: 40px auto 0;
       line-height: 1.5;
       position: relative;
+    }
+
+    /* ── BigText floating tokens ── */
+    .bigtext-tokens {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bt-token {
+      position: absolute;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+      transition: opacity 0.6s var(--ease), transform 0.8s var(--ease);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .bt-token.bt-on {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .bt-token-blue {
+      background: rgba(0, 122, 255, 0.08);
+      border: 1px solid rgba(0, 122, 255, 0.15);
+      color: var(--accent);
+    }
+
+    .bt-token-purple {
+      background: rgba(88, 86, 214, 0.08);
+      border: 1px solid rgba(88, 86, 214, 0.15);
+      color: var(--purple);
+    }
+
+    .bt-token-green {
+      background: rgba(52, 199, 89, 0.08);
+      border: 1px solid rgba(52, 199, 89, 0.15);
+      color: #34C759;
+    }
+
+    .bt-token-orange {
+      background: rgba(255, 149, 0, 0.08);
+      border: 1px solid rgba(255, 149, 0, 0.15);
+      color: #FF9500;
+    }
+
+    @media (max-width: 768px) {
+      .bigtext-tokens { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bt-token { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Shared floating elements system ── */
+    .float-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .float-el {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(16px) scale(0.92);
+      transition: opacity 0.7s var(--ease), transform 0.9s var(--ease);
+    }
+
+    .float-el.fl-on {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (max-width: 768px) {
+      .float-layer { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .float-el { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Float element types */
+    .fl-chip {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .fl-mini-btn {
+      padding: 8px 18px;
+      border-radius: 980px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .fl-mini-card {
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-family: var(--mono);
+      line-height: 1.5;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .fl-mini-toggle {
+      width: 40px;
+      height: 22px;
+      border-radius: 11px;
+      position: relative;
+    }
+
+    .fl-mini-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .fl-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fl-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ════════════════════════════════════════
+   AGENT PIPELINE
+   ════════════════════════════════════════ */
+    .pipeline {
+      background: #f5f5f7;
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pipeline-in {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .pipeline-eye {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .pipeline-h2 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      text-align: center;
+      color: var(--text-dark);
+      margin-bottom: 56px;
+    }
+
+    /* Agent nodes */
+    .pipe-agents {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .pipe-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      background: #fff;
+      border: 2px solid rgba(0, 0, 0, 0.06);
+      min-width: 100px;
+      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.3s var(--ease);
+      cursor: default;
+    }
+
+    .pipe-node.pipe-active {
+      transform: translateY(-4px);
+    }
+
+    .pipe-node-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.4s var(--ease);
+    }
+
+    .pipe-node-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .pipe-node-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .pipe-node-role {
+      font-size: 10px;
+      color: var(--text-dark-dim);
+    }
+
+    /* Route selector */
+    .pipe-routes {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .pipe-route {
+      padding: 8px 16px;
+      border-radius: 980px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-dark-dim);
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+    }
+
+    .pipe-route:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .pipe-route.pipe-route-active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25);
+    }
+
+    /* Flow description */
+    .pipe-flow {
+      text-align: center;
+      min-height: 80px;
+    }
+
+    .pipe-flow-chain {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .pipe-flow-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateX(-8px);
+      animation: pipeStepIn 0.4s var(--ease) forwards;
+    }
+
+    @keyframes pipeStepIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .pipe-flow-arrow {
+      color: var(--text-dark-dim);
+      font-size: 14px;
+      opacity: 0;
+      animation: pipeStepIn 0.3s var(--ease) forwards;
+    }
+
+    .pipe-flow-desc {
+      font-size: 15px;
+      color: var(--text-dark-dim);
+      line-height: 1.5;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pipe-flow-step, .pipe-flow-arrow { opacity: 1; transform: none; animation: none; }
+      .pipe-node { transition: none; }
+    }
+
+    /* ════════════════════════════════════════
+   CATEGORY INTELLIGENCE
+   ════════════════════════════════════════ */
+    .catint {
+      background: #1d1d1f;
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+      color: #f5f5f7;
+    }
+
+    .catint-in {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .catint-eye {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .catint-h2 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .catint-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .catint-tab {
+      padding: 8px 18px;
+      border-radius: 980px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+    }
+
+    .catint-tab:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f5f5f7;
+    }
+
+    .catint-tab.catint-tab-active {
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .catint-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .catint-preview { grid-template-columns: 1fr; }
+    }
+
+    .catint-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 24px;
+    }
+
+    .catint-card-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .catint-card-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: #f5f5f7;
+      line-height: 1.5;
+    }
+
+    .catint-accent-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 5px;
+      vertical-align: middle;
+      margin-right: 8px;
+      transition: background 0.4s var(--ease);
+    }
+
+    /* ════════════════════════════════════════
+   EXPORT TABS
+   ════════════════════════════════════════ */
+    .export-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .export-tabs::-webkit-scrollbar { display: none; }
+
+    .export-tab {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+      white-space: nowrap;
+      border: none;
+      background: none;
+    }
+
+    .export-tab:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .export-tab.export-tab-active {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .export-code {
+      display: none;
+    }
+
+    .export-code.export-code-active {
+      display: block;
     }
 
     /* ════════════════════════════════════════
@@ -750,8 +1340,8 @@
     .term-code {
       padding: 28px 24px;
       font-family: var(--mono);
-      font-size: 14px;
-      line-height: 2.2;
+      font-size: 13px;
+      line-height: 2;
     }
 
     .tl {
@@ -1490,6 +2080,65 @@
       text-align: center;
     }
 
+    /* ── Compat chip code preview ── */
+    .chip-dark {
+      position: relative;
+      cursor: default;
+      transition: background 0.2s var(--ease), transform 0.15s var(--ease);
+    }
+
+    .chip-dark:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
+    }
+
+    .chip-dark .chip-code {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+      background: #2d2d2f;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.6;
+      color: #e0e0e0;
+      white-space: pre;
+      text-align: left;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      z-index: 20;
+      min-width: 220px;
+    }
+
+    .chip-dark .chip-code::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #2d2d2f;
+    }
+
+    .chip-dark:hover .chip-code {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .chip-dark .chip-code { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .chip-dark .chip-code { transition: none; }
+      .chip-dark { transition: none; }
+    }
+
     /* ════════════════════════════════════════
    COMPATIBILITY (light variant)
    ════════════════════════════════════════ */
@@ -1700,10 +2349,6 @@
         flex: 0 0 280px;
       }
 
-      .hero-layers {
-        height: 320px;
-      }
-
       .bigtext-word {
         font-size: clamp(80px, 20vw, 200px);
       }
@@ -1717,10 +2362,6 @@
     @media (max-width: 480px) {
       .hero {
         padding: 100px 20px 40px;
-      }
-
-      .hero-layers {
-        height: 260px;
       }
 
       .cta-btns {
@@ -1771,6 +2412,18 @@
       style="width:250px;height:250px;bottom:15%;right:-3%;background:rgba(88,86,214,0.03);animation-delay:-8s"
       aria-hidden="true"></div>
     <canvas class="stars-canvas" id="stars" aria-hidden="true"></canvas>
+    <div class="float-layer" aria-hidden="true">
+      <div class="float-el fl-chip" style="top:15%;right:3%;background:rgba(0,122,255,0.05);border:1px solid rgba(0,122,255,0.1);color:var(--accent)">--font: SF Pro</div>
+      <div class="float-el fl-mini-toggle" style="bottom:20%;left:3%;background:var(--accent)"></div>
+      <div class="float-el" style="bottom:12%;right:4%;display:flex;gap:4px">
+        <span style="width:12px;height:12px;border-radius:4px;background:rgba(0,122,255,0.12);display:block"></span>
+        <span style="width:12px;height:12px;border-radius:4px;background:rgba(88,86,214,0.12);display:block"></span>
+        <span style="width:12px;height:12px;border-radius:4px;background:rgba(52,199,89,0.12);display:block"></span>
+      </div>
+      <div class="float-el fl-icon" style="top:30%;left:2%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+    </div>
 
     <div class="hero-split">
       <div class="hero-top" data-r>
@@ -1783,41 +2436,123 @@
           </svg></a>
       </div>
 
-      <div class="hero-layers" id="heroLayers">
-        <div class="layer l1"><span class="layer-tag">Colors</span>
-          <div class="l-dots"><span aria-hidden="true" style="background:#007AFF"></span><span aria-hidden="true" style="background:#5856D6"></span><span aria-hidden="true"
-              style="background:#34C759"></span><span aria-hidden="true" style="background:#FF9500"></span><span aria-hidden="true" style="background:#FF3B30"></span><span aria-hidden="true"
-              style="background:#AF52DE"></span></div>
-        </div>
-        <div class="layer l2"><span class="layer-tag">Typography</span>
-          <div class="l-bars"><span aria-hidden="true" style="width:65%;height:10px;background:rgba(255,255,255,0.06)"></span><span aria-hidden="true"
-              style="width:45%"></span><span aria-hidden="true" style="width:80%"></span></div>
-        </div>
-        <div class="layer l3"><span class="layer-tag">Spacing</span>
-          <div class="l-grid">
-            <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      <div class="hero-preview" id="heroPreview">
+        <div class="hero-code-split">
+          <!-- Before: Generic AI output -->
+          <div class="hero-code-card hero-code-before">
+            <div class="hero-code-header">
+              <span class="hero-code-header-dot" style="background:#86868b"></span>
+              Generic AI Agent
+            </div>
+            <div class="hero-code-body">
+              <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
+                <span style="color:#86868b">▶</span> "build me a settings page"
+              </div>
+              <div><span style="color:#86868b">✗</span> background: <span style="font-weight:500">#000000</span></div>
+              <div><span style="color:#86868b">✗</span> border-radius: <span style="font-weight:500">8px</span></div>
+              <div><span style="color:#86868b">✗</span> font-family: <span style="font-weight:500">Arial, sans-serif</span></div>
+              <div><span style="color:#86868b">✗</span> color: <span style="font-weight:500">#ffffff</span></div>
+              <div><span style="color:#86868b">✗</span> transition: <span style="font-weight:500">ease-in-out 0.3s</span></div>
+            </div>
           </div>
-        </div>
-        <div class="layer l4"><span class="layer-tag">Components</span>
-          <div class="l-rects"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
-        </div>
-        <div class="layer l5"><span class="layer-tag">Animation</span>
-          <div class="l-wave"><svg viewBox="0 0 380 22" fill="none">
-              <path
-                d="M0 11Q24 0 48 11Q72 22 96 11Q120 0 144 11Q168 22 192 11Q216 0 240 11Q264 22 288 11Q312 0 336 11L380 11"
-                stroke="rgba(255,59,48,0.25)" stroke-width="1.5" />
-            </svg></div>
+          <!-- Arrow -->
+          <div class="hero-code-arrow">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            OneMore transforms it
+          </div>
+          <!-- After: Apple HIG output -->
+          <div class="hero-code-card hero-code-after">
+            <div class="hero-code-header">
+              <span class="hero-code-header-dot" style="background:#34C759;box-shadow:0 0 8px rgba(52,199,89,0.5)"></span>
+              With OneMore
+            </div>
+            <div class="hero-code-body">
+              <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
+                <span style="color:var(--green)">▶</span> /onemore "build me a settings page"
+              </div>
+              <div><span style="color:var(--accent)">⟳</span> Applying 700+ Apple HIG rules...</div>
+              <div><span style="color:var(--green)">✓</span> background: <span style="font-weight:500">#FBFBFD</span> <span style="color:#86868b">/* semantic */</span></div>
+              <div><span style="color:var(--green)">✓</span> border-radius: <span style="color:var(--accent);font-weight:500">12px</span> <span style="color:#86868b">/* continuous */</span></div>
+              <div><span style="color:var(--green)">✓</span> font: <span style="color:var(--accent);font-weight:500">-apple-system, Inter</span></div>
+              <div><span style="color:var(--green)">✓</span> color: <span style="font-weight:500">#1D1D1F</span> <span style="color:#86868b">/* never #000 */</span></div>
+              <div><span style="color:var(--green)">✓</span> transition: <span style="color:var(--purple);font-weight:500">spring(1, 100, 12)</span></div>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)">
+                <span style="color:var(--text-dark);font-weight:500">→ HIG Score:</span> <span style="color:var(--green);font-weight:600">97/100</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══ PITCH ═══ -->
-  <section class="pitch">
+  <section class="pitch" id="pitch" style="position:relative;overflow:hidden">
+    <div class="float-layer" aria-hidden="true">
+      <!-- Mini button -->
+      <div class="float-el fl-mini-btn" style="top:12%;left:6%;background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(0,122,255,0.25)">Get Started <span style="font-size:10px">→</span></div>
+      <!-- Mini toggle -->
+      <div class="float-el fl-mini-toggle" style="top:18%;right:8%;background:var(--green)"></div>
+      <!-- Mini card -->
+      <div class="float-el fl-mini-card" style="top:8%;right:18%;background:#fff;border:1px solid rgba(0,0,0,0.06);color:var(--text-dark-dim)">
+        <span style="color:var(--accent)">--radius</span>: 12px
+      </div>
+      <!-- Color swatch row -->
+      <div class="float-el" style="bottom:18%;left:5%;display:flex;gap:4px">
+        <span style="width:16px;height:16px;border-radius:5px;background:#007AFF;display:block"></span>
+        <span style="width:16px;height:16px;border-radius:5px;background:#5856D6;display:block"></span>
+        <span style="width:16px;height:16px;border-radius:5px;background:#34C759;display:block"></span>
+        <span style="width:16px;height:16px;border-radius:5px;background:#FF9500;display:block"></span>
+      </div>
+      <!-- Mini icon -->
+      <div class="float-el fl-icon" style="bottom:22%;right:6%;background:rgba(88,86,214,0.08);border:1px solid rgba(88,86,214,0.12)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#5856D6" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <!-- Spring curve -->
+      <div class="float-el fl-chip" style="bottom:12%;left:20%;background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.12);color:var(--accent)">spring(1, 100, 12)</div>
+      <!-- 44px badge -->
+      <div class="float-el fl-chip" style="top:15%;left:22%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.12);color:#34C759">44px min</div>
+    </div>
     <h2 class="pitch-h2" data-r>Your AI agent writes code.<br>OneMore makes it <em
         style="font-style:normal;color:var(--accent)">beautiful</em>.</h2>
     <p class="pitch-p" data-r>700+ design rules extracted from Apple's Human Interface Guidelines and 25 apple.com
       product pages. Every color, spacing value, and animation curve — grounded in how Apple actually builds.</p>
+    <div class="pitch-compare" data-r>
+      <!-- Without OneMore — generic, lifeless -->
+      <div class="pitch-card pitch-card-without">
+        <p class="pitch-card-label">Without OneMore</p>
+        <div class="pitch-card-inner">
+          <div class="pc-row">
+            <div class="pc-swatch" style="background:#808080"></div>
+            <div class="pc-swatch" style="background:#666"></div>
+            <div class="pc-swatch" style="background:#999"></div>
+            <div class="pc-swatch" style="background:#b0b0b0"></div>
+            <div class="pc-swatch" style="background:#555"></div>
+          </div>
+          <div class="pc-btn">Submit</div>
+          <div class="pc-text" style="width:90%"></div>
+          <div class="pc-text" style="width:75%"></div>
+          <div class="pc-text" style="width:60%"></div>
+        </div>
+      </div>
+      <!-- With OneMore — Apple HIG quality -->
+      <div class="pitch-card pitch-card-with">
+        <p class="pitch-card-label">With OneMore</p>
+        <div class="pitch-card-inner">
+          <div class="pc-row">
+            <div class="pc-swatch" style="background:#007AFF"></div>
+            <div class="pc-swatch" style="background:#5856D6"></div>
+            <div class="pc-swatch" style="background:#34C759"></div>
+            <div class="pc-swatch" style="background:#FF9500"></div>
+            <div class="pc-swatch" style="background:#FF3B30"></div>
+          </div>
+          <div class="pc-btn">Get Started</div>
+          <div class="pc-text" style="width:90%"></div>
+          <div class="pc-text" style="width:75%"></div>
+          <div class="pc-text" style="width:60%"></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ═══ COMPAT — Moved here: hero → pitch → compat → ... ═══ -->
@@ -1826,19 +2561,37 @@
       <h2 class="compat-dark-h2" data-r>13 frameworks. 11 AI platforms.<br><span>Your stack is supported.</span></h2>
 
       <div class="compat-flow" style="margin-bottom:48px" data-r>
-        <span class="chip-dark">SwiftUI</span>
-        <span class="chip-dark">React</span>
-        <span class="chip-dark">React Native</span>
-        <span class="chip-dark">Flutter</span>
-        <span class="chip-dark">Next.js</span>
-        <span class="chip-dark">Vue</span>
-        <span class="chip-dark">Svelte</span>
-        <span class="chip-dark">Tailwind CSS</span>
-        <span class="chip-dark">shadcn/ui</span>
-        <span class="chip-dark">NativeWind</span>
-        <span class="chip-dark">UIKit</span>
-        <span class="chip-dark">Nuxt</span>
-        <span class="chip-dark">Astro</span>
+        <span class="chip-dark">SwiftUI<span class="chip-code"><span style="color:#ff79c6">Color</span>.accentColor
+<span style="color:#79b8ff">.cornerRadius</span>(12)
+<span style="color:#79b8ff">.font</span>(.system(.body))</span></span>
+        <span class="chip-dark">React<span class="chip-code"><span style="color:#ff79c6">import</span> { tokens } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span>
+<span style="color:#79b8ff">style</span>={{ color: tokens.primary }}</span></span>
+        <span class="chip-dark">React Native<span class="chip-code"><span style="color:#ff79c6">import</span> { hig } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore/rn'</span>
+<span style="color:#79b8ff">borderRadius</span>: hig.radius.lg</span></span>
+        <span class="chip-dark">Flutter<span class="chip-code"><span style="color:#ff79c6">const</span> primary = <span style="color:#79b8ff">Color</span>(0xFF007AFF);
+<span style="color:#ff79c6">const</span> radius = <span style="color:#79b8ff">12.0</span>;</span></span>
+        <span class="chip-dark">Next.js<span class="chip-code"><span style="color:#34C759">// next.config.js</span>
+<span style="color:#ff79c6">import</span> onemore <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore/next'</span></span></span>
+        <span class="chip-dark">Vue<span class="chip-code"><span style="color:#34C759">&lt;style&gt;</span>
+<span style="color:#79b8ff">--hig-primary</span>: #007AFF;
+<span style="color:#79b8ff">--hig-radius</span>: 12px;</span></span>
+        <span class="chip-dark">Svelte<span class="chip-code"><span style="color:#34C759">&lt;script&gt;</span>
+<span style="color:#ff79c6">import</span> { theme } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span></span></span>
+        <span class="chip-dark">Tailwind CSS<span class="chip-code"><span style="color:#34C759">// tailwind.config.js</span>
+<span style="color:#79b8ff">primary</span>: <span style="color:#34C759">'#007AFF'</span>
+<span style="color:#79b8ff">radius-lg</span>: <span style="color:#34C759">'12px'</span></span></span>
+        <span class="chip-dark">shadcn/ui<span class="chip-code"><span style="color:#34C759">/* globals.css */</span>
+<span style="color:#79b8ff">--primary</span>: 211 100% 50%;
+<span style="color:#79b8ff">--radius</span>: 0.75rem;</span></span>
+        <span class="chip-dark">NativeWind<span class="chip-code"><span style="color:#79b8ff">className</span>=<span style="color:#34C759">"bg-primary</span>
+  <span style="color:#34C759">rounded-xl p-4"</span></span></span>
+        <span class="chip-dark">UIKit<span class="chip-code"><span style="color:#79b8ff">view</span>.backgroundColor = .systemBlue
+<span style="color:#79b8ff">view</span>.layer.cornerRadius = 12</span></span>
+        <span class="chip-dark">Nuxt<span class="chip-code"><span style="color:#34C759">// nuxt.config.ts</span>
+<span style="color:#ff79c6">modules</span>: [<span style="color:#34C759">'onemore/nuxt'</span>]</span></span>
+        <span class="chip-dark">Astro<span class="chip-code"><span style="color:#34C759">---</span>
+<span style="color:#ff79c6">import</span> { Tokens } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span>
+<span style="color:#34C759">---</span></span></span>
       </div>
 
       <div class="compat-flow" data-r>
@@ -1872,10 +2625,87 @@
   </section>
 
   <!-- ═══ GRADIENT TEXT ═══ -->
-  <section class="bigtext">
+  <section class="bigtext" id="bigtext">
+    <div class="bigtext-tokens" aria-hidden="true">
+      <span class="bt-token bt-token-blue" style="top:12%;left:8%">--color-primary: #007AFF</span>
+      <span class="bt-token bt-token-purple" style="top:8%;right:10%">--font-weight: 600</span>
+      <span class="bt-token bt-token-green" style="top:35%;left:3%">--spacing-lg: 24px</span>
+      <span class="bt-token bt-token-orange" style="top:30%;right:5%">--radius-xl: 16px</span>
+      <span class="bt-token bt-token-blue" style="bottom:28%;left:6%">--ease: cubic-bezier(0.25, 0.1, 0.25, 1)</span>
+      <span class="bt-token bt-token-purple" style="bottom:22%;right:8%">--shadow-lg: 0 20px 60px</span>
+      <span class="bt-token bt-token-green" style="top:18%;left:22%">--color-success: #34C759</span>
+      <span class="bt-token bt-token-orange" style="bottom:35%;right:18%">--touch-min: 44px</span>
+    </div>
     <div class="bigtext-word" data-r="s">Design</div>
     <p class="bigtext-sub" data-r>Not just guidelines. A complete design intelligence system that understands why Apple
       makes every choice — and applies it to your project.</p>
+  </section>
+
+  <!-- ═══ AGENT PIPELINE ═══ -->
+  <section class="pipeline" id="pipeline">
+    <div class="pipeline-in">
+      <p class="pipeline-eye" data-r>How It Works</p>
+      <h2 class="pipeline-h2" data-r>Six agents. One command.<br>Intelligent routing.</h2>
+
+      <div class="pipe-agents" data-r>
+        <div class="pipe-node" data-agent="vision">
+          <div class="pipe-node-icon" style="background:rgba(88,86,214,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5856D6" stroke-width="2" stroke-linecap="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <span class="pipe-node-name">Vision</span>
+          <span class="pipe-node-role">Steve Jobs</span>
+        </div>
+        <div class="pipe-node" data-agent="build">
+          <div class="pipe-node-icon" style="background:rgba(0,122,255,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <span class="pipe-node-name">Build</span>
+          <span class="pipe-node-role">Jony Ive</span>
+        </div>
+        <div class="pipe-node" data-agent="review">
+          <div class="pipe-node-icon" style="background:rgba(52,199,89,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <span class="pipe-node-name">Review</span>
+          <span class="pipe-node-role">Quality Gate</span>
+        </div>
+        <div class="pipe-node" data-agent="animate">
+          <div class="pipe-node-icon" style="background:rgba(255,149,0,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF9500" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <span class="pipe-node-name">Animate</span>
+          <span class="pipe-node-role">Motion Expert</span>
+        </div>
+        <div class="pipe-node" data-agent="a11y">
+          <div class="pipe-node-icon" style="background:rgba(255,59,48,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="4" r="2"/><path d="M6 8h12M12 8v8M8 20l4-4 4 4"/></svg>
+          </div>
+          <span class="pipe-node-name">A11y</span>
+          <span class="pipe-node-role">WCAG Auditor</span>
+        </div>
+        <div class="pipe-node" data-agent="analyze">
+          <div class="pipe-node-icon" style="background:rgba(90,200,250,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5AC8FA" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <span class="pipe-node-name">Analyze</span>
+          <span class="pipe-node-role">Video → Code</span>
+        </div>
+      </div>
+
+      <div class="pipe-routes" data-r>
+        <button class="pipe-route pipe-route-active" data-route="build">Build from Scratch</button>
+        <button class="pipe-route" data-route="fix">Fix / Improve</button>
+        <button class="pipe-route" data-route="animate">Animate</button>
+        <button class="pipe-route" data-route="review">Review</button>
+        <button class="pipe-route" data-route="a11y">Accessibility</button>
+        <button class="pipe-route" data-route="video">Video Reference</button>
+        <button class="pipe-route" data-route="redesign">Redesign</button>
+      </div>
+
+      <div class="pipe-flow" id="pipeFlow" data-r>
+        <!-- JS fills this -->
+      </div>
+    </div>
   </section>
 
   <!-- ═══ TERMINAL ═══ -->
@@ -1884,7 +2714,7 @@
       aria-hidden="true"></div>
     <div class="showcase-in">
       <p class="sc-eye" data-r>See It Work</p>
-      <h2 class="sc-h2" data-r>Three commands.<br>Zero config.</h2>
+      <h2 class="sc-h2" data-r>Four commands.<br>Zero config.</h2>
       <div class="term" data-r="s">
         <div class="term-chrome"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span>Terminal</span></div>
         <div class="term-code" id="term"></div>
@@ -1893,7 +2723,13 @@
   </section>
 
   <!-- ═══ NUMBERS ═══ -->
-  <section class="nums">
+  <section class="nums" id="nums" style="position:relative;overflow:hidden">
+    <div class="float-layer" aria-hidden="true">
+      <div class="float-el fl-chip" style="top:15%;left:5%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.12);color:#34C759">pytest: all passing</div>
+      <div class="float-el fl-chip" style="top:12%;right:6%;background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.12);color:var(--accent)">apple.com/macbook-pro</div>
+      <div class="float-el fl-chip" style="bottom:15%;left:8%;background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.12);color:#FF9500">SwiftUI · React · Flutter</div>
+      <div class="float-el fl-chip" style="bottom:12%;right:5%;background:rgba(88,86,214,0.06);border:1px solid rgba(88,86,214,0.12);color:var(--purple)">--spacing: 4pt grid</div>
+    </div>
     <div class="nums-grid">
       <div data-r>
         <div class="num-v" data-c="146">0</div>
@@ -2076,29 +2912,113 @@
             class="cap-tag cap-tag-l">JSON</span><span class="cap-tag cap-tag-l">React Native</span></div>
       </div>
       <div class="cap-vis" data-r="s">
-        <div class="cap-card cap-card-l" style="background:var(--text-dark)">
-          <div class="cap-card-inner" style="font-family:var(--mono);font-size:12px;line-height:1.9;color:var(--text)">
-            <div style="color:var(--text-dim);margin-bottom:8px">// tailwind.config.js</div>
-            <div><span style="color:#ff79c6">export default</span> {</div>
-            <div>&nbsp;&nbsp;theme: {</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;colors: {</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">primary</span>: <span
-                style="color:var(--green)">'#007AFF'</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">success</span>: <span
-                style="color:var(--green)">'#34C759'</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">warning</span>: <span
-                style="color:var(--green)">'#FF9500'</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;},</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;borderRadius: {</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">lg</span>: <span
-                style="color:var(--green)">'12px'</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">xl</span>: <span
-                style="color:var(--green)">'16px'</span>,</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;},</div>
-            <div>&nbsp;&nbsp;},</div>
-            <div>};</div>
+        <div class="cap-card cap-card-l" style="background:var(--text-dark);max-width:520px" id="exportCard">
+          <div class="cap-card-inner" style="padding:20px 24px">
+            <div class="export-tabs" id="exportTabs">
+              <button class="export-tab export-tab-active" data-fmt="tailwind">Tailwind</button>
+              <button class="export-tab" data-fmt="css">CSS</button>
+              <button class="export-tab" data-fmt="swiftui">SwiftUI</button>
+              <button class="export-tab" data-fmt="flutter">Flutter</button>
+              <button class="export-tab" data-fmt="scss">SCSS</button>
+              <button class="export-tab" data-fmt="json">JSON</button>
+              <button class="export-tab" data-fmt="rn">React Native</button>
+            </div>
+            <div style="font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--text)">
+              <div class="export-code export-code-active" data-fmt="tailwind">
+<div style="color:var(--text-dim)">// tailwind.config.js</div>
+<div><span style="color:#ff79c6">export default</span> {</div>
+<div>&nbsp;&nbsp;theme: {</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;colors: {</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">primary</span>: <span style="color:var(--green)">'#007AFF'</span>,</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">success</span>: <span style="color:var(--green)">'#34C759'</span>,</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;},</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;borderRadius: { <span style="color:#79b8ff">lg</span>: <span style="color:var(--green)">'12px'</span> },</div>
+<div>&nbsp;&nbsp;},</div>
+<div>};</div>
+              </div>
+              <div class="export-code" data-fmt="css">
+<div style="color:var(--text-dim)">/* Apple HIG Design Tokens */</div>
+<div><span style="color:#ff79c6">:root</span> {</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">--color-primary</span>: <span style="color:var(--green)">#007AFF</span>;</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">--color-success</span>: <span style="color:var(--green)">#34C759</span>;</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">--radius-lg</span>: <span style="color:var(--green)">12px</span>;</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">--spacing-base</span>: <span style="color:var(--green)">8px</span>;</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">--font-body</span>: <span style="color:var(--green)">17px</span>;</div>
+<div>}</div>
+              </div>
+              <div class="export-code" data-fmt="swiftui">
+<div style="color:var(--text-dim)">// HIG.swift</div>
+<div><span style="color:#ff79c6">extension</span> <span style="color:#79b8ff">Color</span> {</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> primary = Color(<span style="color:var(--green)">"#007AFF"</span>)</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> success = Color(<span style="color:var(--green)">"#34C759"</span>)</div>
+<div>}</div>
+<div><span style="color:#ff79c6">extension</span> <span style="color:#79b8ff">CGFloat</span> {</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> radiusLG: CGFloat = <span style="color:var(--green)">12</span></div>
+<div>}</div>
+              </div>
+              <div class="export-code" data-fmt="flutter">
+<div style="color:var(--text-dim)">// hig_tokens.dart</div>
+<div><span style="color:#ff79c6">class</span> <span style="color:#79b8ff">HIG</span> {</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> primary = Color(<span style="color:var(--green)">0xFF007AFF</span>);</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> success = Color(<span style="color:var(--green)">0xFF34C759</span>);</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> radiusLG = <span style="color:var(--green)">12.0</span>;</div>
+<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> spacing = <span style="color:var(--green)">8.0</span>;</div>
+<div>}</div>
+              </div>
+              <div class="export-code" data-fmt="scss">
+<div style="color:var(--text-dim)">// _hig-tokens.scss</div>
+<div><span style="color:#79b8ff">$color-primary</span>: <span style="color:var(--green)">#007AFF</span>;</div>
+<div><span style="color:#79b8ff">$color-success</span>: <span style="color:var(--green)">#34C759</span>;</div>
+<div><span style="color:#79b8ff">$radius-lg</span>: <span style="color:var(--green)">12px</span>;</div>
+<div><span style="color:#79b8ff">$spacing-base</span>: <span style="color:var(--green)">8px</span>;</div>
+<div><span style="color:#79b8ff">$font-body</span>: <span style="color:var(--green)">17px</span>;</div>
+<div><span style="color:#79b8ff">$font-stack</span>: <span style="color:var(--green)">-apple-system, Inter</span>;</div>
+              </div>
+              <div class="export-code" data-fmt="json">
+<div>{</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">"colors"</span>: {</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">"primary"</span>: <span style="color:var(--green)">"#007AFF"</span>,</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">"success"</span>: <span style="color:var(--green)">"#34C759"</span></div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">"radius"</span>: { <span style="color:#79b8ff">"lg"</span>: <span style="color:var(--green)">12</span> },</div>
+<div>&nbsp;&nbsp;<span style="color:#79b8ff">"spacing"</span>: { <span style="color:#79b8ff">"base"</span>: <span style="color:var(--green)">8</span> }</div>
+<div>}</div>
+              </div>
+              <div class="export-code" data-fmt="rn">
+<div style="color:var(--text-dim)">// tokens.ts</div>
+<div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">colors</span> = {</div>
+<div>&nbsp;&nbsp;primary: <span style="color:var(--green)">'#007AFF'</span>,</div>
+<div>&nbsp;&nbsp;success: <span style="color:var(--green)">'#34C759'</span>,</div>
+<div>} <span style="color:#ff79c6">as const</span>;</div>
+<div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">radius</span> = { lg: <span style="color:var(--green)">12</span> };</div>
+<div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">spacing</span> = { base: <span style="color:var(--green)">8</span> };</div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CATEGORY INTELLIGENCE ═══ -->
+  <section class="catint" id="catint">
+    <div class="catint-in">
+      <p class="catint-eye" data-r>Category Intelligence</p>
+      <h2 class="catint-h2" data-r>Every category.<br>Its own design DNA.</h2>
+
+      <div class="catint-tabs" data-r id="catTabs">
+        <button class="catint-tab catint-tab-active" data-cat="health">Health</button>
+        <button class="catint-tab" data-cat="finance">Finance</button>
+        <button class="catint-tab" data-cat="social">Social</button>
+        <button class="catint-tab" data-cat="productivity">Productivity</button>
+        <button class="catint-tab" data-cat="media">Media</button>
+        <button class="catint-tab" data-cat="education">Education</button>
+        <button class="catint-tab" data-cat="shopping">Shopping</button>
+        <button class="catint-tab" data-cat="food">Food & Delivery</button>
+      </div>
+
+      <div class="catint-preview" id="catPreview" data-r>
+        <!-- JS fills this -->
       </div>
     </div>
   </section>
@@ -2229,8 +3149,24 @@
   <!-- compat moved to after pitch -->
 
   <!-- ═══ CTA ═══ -->
-  <section class="cta">
+  <section class="cta" id="ctaSec">
     <div class="cta-glow" aria-hidden="true"></div>
+    <div class="float-layer" aria-hidden="true">
+      <div class="float-el fl-chip" style="top:18%;left:8%;background:rgba(0,122,255,0.1);border:1px solid rgba(0,122,255,0.2);color:#5ac8fa">MIT License</div>
+      <div class="float-el fl-chip" style="top:14%;right:10%;background:rgba(52,199,89,0.1);border:1px solid rgba(52,199,89,0.2);color:#30d158">Zero Dependencies</div>
+      <div class="float-el fl-chip" style="bottom:25%;left:6%;background:rgba(88,86,214,0.1);border:1px solid rgba(88,86,214,0.2);color:#bf5af2">Works Offline</div>
+      <div class="float-el fl-chip" style="bottom:20%;right:8%;background:rgba(255,149,0,0.1);border:1px solid rgba(255,149,0,0.2);color:#ff9f0a">Python 3.10+</div>
+      <div class="float-el" style="top:25%;left:20%;display:flex;gap:3px">
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(0,122,255,0.3);display:block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(88,86,214,0.3);display:block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(52,199,89,0.3);display:block"></span>
+      </div>
+      <div class="float-el" style="bottom:30%;right:20%;display:flex;gap:3px">
+        <span style="width:8px;height:8px;border-radius:50%;background:rgba(255,149,0,0.3);display:block"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:rgba(255,59,48,0.3);display:block"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:rgba(175,82,222,0.3);display:block"></span>
+      </div>
+    </div>
     <h2 class="cta-h2" data-r><span class="cta-gr">Free. Open Source.<br>Forever.</span></h2>
     <p class="cta-p" data-r>MIT Licensed. Built with love in Georgia.</p>
     <div class="cta-btns" data-r>
@@ -2355,54 +3291,15 @@
         els.forEach(e => io.observe(e));
       }
 
-      // Hero layers — continuous scroll-linked
-      const layerBox = document.getElementById('heroLayers');
-      if (layerBox) {
-        const lyrs = layerBox.querySelectorAll('.layer');
-        // Spread (open, focused) → Stacked (compact, scrolled away)
-        const openY   = [20, 96, 172, 248, 324]; // spread — 76px equal gap
-        const closedY = [80, 110, 140, 170, 200]; // compact — 30px equal gap
-
-        function posLayers(p) {
-          // p=0 → spread (in view), p=1 → stacked (scrolled away)
-          p = Math.max(0, Math.min(1, p));
-          const rotX = 45 + p * 8; // 45→53 more tilted when compact
-          lyrs.forEach((l, i) => {
-            const y = openY[i] + (closedY[i] - openY[i]) * p;
-            l.style.transform = 'translate(-50%,' + y + 'px) rotateX(' + rotX + 'deg) rotateZ(-8deg)';
-          });
-        }
-
-        // Entrance: fly in from below, land in spread (open) position
-        if (!R) {
-          lyrs.forEach((l, i) => {
-            l.style.opacity = '0';
-            l.style.transform = 'translate(-50%, 500px) rotateX(60deg) rotateZ(-12deg)';
-            setTimeout(() => {
-              l.style.transition = 'transform 1.2s var(--ease), opacity 0.8s var(--ease)';
-              l.style.opacity = '1';
-              posLayers(0); // land spread/open
-              setTimeout(() => { l.style.transition = 'none'; }, 1300);
-            }, 600 + i * 150);
-          });
-        } else {
-          posLayers(0);
-        }
-
-        // Scroll: spread when visible, compact when scrolling away
-        if (!R) {
-          let ltick = false;
-          addEventListener('scroll', () => {
-            if (!ltick) { requestAnimationFrame(() => {
-              const rect = layerBox.getBoundingClientRect();
-              const vh = innerHeight;
-              // p=0 when top of hero visible, p=1 when scrolled past
-              const p = Math.max(0, Math.min(1, -rect.top / (vh * 0.5)));
-              posLayers(p);
-              ltick = false;
-            }); ltick = true; }
-          }, {passive: true});
-        }
+      // Hero code preview entrance
+      const heroPreview = document.getElementById('heroPreview');
+      if (heroPreview && !R) {
+        const cards = heroPreview.querySelectorAll('.hero-code-before, .hero-code-after, .hero-code-arrow');
+        setTimeout(() => {
+          cards.forEach(c => c.classList.add('hc-on'));
+        }, 800);
+      } else if (heroPreview) {
+        heroPreview.querySelectorAll('.hero-code-before, .hero-code-after, .hero-code-arrow').forEach(c => c.classList.add('hc-on'));
       }
 
       // Hero stagger
@@ -2417,17 +3314,29 @@
         const lines = [
           { c: 'a', t: '$ onemore init --ai cursor' },
           { c: 'g', t: '✓ Cursor detected → .cursor/rules/onemore.mdc' },
+          { c: 'g', t: '✓ 700+ Apple HIG rules loaded' },
           { c: '', t: '' },
           { c: 'a', t: '$ onemore export --format tailwind' },
           { c: 'g', t: '✓ Generated tailwind.config.js with Apple HIG tokens' },
           { c: '', t: '' },
           { c: 'a', t: '$ onemore redesign ./src/' },
-          { c: 'd', t: 'Scanning 42 files...' },
-          { c: 'p', t: 'HIG Score: 94/100 — 3 suggestions found' },
+          { c: 'd', t: '⟳ Scanning 42 files...', h: '<span class="t-a">⟳</span> <span class="t-d">Scanning 42 files...</span>' },
+          { c: 'g', t: '✓ Spacing: 4pt grid' },
+          { c: 'g', t: '✓ Typography: SF Pro / Inter' },
+          { c: 'w', t: '→ HIG Score: 94/100 — 3 suggestions found', h: '<span class="t-w">→</span> <span class="t-w">HIG Score:</span> <span class="t-g">94/100</span> <span class="t-d">— 3 suggestions found</span>' },
+          { c: '', t: '' },
+          { c: 'a', t: '$ onemore analyze video.mp4' },
+          { c: 'd', t: '⟳ Auto-detected', h: '<span class="t-a">⟳</span> <span class="t-d">Auto-detected: React Native + Expo + Reanimated 3</span>' },
+          { c: 'd', t: '⟳ Analyzing', h: '<span class="t-a">⟳</span> <span class="t-d">Analyzing with Gemini 2.5 Flash...</span> <span class="t-g">14s</span>' },
+          { c: 'g', t: '✓ 7 animations · 5 components · 12 design tokens' },
+          { c: 'g', t: '✓ Spring: mass 1, stiffness 100, damping 12' },
+          { c: 'w', t: '→ build-prompt.md', h: '<span class="t-w">→ build-prompt.md</span> <span class="t-d">(implementation spec)</span>' },
+          { c: 'w', t: '→ blueprint.md', h: '<span class="t-w">→ blueprint.md</span> <span class="t-d">(detailed analysis)</span>' },
         ];
         lines.forEach(l => {
           const d = document.createElement('div'); d.className = 'tl';
           if (!l.t) d.innerHTML = '&nbsp;';
+          else if (l.h) d.innerHTML = l.h;
           else if (l.c === 'a') d.innerHTML = '<span class="t-a">$</span> <span class="t-w">' + l.t.slice(2) + '</span>';
           else d.innerHTML = '<span class="t-' + l.c + '">' + l.t + '</span>';
           term.appendChild(d);
@@ -2499,6 +3408,121 @@
         const scrollBehavior = R ? 'instant' : 'smooth';
         galPrev.addEventListener('click', () => galTrack.scrollBy({ left: -scrollAmt, behavior: scrollBehavior }));
         galNext.addEventListener('click', () => galTrack.scrollBy({ left: scrollAmt, behavior: scrollBehavior }));
+      }
+
+      // ── Agent Pipeline ──
+      const pipeFlow = document.getElementById('pipeFlow');
+      if (pipeFlow) {
+        const routes = {
+          build:    { agents: ['vision','build','review'], steps: [{n:'Vision',c:'#5856D6'},{n:'Build',c:'#007AFF'},{n:'Review',c:'#34C759'}], desc: '"Build me a SaaS dashboard" → Creative brief → Production code → Quality gate' },
+          fix:      { agents: ['build'], steps: [{n:'Build',c:'#007AFF'}], desc: '"Fix the hover animation" → Direct implementation with HIG rules' },
+          animate:  { agents: ['animate'], steps: [{n:'Animate',c:'#FF9500'}], desc: '"Add scroll animations like apple.com" → Spring physics, GSAP, Framer Motion' },
+          review:   { agents: ['review'], steps: [{n:'Review',c:'#34C759'}], desc: '"Check this for quality" → 21-item checklist, auto-fix critical issues' },
+          a11y:     { agents: ['a11y'], steps: [{n:'A11y',c:'#FF3B30'}], desc: '"Check accessibility" → WCAG 2.2 audit, contrast, touch targets, screen reader' },
+          video:    { agents: ['analyze','build'], steps: [{n:'Analyze',c:'#5AC8FA'},{n:'Build',c:'#007AFF'}], desc: 'video.mp4 → Gemini/GPT-4o analysis → Implementation blueprint → Code' },
+          redesign: { agents: ['vision','build','review'], steps: [{n:'Vision',c:'#5856D6'},{n:'Build',c:'#007AFF'},{n:'Review',c:'#34C759'}], desc: '"Redesign this page" → Reads existing code → New brief → Rebuild → Review' },
+        };
+
+        function showRoute(key) {
+          const r = routes[key];
+          document.querySelectorAll('.pipe-route').forEach(b => b.classList.toggle('pipe-route-active', b.dataset.route === key));
+          document.querySelectorAll('.pipe-node').forEach(n => {
+            const active = r.agents.includes(n.dataset.agent);
+            n.classList.toggle('pipe-active', active);
+            const color = active ? r.steps.find(s => s.n.toLowerCase() === n.dataset.agent || (n.dataset.agent === 'a11y' && s.n === 'A11y') || (n.dataset.agent === 'analyze' && s.n === 'Analyze'))?.c || '#007AFF' : 'rgba(0,0,0,0.06)';
+            n.style.borderColor = active ? color : 'rgba(0,0,0,0.06)';
+            n.style.boxShadow = active ? '0 8px 24px ' + color + '20' : 'none';
+          });
+          let html = '<div class="pipe-flow-chain">';
+          r.steps.forEach((s, i) => {
+            if (i > 0) html += '<span class="pipe-flow-arrow" style="animation-delay:' + (i * 0.1) + 's">→</span>';
+            html += '<span class="pipe-flow-step" style="background:' + s.c + '18;color:' + s.c + ';border:1px solid ' + s.c + '30;animation-delay:' + (i * 0.12) + 's">' + s.n + '</span>';
+          });
+          html += '</div><p class="pipe-flow-desc">' + r.desc + '</p>';
+          pipeFlow.innerHTML = html;
+        }
+
+        showRoute('build');
+        document.querySelectorAll('.pipe-route').forEach(b => b.addEventListener('click', () => showRoute(b.dataset.route)));
+      }
+
+      // ── Category Intelligence ──
+      const catPreview = document.getElementById('catPreview');
+      if (catPreview) {
+        const cats = {
+          health:       { accent: '#FF2D55', nav: 'Tab bar with large title screens', typo: 'Body Regular 17pt for readability; headline for metrics', patterns: 'Dashboard cards with data rings, progressive disclosure, large accessible targets', style: 'Clean minimal whitespace' },
+          finance:      { accent: '#34C759', nav: 'Tab bar with account overview as root', typo: 'Headline for amounts; monospaced for numbers', patterns: 'Transaction list with swipe actions, large numbers for balances, biometric auth', style: 'High contrast, trustworthy, density acceptable' },
+          social:       { accent: '#007AFF', nav: 'Tab bar with feed as root', typo: 'Body 17pt for posts; headline for usernames; caption for metadata', patterns: 'Infinite scroll, pull-to-refresh, double-tap to like, story ring pattern', style: 'Vibrant, media-forward, high visual density' },
+          productivity: { accent: '#007AFF', nav: 'Tab bar or sidebar on iPad split view', typo: 'Headline for task titles; footnote for metadata; monospaced for code', patterns: 'Swipe to complete, contextual menus, keyboard shortcuts, drag-and-drop', style: 'Dense information hierarchy, subdued palette' },
+          media:        { accent: '#AF52DE', nav: 'Tab bar with Now Playing persistent bar', typo: 'Large display for title; headline for artist; caption for metadata', patterns: 'Mini player expanding to full screen, artwork-dominant layout', style: 'Rich dark backgrounds for playback immersion' },
+          education:    { accent: '#5856D6', nav: 'Tab bar or page-based navigation', typo: 'Body for content; headline for lesson titles; large for score display', patterns: 'Progress bars, streaks, lesson cards, quiz flow with immediate feedback', style: 'Clear, structured, light backgrounds' },
+          shopping:     { accent: '#FF9500', nav: 'Tab bar with browse and account tabs', typo: 'Headline for product name; title2 for price; body for description', patterns: 'Product grid, sticky add-to-cart, swipe image carousel', style: 'Polished grid-first product display' },
+          food:         { accent: '#FF9500', nav: 'Tab bar with menu browse as root', typo: 'Title1 for restaurant; headline for item; body for description', patterns: 'Category strip, add button on card, floating cart pill, order tracking', style: 'Appetite-stimulating, warm rich imagery' },
+        };
+
+        function showCat(key) {
+          const c = cats[key];
+          document.querySelectorAll('.catint-tab').forEach(t => {
+            t.classList.toggle('catint-tab-active', t.dataset.cat === key);
+            if (t.dataset.cat === key) t.style.cssText = 'background:' + c.accent + '20;border-color:' + c.accent + '40;color:' + c.accent;
+            else t.style.cssText = '';
+          });
+          catPreview.innerHTML =
+            '<div class="catint-card"><div class="catint-card-label">Accent Color</div><div class="catint-card-value"><span class="catint-accent-dot" style="background:' + c.accent + '"></span>' + c.accent + '</div></div>' +
+            '<div class="catint-card"><div class="catint-card-label">Navigation</div><div class="catint-card-value">' + c.nav + '</div></div>' +
+            '<div class="catint-card"><div class="catint-card-label">Typography</div><div class="catint-card-value">' + c.typo + '</div></div>' +
+            '<div class="catint-card"><div class="catint-card-label">Key Patterns</div><div class="catint-card-value">' + c.patterns + '</div></div>';
+        }
+
+        showCat('health');
+        document.querySelectorAll('.catint-tab').forEach(t => t.addEventListener('click', () => showCat(t.dataset.cat)));
+      }
+
+      // ── Export tab switcher ──
+      const exportTabs = document.getElementById('exportTabs');
+      if (exportTabs) {
+        exportTabs.querySelectorAll('.export-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            exportTabs.querySelectorAll('.export-tab').forEach(t => t.classList.remove('export-tab-active'));
+            tab.classList.add('export-tab-active');
+            const card = document.getElementById('exportCard');
+            card.querySelectorAll('.export-code').forEach(c => c.classList.remove('export-code-active'));
+            card.querySelector('.export-code[data-fmt="' + tab.dataset.fmt + '"]').classList.add('export-code-active');
+          });
+        });
+      }
+
+      // Floating elements — unified scroll animation
+      document.querySelectorAll('.float-layer').forEach(layer => {
+        const els = layer.querySelectorAll('.float-el');
+        if (R) { els.forEach(e => e.classList.add('fl-on')); return; }
+        const fio = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              els.forEach((el, i) => setTimeout(() => el.classList.add('fl-on'), i * 100));
+              fio.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        fio.observe(layer.parentElement);
+      });
+
+      // BigText floating tokens
+      const bigtextSec = document.getElementById('bigtext');
+      if (bigtextSec) {
+        const tokens = bigtextSec.querySelectorAll('.bt-token');
+        if (R) { tokens.forEach(t => t.classList.add('bt-on')); }
+        else {
+          const btio = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                tokens.forEach((t, i) => setTimeout(() => t.classList.add('bt-on'), i * 120));
+                btio.unobserve(e.target);
+              }
+            });
+          }, { threshold: 0.2 });
+          btio.observe(bigtextSec);
+        }
       }
 
       // Parallax orbs

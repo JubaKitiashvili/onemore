@@ -99,14 +99,7 @@ Apply same visual upgrade to the 12 showcase demos. Priority order:
 2. Nexus (Crypto) — dark theme showcase
 3. Prismix (Creative) — visual-heavy
 
-### 3. README.md
-Create proper GitHub README with:
-- Badges (tests, license, version)
-- Hero image/GIF
-- Feature highlights
-- Quick start guide
-- Demo links
-- Before/After showcase
+### 3. README.md ✅ DONE (v2.3.0)
 
 ### 4. Custom Domain
 User plans to buy a custom domain. Setup:
@@ -114,8 +107,7 @@ User plans to buy a custom domain. Setup:
 - GitHub Pages custom domain configuration
 - DNS setup guide
 
-### 5. npm Publish (Later)
-Package for npm distribution — after visual polish and testing.
+### 5. npm Publish ✅ DONE (v2.3.0 on npmjs.com)
 
 ## Agent Architecture
 
