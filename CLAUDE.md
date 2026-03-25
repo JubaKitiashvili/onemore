@@ -24,7 +24,7 @@ agents/            — 6 specialized agents:
   onemore-review.md    — Quality Gate: code → pass/fail checklist (all rules)
   onemore-animate.md   — Motion Expert: animation tasks (animation-rules + craft 1-3, 7)
   onemore-a11y.md      — Accessibility Auditor: WCAG 2.2 audit (design-system 9, craft 12)
-  onemore-analyze.md   — Video Analyzer: reference video → motion spec (ffmpeg mosaic)
+  onemore-analyze.md   — Video Analyzer: reference video → motion spec (Gemini API optional + ffmpeg composites)
 docs/              — 4 rules files + Apple patterns analysis
 scripts/           — Python CLI (search.py, core.py, design_system.py, exporter.py, platforms.py, redesign.py)
 data/              — 34 CSV files (foundations, components, patterns, platforms, stacks, audit, reasoning)
@@ -50,7 +50,15 @@ python3 scripts/search.py "button" -d controls   # Search components
 python3 scripts/search.py init --list             # Show AI platform status
 python3 scripts/search.py export --list           # Show export formats
 python3 scripts/search.py redesign ./src/         # Scan for HIG violations
+python3 scripts/gemini_analyze.py video.mp4 $KEY out/  # Gemini video analysis (optional)
 ```
+
+## Gemini Video Analysis (Optional)
+
+The video analyzer supports Google Gemini API for faster, more accurate motion detection. To enable:
+1. Get a free API key at https://aistudio.google.com/apikey
+2. Add it to `~/.claude/skills/onemore/onemore.local.md` in the `gemini_api_key` field
+3. When analyzing videos, Gemini will be used automatically (fallback to ffmpeg if unavailable)
 
 ## IMPORTANT: Use OneMore's Own Skill
 
