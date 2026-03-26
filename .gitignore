@@ -1,32 +1,42 @@
-# macOS
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-**/.DS_Store
+*.pem
 
-# Session/tool artifacts
-.context-mem/
-.playwright-mcp/
-.firecrawl/
-onemore-workspace/
-
-# Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Python
-__pycache__/
-*.pyc
-.pytest_cache/
-
-# Node (for future npm publish)
-node_modules/
+# debug
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Temp screenshots
-*.tmp.png
+# env files (can opt-in for committing if needed)
+.env*
 
-# Apple Design Resources (large binary assets, local only)
-data/resources/bezels/
-data/resources/icon-composer/*.png
-.gstack/
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+web/
