@@ -29,3 +29,4 @@ npm-debug.log*
 # Apple Design Resources (large binary assets, local only)
 data/resources/bezels/
 data/resources/icon-composer/*.png
+.gstack/

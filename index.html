@@ -8,7 +8,8 @@
   <meta name="description" content="One more thing your design needs. Generate Apple-quality UI across every platform.">
   <meta name="theme-color" content="#000000">
   <meta property="og:title" content="OneMore — Apple HIG Design Intelligence">
-  <meta property="og:description" content="One more thing your design needs. Generate Apple-quality UI across every platform.">
+  <meta property="og:description"
+    content="One more thing your design needs. Generate Apple-quality UI across every platform.">
   <meta property="og:image" content="https://jubakitiashvili.github.io/onemore/showcase/screenshots/saas.png">
   <meta property="og:url" content="https://jubakitiashvili.github.io/onemore/">
   <meta property="og:type" content="website">
@@ -250,13 +251,23 @@
     }
 
     @keyframes mesh-shift {
-      0% { opacity: 0.8; }
-      50% { opacity: 1; }
-      100% { opacity: 0.9; }
+      0% {
+        opacity: 0.8;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.9;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-mesh { animation: none; }
+      .hero-mesh {
+        animation: none;
+      }
     }
 
     .hero-glow {
@@ -525,6 +536,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+
       .hero-code-before,
       .hero-code-after,
       .hero-code-arrow {
@@ -817,11 +829,17 @@
     }
 
     @media (max-width: 768px) {
-      .bigtext-tokens { display: none; }
+      .bigtext-tokens {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .bt-token { opacity: 1; transform: none; transition: none; }
+      .bt-token {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     /* ── Shared floating elements system ── */
@@ -845,11 +863,17 @@
     }
 
     @media (max-width: 768px) {
-      .float-layer { display: none; }
+      .float-layer {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .float-el { opacity: 1; transform: none; transition: none; }
+      .float-el {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     /* Float element types */
@@ -1067,7 +1091,10 @@
     }
 
     @keyframes pipeStepIn {
-      to { opacity: 1; transform: translateX(0); }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .pipe-flow-arrow {
@@ -1086,8 +1113,17 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .pipe-flow-step, .pipe-flow-arrow { opacity: 1; transform: none; animation: none; }
-      .pipe-node { transition: none; }
+
+      .pipe-flow-step,
+      .pipe-flow-arrow {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      .pipe-node {
+        transition: none;
+      }
     }
 
     /* ════════════════════════════════════════
@@ -1164,7 +1200,9 @@
     }
 
     @media (max-width: 640px) {
-      .catint-preview { grid-template-columns: 1fr; }
+      .catint-preview {
+        grid-template-columns: 1fr;
+      }
     }
 
     .catint-card {
@@ -1214,7 +1252,9 @@
       scrollbar-width: none;
     }
 
-    .export-tabs::-webkit-scrollbar { display: none; }
+    .export-tabs::-webkit-scrollbar {
+      display: none;
+    }
 
     .export-tab {
       padding: 6px 14px;
@@ -2066,12 +2106,34 @@
       text-align: left;
     }
 
-    .compat-dark-terminal .t-cmd { margin-bottom: 8px; }
-    .compat-dark-terminal .t-ok { color: #34C759; margin-bottom: 2px; }
-    .compat-dark-terminal .t-ok:last-of-type { margin-bottom: 8px; }
-    .compat-dark-terminal .t-sep { color: var(--text-dim); margin-bottom: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 12px; }
-    .compat-dark-terminal .t-example { margin-bottom: 6px; }
-    .compat-dark-terminal .t-example:last-child { margin-bottom: 0; color: var(--text-dim); }
+    .compat-dark-terminal .t-cmd {
+      margin-bottom: 8px;
+    }
+
+    .compat-dark-terminal .t-ok {
+      color: #34C759;
+      margin-bottom: 2px;
+    }
+
+    .compat-dark-terminal .t-ok:last-of-type {
+      margin-bottom: 8px;
+    }
+
+    .compat-dark-terminal .t-sep {
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 12px;
+    }
+
+    .compat-dark-terminal .t-example {
+      margin-bottom: 6px;
+    }
+
+    .compat-dark-terminal .t-example:last-child {
+      margin-bottom: 0;
+      color: var(--text-dim);
+    }
 
     .compat-dark-note {
       font-size: 12px;
@@ -2131,12 +2193,19 @@
     }
 
     @media (max-width: 768px) {
-      .chip-dark .chip-code { display: none; }
+      .chip-dark .chip-code {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .chip-dark .chip-code { transition: none; }
-      .chip-dark { transition: none; }
+      .chip-dark .chip-code {
+        transition: none;
+      }
+
+      .chip-dark {
+        transition: none;
+      }
     }
 
     /* ════════════════════════════════════════
@@ -2291,22 +2360,87 @@
     }
 
     /* ── Footer ── */
-    .ft { background: #f5f5f7; border-top: 1px solid rgba(0,0,0,0.06); padding: 48px 22px 32px; }
-    .ft-in { max-width: 980px; margin: 0 auto; }
-    .ft-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    .ft-brand { font-size: 21px; font-weight: 700; display: block; margin-bottom: 12px; }
-    .ft-tagline { font-size: 13px; color: var(--text-dark-dim); line-height: 1.5; }
-    .ft-col-title { font-size: 12px; font-weight: 600; color: var(--text-dark); margin-bottom: 12px; letter-spacing: 0.02em; }
-    .ft-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .ft-list a { font-size: 13px; color: var(--text-dark-dim); transition: color 0.15s var(--ease); }
-    .ft-list a:hover { color: var(--text-dark); }
-    .ft-bottom { padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .ft-bottom p { font-size: 11px; color: var(--text-dark-dim); }
-    @media (max-width: 768px) {
-      .ft-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .ft {
+      background: #f5f5f7;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 48px 22px 32px;
     }
+
+    .ft-in {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .ft-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .ft-brand {
+      font-size: 21px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .ft-tagline {
+      font-size: 13px;
+      color: var(--text-dark-dim);
+      line-height: 1.5;
+    }
+
+    .ft-col-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .ft-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ft-list a {
+      font-size: 13px;
+      color: var(--text-dark-dim);
+      transition: color 0.15s var(--ease);
+    }
+
+    .ft-list a:hover {
+      color: var(--text-dark);
+    }
+
+    .ft-bottom {
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ft-bottom p {
+      font-size: 11px;
+      color: var(--text-dark-dim);
+    }
+
+    @media (max-width: 768px) {
+      .ft-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+
     @media (max-width: 480px) {
-      .ft-top { grid-template-columns: 1fr; }
+      .ft-top {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ── Responsive ── */
@@ -2386,7 +2520,8 @@
 
   <nav class="nav">
     <div class="nav-in">
-      <a href="#" class="nav-logo" style="background:linear-gradient(135deg,var(--accent),#00d4ff,var(--purple));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-flow 8s cubic-bezier(0.25,0.1,0.25,1) infinite">OneMore</a>
+      <a href="#" class="nav-logo"
+        style="background:linear-gradient(135deg,var(--accent),#00d4ff,var(--purple));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-flow 8s cubic-bezier(0.25,0.1,0.25,1) infinite">OneMore</a>
       <ul class="nav-ul" id="navLinks">
         <li><a href="#caps">Features</a></li>
         <li><a href="#gal">Demos</a></li>
@@ -2396,793 +2531,927 @@
             Started</a></li>
       </ul>
       <button class="nav-btn" id="navBtn" aria-label="Menu" aria-expanded="false">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/></svg>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round">
+          <line x1="2" y1="5" x2="16" y2="5" />
+          <line x1="2" y1="9" x2="16" y2="9" />
+          <line x1="2" y1="13" x2="16" y2="13" />
+        </svg>
       </button>
     </div>
   </nav>
 
   <main>
-  <!-- ═══ HERO ═══ -->
-  <section class="hero">
-    <div class="hero-mesh" aria-hidden="true"></div>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="orb" style="width:350px;height:350px;top:10%;left:-5%;background:rgba(0,122,255,0.04)"
-      aria-hidden="true"></div>
-    <div class="orb"
-      style="width:250px;height:250px;bottom:15%;right:-3%;background:rgba(88,86,214,0.03);animation-delay:-8s"
-      aria-hidden="true"></div>
-    <canvas class="stars-canvas" id="stars" aria-hidden="true"></canvas>
-    <div class="float-layer" aria-hidden="true">
-      <div class="float-el fl-chip" style="top:15%;right:3%;background:rgba(0,122,255,0.05);border:1px solid rgba(0,122,255,0.1);color:var(--accent)">--font: SF Pro</div>
-      <div class="float-el fl-mini-toggle" style="bottom:20%;left:3%;background:var(--accent)"></div>
-      <div class="float-el" style="bottom:12%;right:4%;display:flex;gap:4px">
-        <span style="width:12px;height:12px;border-radius:4px;background:rgba(0,122,255,0.12);display:block"></span>
-        <span style="width:12px;height:12px;border-radius:4px;background:rgba(88,86,214,0.12);display:block"></span>
-        <span style="width:12px;height:12px;border-radius:4px;background:rgba(52,199,89,0.12);display:block"></span>
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+      <div class="hero-mesh" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="orb" style="width:350px;height:350px;top:10%;left:-5%;background:rgba(0,122,255,0.04)"
+        aria-hidden="true"></div>
+      <div class="orb"
+        style="width:250px;height:250px;bottom:15%;right:-3%;background:rgba(88,86,214,0.03);animation-delay:-8s"
+        aria-hidden="true"></div>
+      <canvas class="stars-canvas" id="stars" aria-hidden="true"></canvas>
+      <div class="float-layer" aria-hidden="true">
+        <div class="float-el fl-chip"
+          style="top:15%;right:3%;background:rgba(0,122,255,0.05);border:1px solid rgba(0,122,255,0.1);color:var(--accent)">
+          --font: SF Pro</div>
+        <div class="float-el fl-mini-toggle" style="bottom:20%;left:3%;background:var(--accent)"></div>
+        <div class="float-el" style="bottom:12%;right:4%;display:flex;gap:4px">
+          <span style="width:12px;height:12px;border-radius:4px;background:rgba(0,122,255,0.12);display:block"></span>
+          <span style="width:12px;height:12px;border-radius:4px;background:rgba(88,86,214,0.12);display:block"></span>
+          <span style="width:12px;height:12px;border-radius:4px;background:rgba(52,199,89,0.12);display:block"></span>
+        </div>
+        <div class="float-el fl-icon"
+          style="top:30%;left:2%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </div>
       </div>
-      <div class="float-el fl-icon" style="top:30%;left:2%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-      </div>
-    </div>
 
-    <div class="hero-split">
-      <div class="hero-top" data-r>
-        <div class="hero-eyebrow"><span class="hero-dot"></span> Apple HIG Design Intelligence</div>
-        <h1 class="hero-h1"><em>One more thing<br>your design needs.</em></h1>
-        <p class="hero-p">The design system that makes AI agents<br>build UI like Apple does.</p>
-        <a href="https://github.com/JubaKitiashvili/onemore" class="hero-cta" target="_blank" rel="noopener">Get Started
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <div class="hero-split">
+        <div class="hero-top" data-r>
+          <div class="hero-eyebrow"><span class="hero-dot"></span> Apple HIG Design Intelligence</div>
+          <h1 class="hero-h1"><em>One more thing<br>your design needs.</em></h1>
+          <p class="hero-p">The design system that makes AI agents<br>build UI like Apple does.</p>
+          <a href="https://github.com/JubaKitiashvili/onemore" class="hero-cta" target="_blank" rel="noopener">Get
+            Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></a>
+        </div>
+
+        <div class="hero-preview" id="heroPreview">
+          <div class="hero-code-split">
+            <!-- Before: Generic AI output -->
+            <div class="hero-code-card hero-code-before">
+              <div class="hero-code-header">
+                <span class="hero-code-header-dot" style="background:#86868b"></span>
+                Generic AI Agent
+              </div>
+              <div class="hero-code-body">
+                <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
+                  <span style="color:#86868b">▶</span> "build me a settings page"
+                </div>
+                <div><span style="color:#86868b">✗</span> background: <span style="font-weight:500">#000000</span></div>
+                <div><span style="color:#86868b">✗</span> border-radius: <span style="font-weight:500">8px</span></div>
+                <div><span style="color:#86868b">✗</span> font-family: <span style="font-weight:500">Arial,
+                    sans-serif</span></div>
+                <div><span style="color:#86868b">✗</span> color: <span style="font-weight:500">#ffffff</span></div>
+                <div><span style="color:#86868b">✗</span> transition: <span style="font-weight:500">ease-in-out
+                    0.3s</span></div>
+              </div>
+            </div>
+            <!-- Arrow -->
+            <div class="hero-code-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              OneMore transforms it
+            </div>
+            <!-- After: Apple HIG output -->
+            <div class="hero-code-card hero-code-after">
+              <div class="hero-code-header">
+                <span class="hero-code-header-dot"
+                  style="background:#34C759;box-shadow:0 0 8px rgba(52,199,89,0.5)"></span>
+                With OneMore
+              </div>
+              <div class="hero-code-body">
+                <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
+                  <span style="color:var(--green)">▶</span> /onemore "build me a settings page"
+                </div>
+                <div><span style="color:var(--accent)">⟳</span> Applying 700+ Apple HIG rules...</div>
+                <div><span style="color:var(--green)">✓</span> background: <span style="font-weight:500">#FBFBFD</span>
+                  <span style="color:#86868b">/* semantic */</span>
+                </div>
+                <div><span style="color:var(--green)">✓</span> border-radius: <span
+                    style="color:var(--accent);font-weight:500">12px</span> <span style="color:#86868b">/* continuous
+                    */</span></div>
+                <div><span style="color:var(--green)">✓</span> font: <span
+                    style="color:var(--accent);font-weight:500">-apple-system, Inter</span></div>
+                <div><span style="color:var(--green)">✓</span> color: <span style="font-weight:500">#1D1D1F</span> <span
+                    style="color:#86868b">/* never #000 */</span></div>
+                <div><span style="color:var(--green)">✓</span> transition: <span
+                    style="color:var(--purple);font-weight:500">spring(1, 100, 12)</span></div>
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)">
+                  <span style="color:var(--text-dark);font-weight:500">→ HIG Score:</span> <span
+                    style="color:var(--green);font-weight:600">97/100</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PITCH ═══ -->
+    <section class="pitch" id="pitch" style="position:relative;overflow:hidden">
+      <div class="float-layer" aria-hidden="true">
+        <!-- Mini button -->
+        <div class="float-el fl-mini-btn"
+          style="top:12%;left:6%;background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(0,122,255,0.25)">Get
+          Started <span style="font-size:10px">→</span></div>
+        <!-- Mini toggle -->
+        <div class="float-el fl-mini-toggle" style="top:18%;right:8%;background:var(--green)"></div>
+        <!-- Mini card -->
+        <div class="float-el fl-mini-card"
+          style="top:8%;right:18%;background:#fff;border:1px solid rgba(0,0,0,0.06);color:var(--text-dark-dim)">
+          <span style="color:var(--accent)">--radius</span>: 12px
+        </div>
+        <!-- Color swatch row -->
+        <div class="float-el" style="bottom:18%;left:5%;display:flex;gap:4px">
+          <span style="width:16px;height:16px;border-radius:5px;background:#007AFF;display:block"></span>
+          <span style="width:16px;height:16px;border-radius:5px;background:#5856D6;display:block"></span>
+          <span style="width:16px;height:16px;border-radius:5px;background:#34C759;display:block"></span>
+          <span style="width:16px;height:16px;border-radius:5px;background:#FF9500;display:block"></span>
+        </div>
+        <!-- Mini icon -->
+        <div class="float-el fl-icon"
+          style="bottom:22%;right:6%;background:rgba(88,86,214,0.08);border:1px solid rgba(88,86,214,0.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5856D6" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <!-- Spring curve -->
+        <div class="float-el fl-chip"
+          style="bottom:12%;left:20%;background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.12);color:var(--accent)">
+          spring(1, 100, 12)</div>
+        <!-- 44px badge -->
+        <div class="float-el fl-chip"
+          style="top:15%;left:22%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.12);color:#34C759">
+          44px min</div>
+      </div>
+      <h2 class="pitch-h2" data-r>Your AI agent writes code.<br>OneMore makes it <em
+          style="font-style:normal;color:var(--accent)">beautiful</em>.</h2>
+      <p class="pitch-p" data-r>700+ design rules extracted from Apple's Human Interface Guidelines and 25 apple.com
+        product pages. Every color, spacing value, and animation curve — grounded in how Apple actually builds.</p>
+      <div class="pitch-compare" data-r>
+        <!-- Without OneMore — generic, lifeless -->
+        <div class="pitch-card pitch-card-without">
+          <p class="pitch-card-label">Without OneMore</p>
+          <div class="pitch-card-inner">
+            <div class="pc-row">
+              <div class="pc-swatch" style="background:#808080"></div>
+              <div class="pc-swatch" style="background:#666"></div>
+              <div class="pc-swatch" style="background:#999"></div>
+              <div class="pc-swatch" style="background:#b0b0b0"></div>
+              <div class="pc-swatch" style="background:#555"></div>
+            </div>
+            <div class="pc-btn">Submit</div>
+            <div class="pc-text" style="width:90%"></div>
+            <div class="pc-text" style="width:75%"></div>
+            <div class="pc-text" style="width:60%"></div>
+          </div>
+        </div>
+        <!-- With OneMore — Apple HIG quality -->
+        <div class="pitch-card pitch-card-with">
+          <p class="pitch-card-label">With OneMore</p>
+          <div class="pitch-card-inner">
+            <div class="pc-row">
+              <div class="pc-swatch" style="background:#007AFF"></div>
+              <div class="pc-swatch" style="background:#5856D6"></div>
+              <div class="pc-swatch" style="background:#34C759"></div>
+              <div class="pc-swatch" style="background:#FF9500"></div>
+              <div class="pc-swatch" style="background:#FF3B30"></div>
+            </div>
+            <div class="pc-btn">Get Started</div>
+            <div class="pc-text" style="width:90%"></div>
+            <div class="pc-text" style="width:75%"></div>
+            <div class="pc-text" style="width:60%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ COMPAT — Moved here: hero → pitch → compat → ... ═══ -->
+    <section class="compat-dark" id="compat">
+      <div class="compat-dark-in">
+        <h2 class="compat-dark-h2" data-r>13 frameworks. 11 AI platforms.<br><span>Your stack is supported.</span></h2>
+
+        <div class="compat-flow" style="margin-bottom:48px" data-r>
+          <span class="chip-dark">SwiftUI<span class="chip-code"><span style="color:#ff79c6">Color</span>.accentColor
+              <span style="color:#79b8ff">.cornerRadius</span>(12)
+              <span style="color:#79b8ff">.font</span>(.system(.body))</span></span>
+          <span class="chip-dark">React<span class="chip-code"><span style="color:#ff79c6">import</span> { tokens }
+              <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span>
+              <span style="color:#79b8ff">style</span>={{ color: tokens.primary }}</span></span>
+          <span class="chip-dark">React Native<span class="chip-code"><span style="color:#ff79c6">import</span> { hig }
+              <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore/rn'</span>
+              <span style="color:#79b8ff">borderRadius</span>: hig.radius.lg</span></span>
+          <span class="chip-dark">Flutter<span class="chip-code"><span style="color:#ff79c6">const</span> primary =
+              <span style="color:#79b8ff">Color</span>(0xFF007AFF);
+              <span style="color:#ff79c6">const</span> radius = <span style="color:#79b8ff">12.0</span>;</span></span>
+          <span class="chip-dark">Next.js<span class="chip-code"><span style="color:#34C759">// next.config.js</span>
+              <span style="color:#ff79c6">import</span> onemore <span style="color:#ff79c6">from</span> <span
+                style="color:#34C759">'onemore/next'</span></span></span>
+          <span class="chip-dark">Vue<span class="chip-code"><span style="color:#34C759">&lt;style&gt;</span>
+              <span style="color:#79b8ff">--hig-primary</span>: #007AFF;
+              <span style="color:#79b8ff">--hig-radius</span>: 12px;</span></span>
+          <span class="chip-dark">Svelte<span class="chip-code"><span style="color:#34C759">&lt;script&gt;</span>
+              <span style="color:#ff79c6">import</span> { theme } <span style="color:#ff79c6">from</span> <span
+                style="color:#34C759">'onemore'</span></span></span>
+          <span class="chip-dark">Tailwind CSS<span class="chip-code"><span style="color:#34C759">//
+                tailwind.config.js</span>
+              <span style="color:#79b8ff">primary</span>: <span style="color:#34C759">'#007AFF'</span>
+              <span style="color:#79b8ff">radius-lg</span>: <span style="color:#34C759">'12px'</span></span></span>
+          <span class="chip-dark">shadcn/ui<span class="chip-code"><span style="color:#34C759">/* globals.css */</span>
+              <span style="color:#79b8ff">--primary</span>: 211 100% 50%;
+              <span style="color:#79b8ff">--radius</span>: 0.75rem;</span></span>
+          <span class="chip-dark">NativeWind<span class="chip-code"><span style="color:#79b8ff">className</span>=<span
+                style="color:#34C759">"bg-primary</span>
+              <span style="color:#34C759">rounded-xl p-4"</span></span></span>
+          <span class="chip-dark">UIKit<span class="chip-code"><span style="color:#79b8ff">view</span>.backgroundColor =
+              .systemBlue
+              <span style="color:#79b8ff">view</span>.layer.cornerRadius = 12</span></span>
+          <span class="chip-dark">Nuxt<span class="chip-code"><span style="color:#34C759">// nuxt.config.ts</span>
+              <span style="color:#ff79c6">modules</span>: [<span
+                style="color:#34C759">'onemore/nuxt'</span>]</span></span>
+          <span class="chip-dark">Astro<span class="chip-code"><span style="color:#34C759">---</span>
+              <span style="color:#ff79c6">import</span> { Tokens } <span style="color:#ff79c6">from</span> <span
+                style="color:#34C759">'onemore'</span>
+              <span style="color:#34C759">---</span></span></span>
+        </div>
+
+        <div class="compat-flow" data-r>
+          <span class="chip-ai">Claude Code</span>
+          <span class="chip-ai">Cursor</span>
+          <span class="chip-ai">Windsurf</span>
+          <span class="chip-ai">Copilot</span>
+          <span class="chip-ai">Codex</span>
+          <span class="chip-ai">Antigravity</span>
+          <span class="chip-ai">Kiro</span>
+          <span class="chip-ai">Qoder</span>
+          <span class="chip-ai">Gemini CLI</span>
+          <span class="chip-ai">Cline</span>
+          <span class="chip-ai">Roo Code</span>
+        </div>
+        <div class="compat-dark-quickstart" data-r>
+          <p class="compat-dark-quickstart-label">Get started in seconds</p>
+          <div class="compat-dark-terminal">
+            <div class="t-cmd"><span class="t-a">$</span> <span class="t-w">npx onemore init</span></div>
+            <div class="t-ok">✓ Detected: Claude Code v4.6</div>
+            <div class="t-ok">✓ 700+ Apple HIG rules loaded</div>
+            <div class="t-ok">✓ Skill installed → .claude/skills/onemore/</div>
+            <div class="t-sep">Ready. Just ask your AI agent:</div>
+            <div class="t-example"><span class="t-a">/onemore</span> <span class="t-w">design a fintech dashboard with
+                dark mode</span></div>
+            <div class="t-example"><span class="t-a">/onemore</span> <span class="t-w">build an onboarding flow for a
+                health app</span></div>
+            <div class="t-example"><span class="t-a">/onemore</span> <span class="t-w">redesign this checkout page to
+                match Apple HIG</span></div>
+          </div>
+          <p class="compat-dark-note">Zero dependencies &bull; Python 3.10+ &bull; Works offline</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ GRADIENT TEXT ═══ -->
+    <section class="bigtext" id="bigtext">
+      <div class="bigtext-tokens" aria-hidden="true">
+        <span class="bt-token bt-token-blue" style="top:12%;left:8%">--color-primary: #007AFF</span>
+        <span class="bt-token bt-token-purple" style="top:8%;right:10%">--font-weight: 600</span>
+        <span class="bt-token bt-token-green" style="top:35%;left:3%">--spacing-lg: 24px</span>
+        <span class="bt-token bt-token-orange" style="top:30%;right:5%">--radius-xl: 16px</span>
+        <span class="bt-token bt-token-blue" style="bottom:28%;left:6%">--ease: cubic-bezier(0.25, 0.1, 0.25, 1)</span>
+        <span class="bt-token bt-token-purple" style="bottom:22%;right:8%">--shadow-lg: 0 20px 60px</span>
+        <span class="bt-token bt-token-green" style="top:18%;left:22%">--color-success: #34C759</span>
+        <span class="bt-token bt-token-orange" style="bottom:35%;right:18%">--touch-min: 44px</span>
+      </div>
+      <div class="bigtext-word" data-r="s">Design</div>
+      <p class="bigtext-sub" data-r>Not just guidelines. A complete design intelligence system that understands why
+        Apple
+        makes every choice — and applies it to your project.</p>
+    </section>
+
+    <!-- ═══ AGENT PIPELINE ═══ -->
+    <section class="pipeline" id="pipeline">
+      <div class="pipeline-in">
+        <p class="pipeline-eye" data-r>How It Works</p>
+        <h2 class="pipeline-h2" data-r>Six agents. One command.<br>Intelligent routing.</h2>
+
+        <div class="pipe-agents" data-r>
+          <div class="pipe-node" data-agent="vision">
+            <div class="pipe-node-icon" style="background:rgba(88,86,214,0.1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#5856D6" stroke-width="2" stroke-linecap="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <span class="pipe-node-name">Vision</span>
+            <span class="pipe-node-role">Steve Jobs</span>
+          </div>
+          <div class="pipe-node" data-agent="build">
+            <div class="pipe-node-icon" style="background:rgba(0,122,255,0.1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <span class="pipe-node-name">Build</span>
+            <span class="pipe-node-role">Jony Ive</span>
+          </div>
+          <div class="pipe-node" data-agent="review">
+            <div class="pipe-node-icon" style="background:rgba(52,199,89,0.1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round">
+                <path d="M9 11l3 3L22 4" />
+                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+              </svg>
+            </div>
+            <span class="pipe-node-name">Review</span>
+            <span class="pipe-node-role">Quality Gate</span>
+          </div>
+          <div class="pipe-node" data-agent="animate">
+            <div class="pipe-node-icon" style="background:rgba(255,149,0,0.1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF9500" stroke-width="2" stroke-linecap="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <span class="pipe-node-name">Animate</span>
+            <span class="pipe-node-role">Motion Expert</span>
+          </div>
+          <div class="pipe-node" data-agent="a11y">
+            <div class="pipe-node-icon" style="background:rgba(255,59,48,0.1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="4" r="2" />
+                <path d="M6 8h12M12 8v8M8 20l4-4 4 4" />
+              </svg>
+            </div>
+            <span class="pipe-node-name">A11y</span>
+            <span class="pipe-node-role">WCAG Auditor</span>
+          </div>
+          <div class="pipe-node" data-agent="analyze">
+            <div class="pipe-node-icon" style="background:rgba(90,200,250,0.1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#5AC8FA" stroke-width="2" stroke-linecap="round">
+                <polygon points="23 7 16 12 23 17 23 7" />
+                <rect x="1" y="5" width="15" height="14" rx="2" />
+              </svg>
+            </div>
+            <span class="pipe-node-name">Analyze</span>
+            <span class="pipe-node-role">Video → Code</span>
+          </div>
+        </div>
+
+        <div class="pipe-routes" data-r>
+          <button class="pipe-route pipe-route-active" data-route="build">Build from Scratch</button>
+          <button class="pipe-route" data-route="fix">Fix / Improve</button>
+          <button class="pipe-route" data-route="animate">Animate</button>
+          <button class="pipe-route" data-route="review">Review</button>
+          <button class="pipe-route" data-route="a11y">Accessibility</button>
+          <button class="pipe-route" data-route="video">Video Reference</button>
+          <button class="pipe-route" data-route="redesign">Redesign</button>
+        </div>
+
+        <div class="pipe-flow" id="pipeFlow" data-r>
+          <!-- JS fills this -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TERMINAL ═══ -->
+    <section class="showcase">
+      <div class="orb" style="width:400px;height:400px;top:-15%;right:-8%;background:rgba(0,122,255,0.03)"
+        aria-hidden="true"></div>
+      <div class="showcase-in">
+        <p class="sc-eye" data-r>See It Work</p>
+        <h2 class="sc-h2" data-r>Four commands.<br>Zero config.</h2>
+        <div class="term" data-r="s">
+          <div class="term-chrome"><span aria-hidden="true"></span><span aria-hidden="true"></span><span
+              aria-hidden="true"></span><span>Terminal</span></div>
+          <div class="term-code" id="term"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ NUMBERS ═══ -->
+    <section class="nums" id="nums" style="position:relative;overflow:hidden">
+      <div class="float-layer" aria-hidden="true">
+        <div class="float-el fl-chip"
+          style="top:15%;left:5%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.12);color:#34C759">
+          pytest: all passing</div>
+        <div class="float-el fl-chip"
+          style="top:12%;right:6%;background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.12);color:var(--accent)">
+          apple.com/macbook-pro</div>
+        <div class="float-el fl-chip"
+          style="bottom:15%;left:8%;background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.12);color:#FF9500">
+          SwiftUI · React · Flutter</div>
+        <div class="float-el fl-chip"
+          style="bottom:12%;right:5%;background:rgba(88,86,214,0.06);border:1px solid rgba(88,86,214,0.12);color:var(--purple)">
+          --spacing: 4pt grid</div>
+      </div>
+      <div class="nums-grid">
+        <div data-r>
+          <div class="num-v" data-c="146">0</div>
+          <div class="num-l">Tests Passing</div>
+        </div>
+        <div data-r>
+          <div class="num-v" data-c="700" data-s="+">0</div>
+          <div class="num-l">Design Rules</div>
+        </div>
+        <div data-r>
+          <div class="num-v" data-c="25">0</div>
+          <div class="num-l">Apple Pages Analyzed</div>
+        </div>
+        <div data-r>
+          <div class="num-v" data-c="13">0</div>
+          <div class="num-l">Frameworks</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CAPABILITIES ═══ -->
+    <section class="cap cap-gray" id="caps">
+      <div class="cap-in">
+        <div data-r>
+          <p class="cap-eye">Design System</p>
+          <h3 class="cap-h3" style="color:var(--text-dark)">Complete design<br>tokens in one command.</h3>
+          <p class="cap-p" style="color:var(--text-dark-dim)">Colors, typography, spacing, corners — generated with
+            reasoning for <em>why</em> each token fits your product. Not generic defaults.</p>
+          <div class="cap-tags"><span class="cap-tag cap-tag-l">Colors</span><span
+              class="cap-tag cap-tag-l">Typography</span><span class="cap-tag cap-tag-l">Spacing</span><span
+              class="cap-tag cap-tag-l">Corners</span><span class="cap-tag cap-tag-l">Elevation</span></div>
+        </div>
+        <div class="cap-vis" data-r="s">
+          <div class="cap-card cap-card-l">
+            <div class="cap-card-inner">
+              <div class="swatch-row"><span style="background:#007AFF"></span><span
+                  style="background:#5856D6"></span><span style="background:#34C759"></span><span
+                  style="background:#FF9500"></span><span style="background:#FF3B30"></span></div>
+              <div class="token"><span class="token-dot" style="background:#007AFF"></span>--color-primary: #007AFF
+              </div>
+              <div class="token"><span class="token-dot"
+                  style="background:#f5f5f7;border:1px solid #e0e0e0"></span>--color-bg: #FBFBFD</div>
+              <div class="token"><span class="token-dot" style="background:#1d1d1f"></span>--color-text: #1D1D1F</div>
+              <div class="token"><span class="token-dot"
+                  style="background:transparent;border:2px dashed #ccc"></span>--radius-lg: 12px</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cap cap-white">
+      <div class="orb" style="width:350px;height:350px;bottom:-10%;left:-8%;background:rgba(88,86,214,0.03)"
+        aria-hidden="true"></div>
+      <div class="cap-in rev">
+        <div data-r>
+          <p class="cap-eye">Redesign Scanner</p>
+          <h3 class="cap-h3" style="color:var(--text-dark)">Find what's wrong.<br>Before users do.</h3>
+          <p class="cap-p" style="color:var(--text-dark-dim)">Scans every file for HIG violations — spacing,
+            accessibility, animations. Auto-detects Expo and NativeWind.</p>
+          <div class="cap-tags"><span class="cap-tag cap-tag-d">Spacing</span><span
+              class="cap-tag cap-tag-d">Accessibility</span><span class="cap-tag cap-tag-d">Colors</span><span
+              class="cap-tag cap-tag-d">Animation</span><span class="cap-tag cap-tag-d">Dark Mode</span></div>
+        </div>
+        <div class="cap-vis" data-r="s">
+          <div class="cap-card cap-card-d" style="max-width:500px">
+            <!-- Apple Activity Rings style score -->
+            <div style="display:flex;align-items:center;justify-content:center;padding:32px 32px 24px">
+              <div class="score-ring" id="scoreRing">
+                <svg viewBox="0 0 200 200" width="170" height="170">
+                  <!-- Background rings -->
+                  <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(52,199,89,0.15)" stroke-width="12" />
+                  <circle cx="100" cy="100" r="72" fill="none" stroke="rgba(0,122,255,0.15)" stroke-width="12" />
+                  <circle cx="100" cy="100" r="54" fill="none" stroke="rgba(255,149,0,0.15)" stroke-width="12" />
+                  <!-- Active rings -->
+                  <circle cx="100" cy="100" r="90" fill="none" stroke="#34C759" stroke-width="12" stroke-linecap="round"
+                    stroke-dasharray="565" stroke-dashoffset="565" transform="rotate(-90 100 100)"
+                    class="score-arc ring-1" />
+                  <circle cx="100" cy="100" r="72" fill="none" stroke="#007AFF" stroke-width="12" stroke-linecap="round"
+                    stroke-dasharray="452" stroke-dashoffset="452" transform="rotate(-90 100 100)"
+                    class="score-arc ring-2" />
+                  <circle cx="100" cy="100" r="54" fill="none" stroke="#FF9500" stroke-width="12" stroke-linecap="round"
+                    stroke-dasharray="339" stroke-dashoffset="339" transform="rotate(-90 100 100)"
+                    class="score-arc ring-3" />
+                </svg>
+                <div class="score-center"><span class="score-num">0</span><span class="score-sub">HIG SCORE</span></div>
+              </div>
+            </div>
+            <!-- Scan results — Apple-style clean rows -->
+            <div style="padding:0 28px 28px">
+              <div class="scan-results" id="scanResults">
+                <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
+                    <circle cx="10" cy="10" r="9" fill="#34C759" />
+                    <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg><span class="scan-label">Spacing</span><span class="scan-val scan-ok">4pt grid</span></div>
+                <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
+                    <circle cx="10" cy="10" r="9" fill="#007AFF" />
+                    <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg><span class="scan-label">Typography</span><span class="scan-val" style="color:#007AFF">SF Pro /
+                    Inter</span></div>
+                <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
+                    <circle cx="10" cy="10" r="9" fill="#FF9500" />
+                    <path d="M10 6v5M10 13.5v.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" />
+                  </svg><span class="scan-label">Touch targets</span><span class="scan-val scan-issue">38px &lt;
+                    44pt</span></div>
+                <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
+                    <circle cx="10" cy="10" r="9" fill="#007AFF" />
+                    <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg><span class="scan-label">Contrast ratio</span><span class="scan-val"
+                    style="color:#007AFF">4.5:1</span></div>
+                <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
+                    <circle cx="10" cy="10" r="9" fill="#FF9500" />
+                    <path d="M10 6v5M10 13.5v.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" />
+                  </svg><span class="scan-label">Animation easing</span><span class="scan-val scan-issue">ease →
+                    spring</span></div>
+                <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
+                    <circle cx="10" cy="10" r="9" fill="#34C759" />
+                    <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg><span class="scan-label">Dark mode</span><span class="scan-val scan-ok">Semantic colors</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cap cap-gray">
+      <div class="cap-in">
+        <div data-r>
+          <p class="cap-eye">Video Analysis</p>
+          <h3 class="cap-h3" style="color:var(--text-dark)">Record it.<br>Recreate it.</h3>
+          <p class="cap-p" style="color:var(--text-dark-dim)">Send a screen recording of any website or app. Get a
+            complete implementation blueprint — animations, design tokens, component specs, ready-to-paste code.
+            Auto-detects your project stack.</p>
+          <div class="cap-tags"><span class="cap-tag cap-tag-l">Gemini 2.5</span><span
+              class="cap-tag cap-tag-l">GPT-4o</span><span class="cap-tag cap-tag-l">ffmpeg</span><span
+              class="cap-tag cap-tag-l">Auto-detect</span><span class="cap-tag cap-tag-l">13 Stacks</span></div>
+        </div>
+        <div class="cap-vis" data-r="s">
+          <div class="cap-card cap-card-l" style="max-width:520px">
+            <div class="cap-card-inner"
+              style="padding:20px 24px;font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text-dark-dim)">
+              <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
+                <span style="color:var(--green)">▶</span> /onemore video.mp4 "make my app look like this"
+              </div>
+              <div style="color:var(--text-dark-dim)">
+                <span style="color:var(--accent)">⟳</span> Auto-detected: React Native + Expo + Reanimated 3<br>
+                <span style="color:var(--accent)">⟳</span> Analyzing with Gemini 2.5 Flash... <span
+                  style="color:var(--green)">14s</span><br>
+                <span style="color:var(--green)">✓</span> 7 animations · 5 components · 12 design tokens<br>
+                <span style="color:var(--green)">✓</span> Spring: mass 1, stiffness 100, damping 12<br>
+                <span style="color:var(--green)">✓</span> Gesture interactions mapped<br>
+                <span style="color:var(--green)">✓</span> Ready-to-paste Reanimated code<br>
+                <br>
+                <span style="color:var(--text-dark);font-weight:500">→ build-prompt.md</span> <span
+                  style="color:var(--text-dark-dim)">(implementation spec)</span><br>
+                <span style="color:var(--text-dark);font-weight:500">→ blueprint.md</span> <span
+                  style="color:var(--text-dark-dim)">(detailed analysis)</span>
+              </div>
+              <div
+                style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);font-size:11px;color:var(--text-dark-dim)">
+                <div style="font-weight:600;color:var(--text-dark);margin-bottom:6px">Prompt examples:</div>
+                <div style="margin-bottom:3px"><span style="color:var(--accent)">Mobile</span> — "make my app look like
+                  this"</div>
+                <div style="margin-bottom:3px"><span style="color:var(--purple)">Web</span> — "recreate these scroll
+                  animations on my site"</div>
+                <div style="margin-bottom:3px"><span style="color:var(--green)">Component</span> — "extract this card
+                  slider component"</div>
+                <div style="margin-bottom:3px"><span style="color:var(--orange)">Animation</span> — "get all animation
+                  specs and timing values"</div>
+                <div><span style="color:var(--text-dark-dim)">Design</span> — "extract the complete design system as
+                  tokens"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cap cap-gray">
+      <div class="cap-in">
+        <div data-r>
+          <p class="cap-eye">Export</p>
+          <h3 class="cap-h3" style="color:var(--text-dark)">Your framework.<br>Your format.</h3>
+          <p class="cap-p" style="color:var(--text-dark-dim)">Seven formats, production-ready. Tailwind, SwiftUI,
+            Flutter,
+            CSS, SCSS, React Native, JSON. Zero manual tweaking.</p>
+          <div class="cap-tags"><span class="cap-tag cap-tag-l">Tailwind</span><span
+              class="cap-tag cap-tag-l">CSS</span><span class="cap-tag cap-tag-l">SwiftUI</span><span
+              class="cap-tag cap-tag-l">Flutter</span><span class="cap-tag cap-tag-l">SCSS</span><span
+              class="cap-tag cap-tag-l">JSON</span><span class="cap-tag cap-tag-l">React Native</span></div>
+        </div>
+        <div class="cap-vis" data-r="s">
+          <div class="cap-card cap-card-l" style="background:var(--text-dark);max-width:520px" id="exportCard">
+            <div class="cap-card-inner" style="padding:20px 24px">
+              <div class="export-tabs" id="exportTabs">
+                <button class="export-tab export-tab-active" data-fmt="tailwind">Tailwind</button>
+                <button class="export-tab" data-fmt="css">CSS</button>
+                <button class="export-tab" data-fmt="swiftui">SwiftUI</button>
+                <button class="export-tab" data-fmt="flutter">Flutter</button>
+                <button class="export-tab" data-fmt="scss">SCSS</button>
+                <button class="export-tab" data-fmt="json">JSON</button>
+                <button class="export-tab" data-fmt="rn">React Native</button>
+              </div>
+              <div style="font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--text)">
+                <div class="export-code export-code-active" data-fmt="tailwind">
+                  <div style="color:var(--text-dim)">// tailwind.config.js</div>
+                  <div><span style="color:#ff79c6">export default</span> {</div>
+                  <div>&nbsp;&nbsp;theme: {</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;colors: {</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">primary</span>: <span
+                      style="color:var(--green)">'#007AFF'</span>,</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">success</span>: <span
+                      style="color:var(--green)">'#34C759'</span>,</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;},</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;borderRadius: { <span style="color:#79b8ff">lg</span>: <span
+                      style="color:var(--green)">'12px'</span> },</div>
+                  <div>&nbsp;&nbsp;},</div>
+                  <div>};</div>
+                </div>
+                <div class="export-code" data-fmt="css">
+                  <div style="color:var(--text-dim)">/* Apple HIG Design Tokens */</div>
+                  <div><span style="color:#ff79c6">:root</span> {</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">--color-primary</span>: <span
+                      style="color:var(--green)">#007AFF</span>;</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">--color-success</span>: <span
+                      style="color:var(--green)">#34C759</span>;</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">--radius-lg</span>: <span
+                      style="color:var(--green)">12px</span>;</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">--spacing-base</span>: <span
+                      style="color:var(--green)">8px</span>;</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">--font-body</span>: <span
+                      style="color:var(--green)">17px</span>;</div>
+                  <div>}</div>
+                </div>
+                <div class="export-code" data-fmt="swiftui">
+                  <div style="color:var(--text-dim)">// HIG.swift</div>
+                  <div><span style="color:#ff79c6">extension</span> <span style="color:#79b8ff">Color</span> {</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> primary = Color(<span
+                      style="color:var(--green)">"#007AFF"</span>)</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> success = Color(<span
+                      style="color:var(--green)">"#34C759"</span>)</div>
+                  <div>}</div>
+                  <div><span style="color:#ff79c6">extension</span> <span style="color:#79b8ff">CGFloat</span> {</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> radiusLG: CGFloat = <span
+                      style="color:var(--green)">12</span></div>
+                  <div>}</div>
+                </div>
+                <div class="export-code" data-fmt="flutter">
+                  <div style="color:var(--text-dim)">// hig_tokens.dart</div>
+                  <div><span style="color:#ff79c6">class</span> <span style="color:#79b8ff">HIG</span> {</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> primary = Color(<span
+                      style="color:var(--green)">0xFF007AFF</span>);</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> success = Color(<span
+                      style="color:var(--green)">0xFF34C759</span>);</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> radiusLG = <span
+                      style="color:var(--green)">12.0</span>;</div>
+                  <div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> spacing = <span
+                      style="color:var(--green)">8.0</span>;</div>
+                  <div>}</div>
+                </div>
+                <div class="export-code" data-fmt="scss">
+                  <div style="color:var(--text-dim)">// _hig-tokens.scss</div>
+                  <div><span style="color:#79b8ff">$color-primary</span>: <span
+                      style="color:var(--green)">#007AFF</span>;</div>
+                  <div><span style="color:#79b8ff">$color-success</span>: <span
+                      style="color:var(--green)">#34C759</span>;</div>
+                  <div><span style="color:#79b8ff">$radius-lg</span>: <span style="color:var(--green)">12px</span>;
+                  </div>
+                  <div><span style="color:#79b8ff">$spacing-base</span>: <span style="color:var(--green)">8px</span>;
+                  </div>
+                  <div><span style="color:#79b8ff">$font-body</span>: <span style="color:var(--green)">17px</span>;
+                  </div>
+                  <div><span style="color:#79b8ff">$font-stack</span>: <span style="color:var(--green)">-apple-system,
+                      Inter</span>;</div>
+                </div>
+                <div class="export-code" data-fmt="json">
+                  <div>{</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">"colors"</span>: {</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">"primary"</span>: <span
+                      style="color:var(--green)">"#007AFF"</span>,</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">"success"</span>: <span
+                      style="color:var(--green)">"#34C759"</span></div>
+                  <div>&nbsp;&nbsp;},</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">"radius"</span>: { <span
+                      style="color:#79b8ff">"lg"</span>: <span style="color:var(--green)">12</span> },</div>
+                  <div>&nbsp;&nbsp;<span style="color:#79b8ff">"spacing"</span>: { <span
+                      style="color:#79b8ff">"base"</span>: <span style="color:var(--green)">8</span> }</div>
+                  <div>}</div>
+                </div>
+                <div class="export-code" data-fmt="rn">
+                  <div style="color:var(--text-dim)">// tokens.ts</div>
+                  <div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">colors</span> = {
+                  </div>
+                  <div>&nbsp;&nbsp;primary: <span style="color:var(--green)">'#007AFF'</span>,</div>
+                  <div>&nbsp;&nbsp;success: <span style="color:var(--green)">'#34C759'</span>,</div>
+                  <div>} <span style="color:#ff79c6">as const</span>;</div>
+                  <div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">radius</span> = { lg:
+                    <span style="color:var(--green)">12</span> };
+                  </div>
+                  <div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">spacing</span> = {
+                    base: <span style="color:var(--green)">8</span> };</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CATEGORY INTELLIGENCE ═══ -->
+    <section class="catint" id="catint">
+      <div class="catint-in">
+        <p class="catint-eye" data-r>Category Intelligence</p>
+        <h2 class="catint-h2" data-r>Every category.<br>Its own design DNA.</h2>
+
+        <div class="catint-tabs" data-r id="catTabs">
+          <button class="catint-tab catint-tab-active" data-cat="health">Health</button>
+          <button class="catint-tab" data-cat="finance">Finance</button>
+          <button class="catint-tab" data-cat="social">Social</button>
+          <button class="catint-tab" data-cat="productivity">Productivity</button>
+          <button class="catint-tab" data-cat="media">Media</button>
+          <button class="catint-tab" data-cat="education">Education</button>
+          <button class="catint-tab" data-cat="shopping">Shopping</button>
+          <button class="catint-tab" data-cat="food">Food & Delivery</button>
+        </div>
+
+        <div class="catint-preview" id="catPreview" data-r>
+          <!-- JS fills this -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ GALLERY ═══ -->
+    <section class="gal" id="gal">
+      <div class="gal-wrap">
+        <div class="gal-header" data-r>
+          <h2 class="gal-h2">12 demos built<br>with <span
+              style="background:linear-gradient(135deg,var(--accent),#00d4ff,var(--purple));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-flow 8s cubic-bezier(0.25,0.1,0.25,1) infinite">OneMore</span>.
+          </h2>
+          <div class="gal-right">
+            <a href="https://github.com/JubaKitiashvili/onemore#readme" class="gal-link" target="_blank"
+              rel="noopener">View all demos <svg viewBox="0 0 14 14" width="14" height="14" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M5 2l5 5-5 5" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="gal-scroll" id="galTrack">
+          <div class="gal-body" data-r>
+            <a href="showcase/demos/saas-dashboard.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">SaaS Analytics</p>
+                <h3 class="gc-name">DataPulse</h3>
+                <p class="gc-desc">Real-time analytics dashboard with Apple HIG design tokens.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/saas.png" alt="DataPulse demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/crypto-web3.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Crypto / Web3</p>
+                <h3 class="gc-name">Nexus</h3>
+                <p class="gc-desc">Dark-themed crypto trading interface.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/crypto.png" alt="Nexus demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/creative-tools.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Creative Tools</p>
+                <h3 class="gc-name">Prismix</h3>
+                <p class="gc-desc">Visual design toolkit for creators.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/creative.png" alt="Prismix demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/health-fitness.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Health &amp; Fitness</p>
+                <h3 class="gc-name">VitalSync</h3>
+                <p class="gc-desc">Health tracking with activity rings.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/health.png" alt="VitalSync demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/finance-banking.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Finance</p>
+                <h3 class="gc-name">Meridian</h3>
+                <p class="gc-desc">Modern banking experience.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/finance.png" alt="Meridian demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/education.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Education</p>
+                <h3 class="gc-name">Lumina</h3>
+                <p class="gc-desc">Learning platform with rich content.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/education.png" alt="Lumina demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/ecommerce.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">E-Commerce</p>
+                <h3 class="gc-name">Velvet</h3>
+                <p class="gc-desc">Premium shopping experience.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/ecommerce.png" alt="Velvet demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/social-communication.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Social</p>
+                <h3 class="gc-name">Circles</h3>
+                <p class="gc-desc">Social networking reimagined.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/social.png" alt="Circles demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/productivity.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Productivity</p>
+                <h3 class="gc-name">FlowState</h3>
+                <p class="gc-desc">Task management that flows.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/productivity.png" alt="FlowState demo" loading="lazy">
+              </div>
+            </a>
+            <a href="showcase/demos/food-delivery.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Food Delivery</p>
+                <h3 class="gc-name">Savora</h3>
+                <p class="gc-desc">Delicious food, delivered.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/food.png" alt="Savora demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/travel.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Travel</p>
+                <h3 class="gc-name">Wayfare</h3>
+                <p class="gc-desc">Explore the world beautifully.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/travel.png" alt="Wayfare demo" loading="lazy"></div>
+            </a>
+            <a href="showcase/demos/media-entertainment.html" class="gc">
+              <div class="gc-top">
+                <p class="gc-cat">Media</p>
+                <h3 class="gc-name">StreamVault</h3>
+                <p class="gc-desc">Entertainment at your fingertips.</p>
+              </div>
+              <div class="gc-img"><img src="showcase/screenshots/media.png" alt="StreamVault demo" loading="lazy"></div>
+            </a>
+          </div>
+        </div>
+        <div class="gal-arrows" style="justify-content:flex-end;margin-top:20px">
+          <button class="gal-arrow" id="galPrev" aria-label="Previous"><svg viewBox="0 0 14 14" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M9 2L4 7l5 5" />
+            </svg></button>
+          <button class="gal-arrow" id="galNext" aria-label="Next"><svg viewBox="0 0 14 14" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M5 2l5 5-5 5" />
+            </svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- compat moved to after pitch -->
+
+    <!-- ═══ CTA ═══ -->
+    <section class="cta" id="ctaSec">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="float-layer" aria-hidden="true">
+        <div class="float-el fl-chip"
+          style="top:18%;left:8%;background:rgba(0,122,255,0.1);border:1px solid rgba(0,122,255,0.2);color:#5ac8fa">MIT
+          License</div>
+        <div class="float-el fl-chip"
+          style="top:14%;right:10%;background:rgba(52,199,89,0.1);border:1px solid rgba(52,199,89,0.2);color:#30d158">
+          Zero Dependencies</div>
+        <div class="float-el fl-chip"
+          style="bottom:25%;left:6%;background:rgba(88,86,214,0.1);border:1px solid rgba(88,86,214,0.2);color:#bf5af2">
+          Works Offline</div>
+        <div class="float-el fl-chip"
+          style="bottom:20%;right:8%;background:rgba(255,149,0,0.1);border:1px solid rgba(255,149,0,0.2);color:#ff9f0a">
+          Python 3.10+</div>
+        <div class="float-el" style="top:25%;left:20%;display:flex;gap:3px">
+          <span style="width:10px;height:10px;border-radius:50%;background:rgba(0,122,255,0.3);display:block"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:rgba(88,86,214,0.3);display:block"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:rgba(52,199,89,0.3);display:block"></span>
+        </div>
+        <div class="float-el" style="bottom:30%;right:20%;display:flex;gap:3px">
+          <span style="width:8px;height:8px;border-radius:50%;background:rgba(255,149,0,0.3);display:block"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:rgba(255,59,48,0.3);display:block"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:rgba(175,82,222,0.3);display:block"></span>
+        </div>
+      </div>
+      <h2 class="cta-h2" data-r><span class="cta-gr">Free. Open Source.<br>Forever.</span></h2>
+      <p class="cta-p" data-r>MIT Licensed. Built with love in Georgia.</p>
+      <div class="cta-btns" data-r>
+        <a href="https://github.com/JubaKitiashvili/onemore" class="cta-ghost" target="_blank" rel="noopener"><svg
+            viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>Star on GitHub</a>
+        <a href="https://github.com/JubaKitiashvili/onemore#readme" class="hero-cta" target="_blank" rel="noopener">Get
+          Started
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            width="16" height="16">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg></a>
       </div>
-
-      <div class="hero-preview" id="heroPreview">
-        <div class="hero-code-split">
-          <!-- Before: Generic AI output -->
-          <div class="hero-code-card hero-code-before">
-            <div class="hero-code-header">
-              <span class="hero-code-header-dot" style="background:#86868b"></span>
-              Generic AI Agent
-            </div>
-            <div class="hero-code-body">
-              <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
-                <span style="color:#86868b">▶</span> "build me a settings page"
-              </div>
-              <div><span style="color:#86868b">✗</span> background: <span style="font-weight:500">#000000</span></div>
-              <div><span style="color:#86868b">✗</span> border-radius: <span style="font-weight:500">8px</span></div>
-              <div><span style="color:#86868b">✗</span> font-family: <span style="font-weight:500">Arial, sans-serif</span></div>
-              <div><span style="color:#86868b">✗</span> color: <span style="font-weight:500">#ffffff</span></div>
-              <div><span style="color:#86868b">✗</span> transition: <span style="font-weight:500">ease-in-out 0.3s</span></div>
-            </div>
-          </div>
-          <!-- Arrow -->
-          <div class="hero-code-arrow">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-            OneMore transforms it
-          </div>
-          <!-- After: Apple HIG output -->
-          <div class="hero-code-card hero-code-after">
-            <div class="hero-code-header">
-              <span class="hero-code-header-dot" style="background:#34C759;box-shadow:0 0 8px rgba(52,199,89,0.5)"></span>
-              With OneMore
-            </div>
-            <div class="hero-code-body">
-              <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
-                <span style="color:var(--green)">▶</span> /onemore "build me a settings page"
-              </div>
-              <div><span style="color:var(--accent)">⟳</span> Applying 700+ Apple HIG rules...</div>
-              <div><span style="color:var(--green)">✓</span> background: <span style="font-weight:500">#FBFBFD</span> <span style="color:#86868b">/* semantic */</span></div>
-              <div><span style="color:var(--green)">✓</span> border-radius: <span style="color:var(--accent);font-weight:500">12px</span> <span style="color:#86868b">/* continuous */</span></div>
-              <div><span style="color:var(--green)">✓</span> font: <span style="color:var(--accent);font-weight:500">-apple-system, Inter</span></div>
-              <div><span style="color:var(--green)">✓</span> color: <span style="font-weight:500">#1D1D1F</span> <span style="color:#86868b">/* never #000 */</span></div>
-              <div><span style="color:var(--green)">✓</span> transition: <span style="color:var(--purple);font-weight:500">spring(1, 100, 12)</span></div>
-              <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)">
-                <span style="color:var(--text-dark);font-weight:500">→ HIG Score:</span> <span style="color:var(--green);font-weight:600">97/100</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PITCH ═══ -->
-  <section class="pitch" id="pitch" style="position:relative;overflow:hidden">
-    <div class="float-layer" aria-hidden="true">
-      <!-- Mini button -->
-      <div class="float-el fl-mini-btn" style="top:12%;left:6%;background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(0,122,255,0.25)">Get Started <span style="font-size:10px">→</span></div>
-      <!-- Mini toggle -->
-      <div class="float-el fl-mini-toggle" style="top:18%;right:8%;background:var(--green)"></div>
-      <!-- Mini card -->
-      <div class="float-el fl-mini-card" style="top:8%;right:18%;background:#fff;border:1px solid rgba(0,0,0,0.06);color:var(--text-dark-dim)">
-        <span style="color:var(--accent)">--radius</span>: 12px
-      </div>
-      <!-- Color swatch row -->
-      <div class="float-el" style="bottom:18%;left:5%;display:flex;gap:4px">
-        <span style="width:16px;height:16px;border-radius:5px;background:#007AFF;display:block"></span>
-        <span style="width:16px;height:16px;border-radius:5px;background:#5856D6;display:block"></span>
-        <span style="width:16px;height:16px;border-radius:5px;background:#34C759;display:block"></span>
-        <span style="width:16px;height:16px;border-radius:5px;background:#FF9500;display:block"></span>
-      </div>
-      <!-- Mini icon -->
-      <div class="float-el fl-icon" style="bottom:22%;right:6%;background:rgba(88,86,214,0.08);border:1px solid rgba(88,86,214,0.12)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#5856D6" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <!-- Spring curve -->
-      <div class="float-el fl-chip" style="bottom:12%;left:20%;background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.12);color:var(--accent)">spring(1, 100, 12)</div>
-      <!-- 44px badge -->
-      <div class="float-el fl-chip" style="top:15%;left:22%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.12);color:#34C759">44px min</div>
-    </div>
-    <h2 class="pitch-h2" data-r>Your AI agent writes code.<br>OneMore makes it <em
-        style="font-style:normal;color:var(--accent)">beautiful</em>.</h2>
-    <p class="pitch-p" data-r>700+ design rules extracted from Apple's Human Interface Guidelines and 25 apple.com
-      product pages. Every color, spacing value, and animation curve — grounded in how Apple actually builds.</p>
-    <div class="pitch-compare" data-r>
-      <!-- Without OneMore — generic, lifeless -->
-      <div class="pitch-card pitch-card-without">
-        <p class="pitch-card-label">Without OneMore</p>
-        <div class="pitch-card-inner">
-          <div class="pc-row">
-            <div class="pc-swatch" style="background:#808080"></div>
-            <div class="pc-swatch" style="background:#666"></div>
-            <div class="pc-swatch" style="background:#999"></div>
-            <div class="pc-swatch" style="background:#b0b0b0"></div>
-            <div class="pc-swatch" style="background:#555"></div>
-          </div>
-          <div class="pc-btn">Submit</div>
-          <div class="pc-text" style="width:90%"></div>
-          <div class="pc-text" style="width:75%"></div>
-          <div class="pc-text" style="width:60%"></div>
-        </div>
-      </div>
-      <!-- With OneMore — Apple HIG quality -->
-      <div class="pitch-card pitch-card-with">
-        <p class="pitch-card-label">With OneMore</p>
-        <div class="pitch-card-inner">
-          <div class="pc-row">
-            <div class="pc-swatch" style="background:#007AFF"></div>
-            <div class="pc-swatch" style="background:#5856D6"></div>
-            <div class="pc-swatch" style="background:#34C759"></div>
-            <div class="pc-swatch" style="background:#FF9500"></div>
-            <div class="pc-swatch" style="background:#FF3B30"></div>
-          </div>
-          <div class="pc-btn">Get Started</div>
-          <div class="pc-text" style="width:90%"></div>
-          <div class="pc-text" style="width:75%"></div>
-          <div class="pc-text" style="width:60%"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ COMPAT — Moved here: hero → pitch → compat → ... ═══ -->
-  <section class="compat-dark" id="compat">
-    <div class="compat-dark-in">
-      <h2 class="compat-dark-h2" data-r>13 frameworks. 11 AI platforms.<br><span>Your stack is supported.</span></h2>
-
-      <div class="compat-flow" style="margin-bottom:48px" data-r>
-        <span class="chip-dark">SwiftUI<span class="chip-code"><span style="color:#ff79c6">Color</span>.accentColor
-<span style="color:#79b8ff">.cornerRadius</span>(12)
-<span style="color:#79b8ff">.font</span>(.system(.body))</span></span>
-        <span class="chip-dark">React<span class="chip-code"><span style="color:#ff79c6">import</span> { tokens } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span>
-<span style="color:#79b8ff">style</span>={{ color: tokens.primary }}</span></span>
-        <span class="chip-dark">React Native<span class="chip-code"><span style="color:#ff79c6">import</span> { hig } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore/rn'</span>
-<span style="color:#79b8ff">borderRadius</span>: hig.radius.lg</span></span>
-        <span class="chip-dark">Flutter<span class="chip-code"><span style="color:#ff79c6">const</span> primary = <span style="color:#79b8ff">Color</span>(0xFF007AFF);
-<span style="color:#ff79c6">const</span> radius = <span style="color:#79b8ff">12.0</span>;</span></span>
-        <span class="chip-dark">Next.js<span class="chip-code"><span style="color:#34C759">// next.config.js</span>
-<span style="color:#ff79c6">import</span> onemore <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore/next'</span></span></span>
-        <span class="chip-dark">Vue<span class="chip-code"><span style="color:#34C759">&lt;style&gt;</span>
-<span style="color:#79b8ff">--hig-primary</span>: #007AFF;
-<span style="color:#79b8ff">--hig-radius</span>: 12px;</span></span>
-        <span class="chip-dark">Svelte<span class="chip-code"><span style="color:#34C759">&lt;script&gt;</span>
-<span style="color:#ff79c6">import</span> { theme } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span></span></span>
-        <span class="chip-dark">Tailwind CSS<span class="chip-code"><span style="color:#34C759">// tailwind.config.js</span>
-<span style="color:#79b8ff">primary</span>: <span style="color:#34C759">'#007AFF'</span>
-<span style="color:#79b8ff">radius-lg</span>: <span style="color:#34C759">'12px'</span></span></span>
-        <span class="chip-dark">shadcn/ui<span class="chip-code"><span style="color:#34C759">/* globals.css */</span>
-<span style="color:#79b8ff">--primary</span>: 211 100% 50%;
-<span style="color:#79b8ff">--radius</span>: 0.75rem;</span></span>
-        <span class="chip-dark">NativeWind<span class="chip-code"><span style="color:#79b8ff">className</span>=<span style="color:#34C759">"bg-primary</span>
-  <span style="color:#34C759">rounded-xl p-4"</span></span></span>
-        <span class="chip-dark">UIKit<span class="chip-code"><span style="color:#79b8ff">view</span>.backgroundColor = .systemBlue
-<span style="color:#79b8ff">view</span>.layer.cornerRadius = 12</span></span>
-        <span class="chip-dark">Nuxt<span class="chip-code"><span style="color:#34C759">// nuxt.config.ts</span>
-<span style="color:#ff79c6">modules</span>: [<span style="color:#34C759">'onemore/nuxt'</span>]</span></span>
-        <span class="chip-dark">Astro<span class="chip-code"><span style="color:#34C759">---</span>
-<span style="color:#ff79c6">import</span> { Tokens } <span style="color:#ff79c6">from</span> <span style="color:#34C759">'onemore'</span>
-<span style="color:#34C759">---</span></span></span>
-      </div>
-
-      <div class="compat-flow" data-r>
-        <span class="chip-ai">Claude Code</span>
-        <span class="chip-ai">Cursor</span>
-        <span class="chip-ai">Windsurf</span>
-        <span class="chip-ai">Copilot</span>
-        <span class="chip-ai">Codex</span>
-        <span class="chip-ai">Antigravity</span>
-        <span class="chip-ai">Kiro</span>
-        <span class="chip-ai">Qoder</span>
-        <span class="chip-ai">Gemini CLI</span>
-        <span class="chip-ai">Cline</span>
-        <span class="chip-ai">Roo Code</span>
-      </div>
-      <div class="compat-dark-quickstart" data-r>
-        <p class="compat-dark-quickstart-label">Get started in seconds</p>
-        <div class="compat-dark-terminal">
-          <div class="t-cmd"><span class="t-a">$</span> <span class="t-w">npx onemore init</span></div>
-          <div class="t-ok">✓ Detected: Claude Code v4.6</div>
-          <div class="t-ok">✓ 700+ Apple HIG rules loaded</div>
-          <div class="t-ok">✓ Skill installed → .claude/skills/onemore/</div>
-          <div class="t-sep">Ready. Just ask your AI agent:</div>
-          <div class="t-example"><span class="t-a">/onemore</span> <span class="t-w">design a fintech dashboard with dark mode</span></div>
-          <div class="t-example"><span class="t-a">/onemore</span> <span class="t-w">build an onboarding flow for a health app</span></div>
-          <div class="t-example"><span class="t-a">/onemore</span> <span class="t-w">redesign this checkout page to match Apple HIG</span></div>
-        </div>
-        <p class="compat-dark-note">Zero dependencies &bull; Python 3.10+ &bull; Works offline</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ GRADIENT TEXT ═══ -->
-  <section class="bigtext" id="bigtext">
-    <div class="bigtext-tokens" aria-hidden="true">
-      <span class="bt-token bt-token-blue" style="top:12%;left:8%">--color-primary: #007AFF</span>
-      <span class="bt-token bt-token-purple" style="top:8%;right:10%">--font-weight: 600</span>
-      <span class="bt-token bt-token-green" style="top:35%;left:3%">--spacing-lg: 24px</span>
-      <span class="bt-token bt-token-orange" style="top:30%;right:5%">--radius-xl: 16px</span>
-      <span class="bt-token bt-token-blue" style="bottom:28%;left:6%">--ease: cubic-bezier(0.25, 0.1, 0.25, 1)</span>
-      <span class="bt-token bt-token-purple" style="bottom:22%;right:8%">--shadow-lg: 0 20px 60px</span>
-      <span class="bt-token bt-token-green" style="top:18%;left:22%">--color-success: #34C759</span>
-      <span class="bt-token bt-token-orange" style="bottom:35%;right:18%">--touch-min: 44px</span>
-    </div>
-    <div class="bigtext-word" data-r="s">Design</div>
-    <p class="bigtext-sub" data-r>Not just guidelines. A complete design intelligence system that understands why Apple
-      makes every choice — and applies it to your project.</p>
-  </section>
-
-  <!-- ═══ AGENT PIPELINE ═══ -->
-  <section class="pipeline" id="pipeline">
-    <div class="pipeline-in">
-      <p class="pipeline-eye" data-r>How It Works</p>
-      <h2 class="pipeline-h2" data-r>Six agents. One command.<br>Intelligent routing.</h2>
-
-      <div class="pipe-agents" data-r>
-        <div class="pipe-node" data-agent="vision">
-          <div class="pipe-node-icon" style="background:rgba(88,86,214,0.1)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#5856D6" stroke-width="2" stroke-linecap="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <span class="pipe-node-name">Vision</span>
-          <span class="pipe-node-role">Steve Jobs</span>
-        </div>
-        <div class="pipe-node" data-agent="build">
-          <div class="pipe-node-icon" style="background:rgba(0,122,255,0.1)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <span class="pipe-node-name">Build</span>
-          <span class="pipe-node-role">Jony Ive</span>
-        </div>
-        <div class="pipe-node" data-agent="review">
-          <div class="pipe-node-icon" style="background:rgba(52,199,89,0.1)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          </div>
-          <span class="pipe-node-name">Review</span>
-          <span class="pipe-node-role">Quality Gate</span>
-        </div>
-        <div class="pipe-node" data-agent="animate">
-          <div class="pipe-node-icon" style="background:rgba(255,149,0,0.1)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#FF9500" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <span class="pipe-node-name">Animate</span>
-          <span class="pipe-node-role">Motion Expert</span>
-        </div>
-        <div class="pipe-node" data-agent="a11y">
-          <div class="pipe-node-icon" style="background:rgba(255,59,48,0.1)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="4" r="2"/><path d="M6 8h12M12 8v8M8 20l4-4 4 4"/></svg>
-          </div>
-          <span class="pipe-node-name">A11y</span>
-          <span class="pipe-node-role">WCAG Auditor</span>
-        </div>
-        <div class="pipe-node" data-agent="analyze">
-          <div class="pipe-node-icon" style="background:rgba(90,200,250,0.1)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#5AC8FA" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-          </div>
-          <span class="pipe-node-name">Analyze</span>
-          <span class="pipe-node-role">Video → Code</span>
-        </div>
-      </div>
-
-      <div class="pipe-routes" data-r>
-        <button class="pipe-route pipe-route-active" data-route="build">Build from Scratch</button>
-        <button class="pipe-route" data-route="fix">Fix / Improve</button>
-        <button class="pipe-route" data-route="animate">Animate</button>
-        <button class="pipe-route" data-route="review">Review</button>
-        <button class="pipe-route" data-route="a11y">Accessibility</button>
-        <button class="pipe-route" data-route="video">Video Reference</button>
-        <button class="pipe-route" data-route="redesign">Redesign</button>
-      </div>
-
-      <div class="pipe-flow" id="pipeFlow" data-r>
-        <!-- JS fills this -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ TERMINAL ═══ -->
-  <section class="showcase">
-    <div class="orb" style="width:400px;height:400px;top:-15%;right:-8%;background:rgba(0,122,255,0.03)"
-      aria-hidden="true"></div>
-    <div class="showcase-in">
-      <p class="sc-eye" data-r>See It Work</p>
-      <h2 class="sc-h2" data-r>Four commands.<br>Zero config.</h2>
-      <div class="term" data-r="s">
-        <div class="term-chrome"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span>Terminal</span></div>
-        <div class="term-code" id="term"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ NUMBERS ═══ -->
-  <section class="nums" id="nums" style="position:relative;overflow:hidden">
-    <div class="float-layer" aria-hidden="true">
-      <div class="float-el fl-chip" style="top:15%;left:5%;background:rgba(52,199,89,0.06);border:1px solid rgba(52,199,89,0.12);color:#34C759">pytest: all passing</div>
-      <div class="float-el fl-chip" style="top:12%;right:6%;background:rgba(0,122,255,0.06);border:1px solid rgba(0,122,255,0.12);color:var(--accent)">apple.com/macbook-pro</div>
-      <div class="float-el fl-chip" style="bottom:15%;left:8%;background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.12);color:#FF9500">SwiftUI · React · Flutter</div>
-      <div class="float-el fl-chip" style="bottom:12%;right:5%;background:rgba(88,86,214,0.06);border:1px solid rgba(88,86,214,0.12);color:var(--purple)">--spacing: 4pt grid</div>
-    </div>
-    <div class="nums-grid">
-      <div data-r>
-        <div class="num-v" data-c="146">0</div>
-        <div class="num-l">Tests Passing</div>
-      </div>
-      <div data-r>
-        <div class="num-v" data-c="700" data-s="+">0</div>
-        <div class="num-l">Design Rules</div>
-      </div>
-      <div data-r>
-        <div class="num-v" data-c="25">0</div>
-        <div class="num-l">Apple Pages Analyzed</div>
-      </div>
-      <div data-r>
-        <div class="num-v" data-c="13">0</div>
-        <div class="num-l">Frameworks</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ CAPABILITIES ═══ -->
-  <section class="cap cap-gray" id="caps">
-    <div class="cap-in">
-      <div data-r>
-        <p class="cap-eye">Design System</p>
-        <h3 class="cap-h3" style="color:var(--text-dark)">Complete design<br>tokens in one command.</h3>
-        <p class="cap-p" style="color:var(--text-dark-dim)">Colors, typography, spacing, corners — generated with
-          reasoning for <em>why</em> each token fits your product. Not generic defaults.</p>
-        <div class="cap-tags"><span class="cap-tag cap-tag-l">Colors</span><span
-            class="cap-tag cap-tag-l">Typography</span><span class="cap-tag cap-tag-l">Spacing</span><span
-            class="cap-tag cap-tag-l">Corners</span><span class="cap-tag cap-tag-l">Elevation</span></div>
-      </div>
-      <div class="cap-vis" data-r="s">
-        <div class="cap-card cap-card-l">
-          <div class="cap-card-inner">
-            <div class="swatch-row"><span style="background:#007AFF"></span><span
-                style="background:#5856D6"></span><span style="background:#34C759"></span><span
-                style="background:#FF9500"></span><span style="background:#FF3B30"></span></div>
-            <div class="token"><span class="token-dot" style="background:#007AFF"></span>--color-primary: #007AFF</div>
-            <div class="token"><span class="token-dot"
-                style="background:#f5f5f7;border:1px solid #e0e0e0"></span>--color-bg: #FBFBFD</div>
-            <div class="token"><span class="token-dot" style="background:#1d1d1f"></span>--color-text: #1D1D1F</div>
-            <div class="token"><span class="token-dot"
-                style="background:transparent;border:2px dashed #ccc"></span>--radius-lg: 12px</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cap cap-white">
-    <div class="orb" style="width:350px;height:350px;bottom:-10%;left:-8%;background:rgba(88,86,214,0.03)"
-      aria-hidden="true"></div>
-    <div class="cap-in rev">
-      <div data-r>
-        <p class="cap-eye">Redesign Scanner</p>
-        <h3 class="cap-h3" style="color:var(--text-dark)">Find what's wrong.<br>Before users do.</h3>
-        <p class="cap-p" style="color:var(--text-dark-dim)">Scans every file for HIG violations — spacing,
-          accessibility, animations. Auto-detects Expo and NativeWind.</p>
-        <div class="cap-tags"><span class="cap-tag cap-tag-d">Spacing</span><span
-            class="cap-tag cap-tag-d">Accessibility</span><span class="cap-tag cap-tag-d">Colors</span><span
-            class="cap-tag cap-tag-d">Animation</span><span class="cap-tag cap-tag-d">Dark Mode</span></div>
-      </div>
-      <div class="cap-vis" data-r="s">
-        <div class="cap-card cap-card-d" style="max-width:500px">
-          <!-- Apple Activity Rings style score -->
-          <div style="display:flex;align-items:center;justify-content:center;padding:32px 32px 24px">
-            <div class="score-ring" id="scoreRing">
-              <svg viewBox="0 0 200 200" width="170" height="170">
-                <!-- Background rings -->
-                <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(52,199,89,0.15)" stroke-width="12" />
-                <circle cx="100" cy="100" r="72" fill="none" stroke="rgba(0,122,255,0.15)" stroke-width="12" />
-                <circle cx="100" cy="100" r="54" fill="none" stroke="rgba(255,149,0,0.15)" stroke-width="12" />
-                <!-- Active rings -->
-                <circle cx="100" cy="100" r="90" fill="none" stroke="#34C759" stroke-width="12" stroke-linecap="round"
-                  stroke-dasharray="565" stroke-dashoffset="565" transform="rotate(-90 100 100)"
-                  class="score-arc ring-1" />
-                <circle cx="100" cy="100" r="72" fill="none" stroke="#007AFF" stroke-width="12" stroke-linecap="round"
-                  stroke-dasharray="452" stroke-dashoffset="452" transform="rotate(-90 100 100)"
-                  class="score-arc ring-2" />
-                <circle cx="100" cy="100" r="54" fill="none" stroke="#FF9500" stroke-width="12" stroke-linecap="round"
-                  stroke-dasharray="339" stroke-dashoffset="339" transform="rotate(-90 100 100)"
-                  class="score-arc ring-3" />
-              </svg>
-              <div class="score-center"><span class="score-num">0</span><span class="score-sub">HIG SCORE</span></div>
-            </div>
-          </div>
-          <!-- Scan results — Apple-style clean rows -->
-          <div style="padding:0 28px 28px">
-            <div class="scan-results" id="scanResults">
-              <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
-                  <circle cx="10" cy="10" r="9" fill="#34C759" />
-                  <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg><span class="scan-label">Spacing</span><span class="scan-val scan-ok">4pt grid</span></div>
-              <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
-                  <circle cx="10" cy="10" r="9" fill="#007AFF" />
-                  <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg><span class="scan-label">Typography</span><span class="scan-val" style="color:#007AFF">SF Pro /
-                  Inter</span></div>
-              <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
-                  <circle cx="10" cy="10" r="9" fill="#FF9500" />
-                  <path d="M10 6v5M10 13.5v.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" />
-                </svg><span class="scan-label">Touch targets</span><span class="scan-val scan-issue">38px &lt;
-                  44pt</span></div>
-              <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
-                  <circle cx="10" cy="10" r="9" fill="#007AFF" />
-                  <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg><span class="scan-label">Contrast ratio</span><span class="scan-val"
-                  style="color:#007AFF">4.5:1</span></div>
-              <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
-                  <circle cx="10" cy="10" r="9" fill="#FF9500" />
-                  <path d="M10 6v5M10 13.5v.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" />
-                </svg><span class="scan-label">Animation easing</span><span class="scan-val scan-issue">ease →
-                  spring</span></div>
-              <div class="scan-row"><svg class="scan-svg" viewBox="0 0 20 20" width="18" height="18">
-                  <circle cx="10" cy="10" r="9" fill="#34C759" />
-                  <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg><span class="scan-label">Dark mode</span><span class="scan-val scan-ok">Semantic colors</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cap cap-gray">
-    <div class="cap-in">
-      <div data-r>
-        <p class="cap-eye">Video Analysis</p>
-        <h3 class="cap-h3" style="color:var(--text-dark)">Record it.<br>Recreate it.</h3>
-        <p class="cap-p" style="color:var(--text-dark-dim)">Send a screen recording of any website or app. Get a complete implementation blueprint — animations, design tokens, component specs, ready-to-paste code. Auto-detects your project stack.</p>
-        <div class="cap-tags"><span class="cap-tag cap-tag-l">Gemini 2.5</span><span class="cap-tag cap-tag-l">GPT-4o</span><span class="cap-tag cap-tag-l">ffmpeg</span><span class="cap-tag cap-tag-l">Auto-detect</span><span class="cap-tag cap-tag-l">13 Stacks</span></div>
-      </div>
-      <div class="cap-vis" data-r="s">
-        <div class="cap-card cap-card-l" style="max-width:520px">
-          <div class="cap-card-inner" style="padding:20px 24px;font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text-dark-dim)">
-            <div style="color:var(--text-dark);font-weight:600;margin-bottom:8px">
-              <span style="color:var(--green)">▶</span> /onemore video.mp4 "make my app look like this"
-            </div>
-            <div style="color:var(--text-dark-dim)">
-              <span style="color:var(--accent)">⟳</span> Auto-detected: React Native + Expo + Reanimated 3<br>
-              <span style="color:var(--accent)">⟳</span> Analyzing with Gemini 2.5 Flash... <span style="color:var(--green)">14s</span><br>
-              <span style="color:var(--green)">✓</span> 7 animations · 5 components · 12 design tokens<br>
-              <span style="color:var(--green)">✓</span> Spring: mass 1, stiffness 100, damping 12<br>
-              <span style="color:var(--green)">✓</span> Gesture interactions mapped<br>
-              <span style="color:var(--green)">✓</span> Ready-to-paste Reanimated code<br>
-              <br>
-              <span style="color:var(--text-dark);font-weight:500">→ build-prompt.md</span> <span style="color:var(--text-dark-dim)">(implementation spec)</span><br>
-              <span style="color:var(--text-dark);font-weight:500">→ blueprint.md</span> <span style="color:var(--text-dark-dim)">(detailed analysis)</span>
-            </div>
-            <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);font-size:11px;color:var(--text-dark-dim)">
-              <div style="font-weight:600;color:var(--text-dark);margin-bottom:6px">Prompt examples:</div>
-              <div style="margin-bottom:3px"><span style="color:var(--accent)">Mobile</span> — "make my app look like this"</div>
-              <div style="margin-bottom:3px"><span style="color:var(--purple)">Web</span> — "recreate these scroll animations on my site"</div>
-              <div style="margin-bottom:3px"><span style="color:var(--green)">Component</span> — "extract this card slider component"</div>
-              <div style="margin-bottom:3px"><span style="color:var(--orange)">Animation</span> — "get all animation specs and timing values"</div>
-              <div><span style="color:var(--text-dark-dim)">Design</span> — "extract the complete design system as tokens"</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cap cap-gray">
-    <div class="cap-in">
-      <div data-r>
-        <p class="cap-eye">Export</p>
-        <h3 class="cap-h3" style="color:var(--text-dark)">Your framework.<br>Your format.</h3>
-        <p class="cap-p" style="color:var(--text-dark-dim)">Seven formats, production-ready. Tailwind, SwiftUI, Flutter,
-          CSS, SCSS, React Native, JSON. Zero manual tweaking.</p>
-        <div class="cap-tags"><span class="cap-tag cap-tag-l">Tailwind</span><span
-            class="cap-tag cap-tag-l">CSS</span><span class="cap-tag cap-tag-l">SwiftUI</span><span
-            class="cap-tag cap-tag-l">Flutter</span><span class="cap-tag cap-tag-l">SCSS</span><span
-            class="cap-tag cap-tag-l">JSON</span><span class="cap-tag cap-tag-l">React Native</span></div>
-      </div>
-      <div class="cap-vis" data-r="s">
-        <div class="cap-card cap-card-l" style="background:var(--text-dark);max-width:520px" id="exportCard">
-          <div class="cap-card-inner" style="padding:20px 24px">
-            <div class="export-tabs" id="exportTabs">
-              <button class="export-tab export-tab-active" data-fmt="tailwind">Tailwind</button>
-              <button class="export-tab" data-fmt="css">CSS</button>
-              <button class="export-tab" data-fmt="swiftui">SwiftUI</button>
-              <button class="export-tab" data-fmt="flutter">Flutter</button>
-              <button class="export-tab" data-fmt="scss">SCSS</button>
-              <button class="export-tab" data-fmt="json">JSON</button>
-              <button class="export-tab" data-fmt="rn">React Native</button>
-            </div>
-            <div style="font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--text)">
-              <div class="export-code export-code-active" data-fmt="tailwind">
-<div style="color:var(--text-dim)">// tailwind.config.js</div>
-<div><span style="color:#ff79c6">export default</span> {</div>
-<div>&nbsp;&nbsp;theme: {</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;colors: {</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">primary</span>: <span style="color:var(--green)">'#007AFF'</span>,</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">success</span>: <span style="color:var(--green)">'#34C759'</span>,</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;},</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;borderRadius: { <span style="color:#79b8ff">lg</span>: <span style="color:var(--green)">'12px'</span> },</div>
-<div>&nbsp;&nbsp;},</div>
-<div>};</div>
-              </div>
-              <div class="export-code" data-fmt="css">
-<div style="color:var(--text-dim)">/* Apple HIG Design Tokens */</div>
-<div><span style="color:#ff79c6">:root</span> {</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">--color-primary</span>: <span style="color:var(--green)">#007AFF</span>;</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">--color-success</span>: <span style="color:var(--green)">#34C759</span>;</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">--radius-lg</span>: <span style="color:var(--green)">12px</span>;</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">--spacing-base</span>: <span style="color:var(--green)">8px</span>;</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">--font-body</span>: <span style="color:var(--green)">17px</span>;</div>
-<div>}</div>
-              </div>
-              <div class="export-code" data-fmt="swiftui">
-<div style="color:var(--text-dim)">// HIG.swift</div>
-<div><span style="color:#ff79c6">extension</span> <span style="color:#79b8ff">Color</span> {</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> primary = Color(<span style="color:var(--green)">"#007AFF"</span>)</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> success = Color(<span style="color:var(--green)">"#34C759"</span>)</div>
-<div>}</div>
-<div><span style="color:#ff79c6">extension</span> <span style="color:#79b8ff">CGFloat</span> {</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static let</span> radiusLG: CGFloat = <span style="color:var(--green)">12</span></div>
-<div>}</div>
-              </div>
-              <div class="export-code" data-fmt="flutter">
-<div style="color:var(--text-dim)">// hig_tokens.dart</div>
-<div><span style="color:#ff79c6">class</span> <span style="color:#79b8ff">HIG</span> {</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> primary = Color(<span style="color:var(--green)">0xFF007AFF</span>);</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> success = Color(<span style="color:var(--green)">0xFF34C759</span>);</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> radiusLG = <span style="color:var(--green)">12.0</span>;</div>
-<div>&nbsp;&nbsp;<span style="color:#ff79c6">static const</span> spacing = <span style="color:var(--green)">8.0</span>;</div>
-<div>}</div>
-              </div>
-              <div class="export-code" data-fmt="scss">
-<div style="color:var(--text-dim)">// _hig-tokens.scss</div>
-<div><span style="color:#79b8ff">$color-primary</span>: <span style="color:var(--green)">#007AFF</span>;</div>
-<div><span style="color:#79b8ff">$color-success</span>: <span style="color:var(--green)">#34C759</span>;</div>
-<div><span style="color:#79b8ff">$radius-lg</span>: <span style="color:var(--green)">12px</span>;</div>
-<div><span style="color:#79b8ff">$spacing-base</span>: <span style="color:var(--green)">8px</span>;</div>
-<div><span style="color:#79b8ff">$font-body</span>: <span style="color:var(--green)">17px</span>;</div>
-<div><span style="color:#79b8ff">$font-stack</span>: <span style="color:var(--green)">-apple-system, Inter</span>;</div>
-              </div>
-              <div class="export-code" data-fmt="json">
-<div>{</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">"colors"</span>: {</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">"primary"</span>: <span style="color:var(--green)">"#007AFF"</span>,</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79b8ff">"success"</span>: <span style="color:var(--green)">"#34C759"</span></div>
-<div>&nbsp;&nbsp;},</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">"radius"</span>: { <span style="color:#79b8ff">"lg"</span>: <span style="color:var(--green)">12</span> },</div>
-<div>&nbsp;&nbsp;<span style="color:#79b8ff">"spacing"</span>: { <span style="color:#79b8ff">"base"</span>: <span style="color:var(--green)">8</span> }</div>
-<div>}</div>
-              </div>
-              <div class="export-code" data-fmt="rn">
-<div style="color:var(--text-dim)">// tokens.ts</div>
-<div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">colors</span> = {</div>
-<div>&nbsp;&nbsp;primary: <span style="color:var(--green)">'#007AFF'</span>,</div>
-<div>&nbsp;&nbsp;success: <span style="color:var(--green)">'#34C759'</span>,</div>
-<div>} <span style="color:#ff79c6">as const</span>;</div>
-<div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">radius</span> = { lg: <span style="color:var(--green)">12</span> };</div>
-<div><span style="color:#ff79c6">export const</span> <span style="color:#79b8ff">spacing</span> = { base: <span style="color:var(--green)">8</span> };</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ CATEGORY INTELLIGENCE ═══ -->
-  <section class="catint" id="catint">
-    <div class="catint-in">
-      <p class="catint-eye" data-r>Category Intelligence</p>
-      <h2 class="catint-h2" data-r>Every category.<br>Its own design DNA.</h2>
-
-      <div class="catint-tabs" data-r id="catTabs">
-        <button class="catint-tab catint-tab-active" data-cat="health">Health</button>
-        <button class="catint-tab" data-cat="finance">Finance</button>
-        <button class="catint-tab" data-cat="social">Social</button>
-        <button class="catint-tab" data-cat="productivity">Productivity</button>
-        <button class="catint-tab" data-cat="media">Media</button>
-        <button class="catint-tab" data-cat="education">Education</button>
-        <button class="catint-tab" data-cat="shopping">Shopping</button>
-        <button class="catint-tab" data-cat="food">Food & Delivery</button>
-      </div>
-
-      <div class="catint-preview" id="catPreview" data-r>
-        <!-- JS fills this -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ GALLERY ═══ -->
-  <section class="gal" id="gal">
-    <div class="gal-wrap">
-      <div class="gal-header" data-r>
-        <h2 class="gal-h2">12 demos built<br>with <span style="background:linear-gradient(135deg,var(--accent),#00d4ff,var(--purple));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-flow 8s cubic-bezier(0.25,0.1,0.25,1) infinite">OneMore</span>.</h2>
-        <div class="gal-right">
-          <a href="https://github.com/JubaKitiashvili/onemore#readme" class="gal-link" target="_blank" rel="noopener">View all demos <svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 2l5 5-5 5"/></svg></a>
-        </div>
-      </div>
-      <div class="gal-scroll" id="galTrack">
-        <div class="gal-body" data-r>
-          <a href="showcase/demos/saas-dashboard.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">SaaS Analytics</p>
-              <h3 class="gc-name">DataPulse</h3>
-              <p class="gc-desc">Real-time analytics dashboard with Apple HIG design tokens.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/saas.png" alt="DataPulse demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/crypto-web3.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Crypto / Web3</p>
-              <h3 class="gc-name">Nexus</h3>
-              <p class="gc-desc">Dark-themed crypto trading interface.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/crypto.png" alt="Nexus demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/creative-tools.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Creative Tools</p>
-              <h3 class="gc-name">Prismix</h3>
-              <p class="gc-desc">Visual design toolkit for creators.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/creative.png" alt="Prismix demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/health-fitness.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Health &amp; Fitness</p>
-              <h3 class="gc-name">VitalSync</h3>
-              <p class="gc-desc">Health tracking with activity rings.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/health.png" alt="VitalSync demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/finance-banking.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Finance</p>
-              <h3 class="gc-name">Meridian</h3>
-              <p class="gc-desc">Modern banking experience.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/finance.png" alt="Meridian demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/education.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Education</p>
-              <h3 class="gc-name">Lumina</h3>
-              <p class="gc-desc">Learning platform with rich content.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/education.png" alt="Lumina demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/ecommerce.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">E-Commerce</p>
-              <h3 class="gc-name">Velvet</h3>
-              <p class="gc-desc">Premium shopping experience.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/ecommerce.png" alt="Velvet demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/social-communication.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Social</p>
-              <h3 class="gc-name">Circles</h3>
-              <p class="gc-desc">Social networking reimagined.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/social.png" alt="Circles demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/productivity.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Productivity</p>
-              <h3 class="gc-name">FlowState</h3>
-              <p class="gc-desc">Task management that flows.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/productivity.png" alt="FlowState demo" loading="lazy">
-            </div>
-          </a>
-          <a href="showcase/demos/food-delivery.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Food Delivery</p>
-              <h3 class="gc-name">Savora</h3>
-              <p class="gc-desc">Delicious food, delivered.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/food.png" alt="Savora demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/travel.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Travel</p>
-              <h3 class="gc-name">Wayfare</h3>
-              <p class="gc-desc">Explore the world beautifully.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/travel.png" alt="Wayfare demo" loading="lazy"></div>
-          </a>
-          <a href="showcase/demos/media-entertainment.html" class="gc">
-            <div class="gc-top">
-              <p class="gc-cat">Media</p>
-              <h3 class="gc-name">StreamVault</h3>
-              <p class="gc-desc">Entertainment at your fingertips.</p>
-            </div>
-            <div class="gc-img"><img src="showcase/screenshots/media.png" alt="StreamVault demo" loading="lazy"></div>
-          </a>
-        </div>
-      </div>
-      <div class="gal-arrows" style="justify-content:flex-end;margin-top:20px">
-        <button class="gal-arrow" id="galPrev" aria-label="Previous"><svg viewBox="0 0 14 14" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M9 2L4 7l5 5" />
-          </svg></button>
-        <button class="gal-arrow" id="galNext" aria-label="Next"><svg viewBox="0 0 14 14" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M5 2l5 5-5 5" />
-          </svg></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- compat moved to after pitch -->
-
-  <!-- ═══ CTA ═══ -->
-  <section class="cta" id="ctaSec">
-    <div class="cta-glow" aria-hidden="true"></div>
-    <div class="float-layer" aria-hidden="true">
-      <div class="float-el fl-chip" style="top:18%;left:8%;background:rgba(0,122,255,0.1);border:1px solid rgba(0,122,255,0.2);color:#5ac8fa">MIT License</div>
-      <div class="float-el fl-chip" style="top:14%;right:10%;background:rgba(52,199,89,0.1);border:1px solid rgba(52,199,89,0.2);color:#30d158">Zero Dependencies</div>
-      <div class="float-el fl-chip" style="bottom:25%;left:6%;background:rgba(88,86,214,0.1);border:1px solid rgba(88,86,214,0.2);color:#bf5af2">Works Offline</div>
-      <div class="float-el fl-chip" style="bottom:20%;right:8%;background:rgba(255,149,0,0.1);border:1px solid rgba(255,149,0,0.2);color:#ff9f0a">Python 3.10+</div>
-      <div class="float-el" style="top:25%;left:20%;display:flex;gap:3px">
-        <span style="width:10px;height:10px;border-radius:50%;background:rgba(0,122,255,0.3);display:block"></span>
-        <span style="width:10px;height:10px;border-radius:50%;background:rgba(88,86,214,0.3);display:block"></span>
-        <span style="width:10px;height:10px;border-radius:50%;background:rgba(52,199,89,0.3);display:block"></span>
-      </div>
-      <div class="float-el" style="bottom:30%;right:20%;display:flex;gap:3px">
-        <span style="width:8px;height:8px;border-radius:50%;background:rgba(255,149,0,0.3);display:block"></span>
-        <span style="width:8px;height:8px;border-radius:50%;background:rgba(255,59,48,0.3);display:block"></span>
-        <span style="width:8px;height:8px;border-radius:50%;background:rgba(175,82,222,0.3);display:block"></span>
-      </div>
-    </div>
-    <h2 class="cta-h2" data-r><span class="cta-gr">Free. Open Source.<br>Forever.</span></h2>
-    <p class="cta-p" data-r>MIT Licensed. Built with love in Georgia.</p>
-    <div class="cta-btns" data-r>
-      <a href="https://github.com/JubaKitiashvili/onemore" class="cta-ghost" target="_blank" rel="noopener"><svg
-          viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-        </svg>Star on GitHub</a>
-      <a href="https://github.com/JubaKitiashvili/onemore#readme" class="hero-cta" target="_blank" rel="noopener">Get Started
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16"
-          height="16">
-          <path d="M5 12h14M12 5l7 7-7 7" />
-        </svg></a>
-    </div>
-    <p class="cta-note" data-r>Zero dependencies &bull; Python 3.10+ &bull; Works offline</p>
-  </section>
+      <p class="cta-note" data-r>Zero dependencies &bull; Python 3.10+ &bull; Works offline</p>
+    </section>
 
   </main>
 
@@ -3190,7 +3459,8 @@
     <div class="ft-in">
       <div class="ft-top">
         <div class="ft-col">
-          <span class="ft-brand" style="background:linear-gradient(135deg,var(--accent),#00d4ff,var(--purple));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-flow 8s cubic-bezier(0.25,0.1,0.25,1) infinite">OneMore</span>
+          <span class="ft-brand"
+            style="background:linear-gradient(135deg,var(--accent),#00d4ff,var(--purple));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-flow 8s cubic-bezier(0.25,0.1,0.25,1) infinite">OneMore</span>
           <p class="ft-tagline">Apple HIG Design Intelligence<br>for AI coding agents.</p>
         </div>
         <div class="ft-col">
@@ -3205,15 +3475,18 @@
           <p class="ft-col-title">Resources</p>
           <ul class="ft-list">
             <li><a href="https://github.com/JubaKitiashvili/onemore" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://github.com/JubaKitiashvili/onemore#readme" target="_blank" rel="noopener">Documentation</a></li>
-            <li><a href="https://github.com/JubaKitiashvili/onemore/releases" target="_blank" rel="noopener">Changelog</a></li>
+            <li><a href="https://github.com/JubaKitiashvili/onemore#readme" target="_blank"
+                rel="noopener">Documentation</a></li>
+            <li><a href="https://github.com/JubaKitiashvili/onemore/releases" target="_blank"
+                rel="noopener">Changelog</a></li>
           </ul>
         </div>
         <div class="ft-col">
           <p class="ft-col-title">Connect</p>
           <ul class="ft-list">
             <li><a href="https://github.com/JubaKitiashvili" target="_blank" rel="noopener">Juba Kitiashvili</a></li>
-            <li><a href="https://github.com/JubaKitiashvili/onemore/issues" target="_blank" rel="noopener">Report Issue</a></li>
+            <li><a href="https://github.com/JubaKitiashvili/onemore/issues" target="_blank" rel="noopener">Report
+                Issue</a></li>
           </ul>
         </div>
       </div>
@@ -3414,13 +3687,13 @@
       const pipeFlow = document.getElementById('pipeFlow');
       if (pipeFlow) {
         const routes = {
-          build:    { agents: ['vision','build','review'], steps: [{n:'Vision',c:'#5856D6'},{n:'Build',c:'#007AFF'},{n:'Review',c:'#34C759'}], desc: '"Build me a SaaS dashboard" → Creative brief → Production code → Quality gate' },
-          fix:      { agents: ['build'], steps: [{n:'Build',c:'#007AFF'}], desc: '"Fix the hover animation" → Direct implementation with HIG rules' },
-          animate:  { agents: ['animate'], steps: [{n:'Animate',c:'#FF9500'}], desc: '"Add scroll animations like apple.com" → Spring physics, GSAP, Framer Motion' },
-          review:   { agents: ['review'], steps: [{n:'Review',c:'#34C759'}], desc: '"Check this for quality" → 21-item checklist, auto-fix critical issues' },
-          a11y:     { agents: ['a11y'], steps: [{n:'A11y',c:'#FF3B30'}], desc: '"Check accessibility" → WCAG 2.2 audit, contrast, touch targets, screen reader' },
-          video:    { agents: ['analyze','build'], steps: [{n:'Analyze',c:'#5AC8FA'},{n:'Build',c:'#007AFF'}], desc: 'video.mp4 → Gemini/GPT-4o analysis → Implementation blueprint → Code' },
-          redesign: { agents: ['vision','build','review'], steps: [{n:'Vision',c:'#5856D6'},{n:'Build',c:'#007AFF'},{n:'Review',c:'#34C759'}], desc: '"Redesign this page" → Reads existing code → New brief → Rebuild → Review' },
+          build: { agents: ['vision', 'build', 'review'], steps: [{ n: 'Vision', c: '#5856D6' }, { n: 'Build', c: '#007AFF' }, { n: 'Review', c: '#34C759' }], desc: '"Build me a SaaS dashboard" → Creative brief → Production code → Quality gate' },
+          fix: { agents: ['build'], steps: [{ n: 'Build', c: '#007AFF' }], desc: '"Fix the hover animation" → Direct implementation with HIG rules' },
+          animate: { agents: ['animate'], steps: [{ n: 'Animate', c: '#FF9500' }], desc: '"Add scroll animations like apple.com" → Spring physics, GSAP, Framer Motion' },
+          review: { agents: ['review'], steps: [{ n: 'Review', c: '#34C759' }], desc: '"Check this for quality" → 21-item checklist, auto-fix critical issues' },
+          a11y: { agents: ['a11y'], steps: [{ n: 'A11y', c: '#FF3B30' }], desc: '"Check accessibility" → WCAG 2.2 audit, contrast, touch targets, screen reader' },
+          video: { agents: ['analyze', 'build'], steps: [{ n: 'Analyze', c: '#5AC8FA' }, { n: 'Build', c: '#007AFF' }], desc: 'video.mp4 → Gemini/GPT-4o analysis → Implementation blueprint → Code' },
+          redesign: { agents: ['vision', 'build', 'review'], steps: [{ n: 'Vision', c: '#5856D6' }, { n: 'Build', c: '#007AFF' }, { n: 'Review', c: '#34C759' }], desc: '"Redesign this page" → Reads existing code → New brief → Rebuild → Review' },
         };
 
         function showRoute(key) {
@@ -3450,14 +3723,14 @@
       const catPreview = document.getElementById('catPreview');
       if (catPreview) {
         const cats = {
-          health:       { accent: '#FF2D55', nav: 'Tab bar with large title screens', typo: 'Body Regular 17pt for readability; headline for metrics', patterns: 'Dashboard cards with data rings, progressive disclosure, large accessible targets', style: 'Clean minimal whitespace' },
-          finance:      { accent: '#34C759', nav: 'Tab bar with account overview as root', typo: 'Headline for amounts; monospaced for numbers', patterns: 'Transaction list with swipe actions, large numbers for balances, biometric auth', style: 'High contrast, trustworthy, density acceptable' },
-          social:       { accent: '#007AFF', nav: 'Tab bar with feed as root', typo: 'Body 17pt for posts; headline for usernames; caption for metadata', patterns: 'Infinite scroll, pull-to-refresh, double-tap to like, story ring pattern', style: 'Vibrant, media-forward, high visual density' },
+          health: { accent: '#FF2D55', nav: 'Tab bar with large title screens', typo: 'Body Regular 17pt for readability; headline for metrics', patterns: 'Dashboard cards with data rings, progressive disclosure, large accessible targets', style: 'Clean minimal whitespace' },
+          finance: { accent: '#34C759', nav: 'Tab bar with account overview as root', typo: 'Headline for amounts; monospaced for numbers', patterns: 'Transaction list with swipe actions, large numbers for balances, biometric auth', style: 'High contrast, trustworthy, density acceptable' },
+          social: { accent: '#007AFF', nav: 'Tab bar with feed as root', typo: 'Body 17pt for posts; headline for usernames; caption for metadata', patterns: 'Infinite scroll, pull-to-refresh, double-tap to like, story ring pattern', style: 'Vibrant, media-forward, high visual density' },
           productivity: { accent: '#007AFF', nav: 'Tab bar or sidebar on iPad split view', typo: 'Headline for task titles; footnote for metadata; monospaced for code', patterns: 'Swipe to complete, contextual menus, keyboard shortcuts, drag-and-drop', style: 'Dense information hierarchy, subdued palette' },
-          media:        { accent: '#AF52DE', nav: 'Tab bar with Now Playing persistent bar', typo: 'Large display for title; headline for artist; caption for metadata', patterns: 'Mini player expanding to full screen, artwork-dominant layout', style: 'Rich dark backgrounds for playback immersion' },
-          education:    { accent: '#5856D6', nav: 'Tab bar or page-based navigation', typo: 'Body for content; headline for lesson titles; large for score display', patterns: 'Progress bars, streaks, lesson cards, quiz flow with immediate feedback', style: 'Clear, structured, light backgrounds' },
-          shopping:     { accent: '#FF9500', nav: 'Tab bar with browse and account tabs', typo: 'Headline for product name; title2 for price; body for description', patterns: 'Product grid, sticky add-to-cart, swipe image carousel', style: 'Polished grid-first product display' },
-          food:         { accent: '#FF9500', nav: 'Tab bar with menu browse as root', typo: 'Title1 for restaurant; headline for item; body for description', patterns: 'Category strip, add button on card, floating cart pill, order tracking', style: 'Appetite-stimulating, warm rich imagery' },
+          media: { accent: '#AF52DE', nav: 'Tab bar with Now Playing persistent bar', typo: 'Large display for title; headline for artist; caption for metadata', patterns: 'Mini player expanding to full screen, artwork-dominant layout', style: 'Rich dark backgrounds for playback immersion' },
+          education: { accent: '#5856D6', nav: 'Tab bar or page-based navigation', typo: 'Body for content; headline for lesson titles; large for score display', patterns: 'Progress bars, streaks, lesson cards, quiz flow with immediate feedback', style: 'Clear, structured, light backgrounds' },
+          shopping: { accent: '#FF9500', nav: 'Tab bar with browse and account tabs', typo: 'Headline for product name; title2 for price; body for description', patterns: 'Product grid, sticky add-to-cart, swipe image carousel', style: 'Polished grid-first product display' },
+          food: { accent: '#FF9500', nav: 'Tab bar with menu browse as root', typo: 'Title1 for restaurant; headline for item; body for description', patterns: 'Category strip, add button on card, floating cart pill, order tracking', style: 'Appetite-stimulating, warm rich imagery' },
         };
 
         function showCat(key) {

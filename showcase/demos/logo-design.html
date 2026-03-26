@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneMore Logo — Brand Studio Demo</title>
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --text: #1d1d1f;
+    --dim: #86868b;
+    --border: rgba(0,0,0,0.06);
+    --blue: #007AFF;
+    --indigo: #5856D6;
+    --purple: #AF52DE;
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000;
+      --text: #f5f5f7;
+      --dim: #86868b;
+      --border: rgba(255,255,255,0.08);
+    }
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0,122,255,0.08) 0%, rgba(88,86,214,0.04) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px 6px 8px;
+    background: rgba(0,122,255,0.08);
+    border: 1px solid rgba(0,122,255,0.15);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s 0.2s both;
+  }
+  .hero-logo {
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s 0.3s both;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    animation: fadeUp 0.8s 0.5s both;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, #007AFF, #5856D6, #AF52DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--dim);
+    max-width: 480px;
+    line-height: 1.6;
+    animation: fadeUp 0.8s 0.7s both;
+  }
+
+  /* Sections */
+  .section {
+    padding: 100px 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 48px;
+  }
+
+  /* Variant Grid */
+  .variant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .v-card {
+    border-radius: 16px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--border);
+    transition: all 0.3s var(--ease);
+  }
+  .v-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+  .v-card.light { background: white; }
+  .v-card.dark { background: #1d1d1f; }
+  .v-card .wm {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .v-card.light .wm { color: #1d1d1f; }
+  .v-card.dark .wm { color: #f5f5f7; }
+  .v-card .wm-grad {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #007AFF, #5856D6, #AF52DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .v-label {
+    font-size: 12px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Specs */
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .spec {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(0,122,255,0.03);
+  }
+  .spec-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--dim);
+    margin-bottom: 6px;
+  }
+  .spec-value {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  /* Sizes */
+  .sizes-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .size-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .size-label {
+    font-size: 11px;
+    color: var(--dim);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  /* Review */
+  .review-card {
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    background: rgba(0,122,255,0.02);
+  }
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .review-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+  }
+  .review-name { font-size: 15px; font-weight: 600; }
+  .review-role { font-size: 12px; color: var(--dim); }
+  .review-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--dim);
+  }
+  .review-text em {
+    color: var(--text);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* Score */
+  .score-section {
+    text-align: center;
+    padding: 80px 24px;
+  }
+  .final-score {
+    font-size: 120px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #007AFF, #5856D6, #AF52DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .score-label {
+    font-size: 16px;
+    color: var(--dim);
+    margin-top: 8px;
+  }
+
+  /* Footer */
+  .demo-footer {
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .demo-footer p {
+    font-size: 13px;
+    color: var(--dim);
+  }
+  .demo-footer a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="16" height="16" viewBox="0 0 100 100" fill="none">
+      <defs><linearGradient id="hg" x1="0" y1="0" x2="100" y2="100"><stop offset="0%" stop-color="#007AFF"/><stop offset="65%" stop-color="#5856D6"/><stop offset="100%" stop-color="#AF52DE"/></linearGradient></defs>
+      <rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#hg)"/>
+      <text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text>
+      <text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text>
+    </svg>
+    Built with OneMore
+  </div>
+
+  <div class="hero-logo">
+    <svg width="160" height="160" viewBox="0 0 100 100" fill="none">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="100" y2="100"><stop offset="0%" stop-color="#007AFF"/><stop offset="65%" stop-color="#5856D6"/><stop offset="100%" stop-color="#AF52DE"/></linearGradient></defs>
+      <rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#lg)"/>
+      <text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text>
+      <text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text>
+    </svg>
+  </div>
+
+  <h1><span>OneMore</span> Brand Identity</h1>
+  <p class="hero-sub">Designed by AI with Apple HIG intelligence. From concept to production-ready assets in one session.</p>
+</div>
+
+<!-- Variants -->
+<div class="section">
+  <p class="section-eyebrow">Logo Variants</p>
+  <h2>Every context covered.</h2>
+
+  <div class="variant-grid">
+    <div class="v-card light">
+      <svg width="48" height="48" viewBox="0 0 100 100" fill="none"><defs><linearGradient id="v1" x1="0" y1="0" x2="100" y2="100"><stop offset="0%" stop-color="#007AFF"/><stop offset="65%" stop-color="#5856D6"/><stop offset="100%" stop-color="#AF52DE"/></linearGradient></defs><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="wm">OneMore</span>
+      <span class="v-label">Light</span>
+    </div>
+    <div class="v-card dark">
+      <svg width="48" height="48" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="wm">OneMore</span>
+      <span class="v-label">Dark</span>
+    </div>
+    <div class="v-card light">
+      <svg width="48" height="48" viewBox="0 0 100 100" fill="none"><rect x="6" y="6" width="88" height="88" rx="21.4" stroke="url(#v1)" stroke-width="4" fill="none"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="url(#v1)">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="url(#v1)">+</text></svg>
+      <span class="wm-grad">OneMore</span>
+      <span class="v-label">Outline</span>
+    </div>
+    <div class="v-card light" style="background:linear-gradient(135deg,#007AFF,#5856D6,#AF52DE);border-color:transparent;">
+      <svg width="48" height="48" viewBox="0 0 100 100" fill="none"><rect x="6" y="6" width="88" height="88" rx="21.4" stroke="white" stroke-width="4" fill="none"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="wm" style="color:white">OneMore</span>
+      <span class="v-label" style="color:rgba(255,255,255,0.6)">Inverted</span>
+    </div>
+  </div>
+</div>
+
+<!-- Sizes -->
+<div class="section">
+  <p class="section-eyebrow">Scale</p>
+  <h2>From favicon to billboard.</h2>
+
+  <div class="sizes-row">
+    <div class="size-item">
+      <svg width="16" height="16" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="size-label">16px</span>
+    </div>
+    <div class="size-item">
+      <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="size-label">32px</span>
+    </div>
+    <div class="size-item">
+      <svg width="48" height="48" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="size-label">48px</span>
+    </div>
+    <div class="size-item">
+      <svg width="64" height="64" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="size-label">64px</span>
+    </div>
+    <div class="size-item">
+      <svg width="96" height="96" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="size-label">96px</span>
+    </div>
+    <div class="size-item">
+      <svg width="128" height="128" viewBox="0 0 100 100" fill="none"><rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/><text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text><text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text></svg>
+      <span class="size-label">128px</span>
+    </div>
+  </div>
+</div>
+
+<!-- Specs -->
+<div class="section">
+  <p class="section-eyebrow">Design Specs</p>
+  <h2>Every pixel intentional.</h2>
+
+  <div class="specs-grid">
+    <div class="spec">
+      <div class="spec-label">Shape</div>
+      <div class="spec-value">Superellipse</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">Corner Radius</div>
+      <div class="spec-value">rx: 23.4%</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">Gradient</div>
+      <div class="spec-value">#007AFF → #5856D6 → #AF52DE</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">Gradient Stops</div>
+      <div class="spec-value">0% → 65% → 100%</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">"1" Weight</div>
+      <div class="spec-value">700 (Bold)</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">"+" Weight</div>
+      <div class="spec-value">600 (Semibold)</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">Alignment</div>
+      <div class="spec-value">Shared baseline</div>
+    </div>
+    <div class="spec">
+      <div class="spec-label">Centering</div>
+      <div class="spec-value">Optically adjusted</div>
+    </div>
+  </div>
+</div>
+
+<!-- Review -->
+<div class="section">
+  <p class="section-eyebrow">Design Review</p>
+  <h2>Validated by Apple's own principles.</h2>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#007AFF,#0055CC)">SJ</div>
+      <div><div class="review-name">Steve Jobs Lens</div><div class="review-role">Storytelling & Communication</div></div>
+    </div>
+    <p class="review-text">"<em>1+</em> is instantly recognizable as 'one more.' The squircle speaks Apple's language. The gradient says premium. <em>You don't need to explain this logo. It explains itself.</em>"</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#AF52DE,#7B2FBE)">JI</div>
+      <div><div class="review-name">Jony Ive Lens</div><div class="review-role">Craft & Proportion</div></div>
+    </div>
+    <p class="review-text">"The continuous corner superellipse at rx=23.4% — <em>precise Apple standard</em>. Bold '1' with semibold '+' creates <em>typographic hierarchy within the mark itself</em>. The asymmetric gradient mirrors Apple Intelligence. <em>This is craft.</em>"</p>
+  </div>
+</div>
+
+<!-- Score -->
+<div class="score-section">
+  <svg width="80" height="80" viewBox="0 0 100 100" fill="none" style="margin-bottom:16px">
+    <rect x="4" y="4" width="92" height="92" rx="23.4" fill="url(#v1)"/>
+    <text x="24" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="60" fill="white">1</text>
+    <text x="55" y="70" font-family="-apple-system,Inter,sans-serif" font-weight="600" font-size="38" fill="white">+</text>
+  </svg>
+  <div class="final-score">10.0</div>
+  <p class="score-label">Apple Design Standard</p>
+</div>
+
+<!-- Footer -->
+<div class="demo-footer">
+  <p>Designed with <a href="https://github.com/JubaKitiashvili/onemore" target="_blank" rel="noopener">OneMore</a> — Apple HIG Design Intelligence</p>
+</div>
+
+</body>
+</html>
