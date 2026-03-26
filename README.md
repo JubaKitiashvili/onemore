@@ -8,6 +8,8 @@ OneMore is an Apple Human Interface Guidelines (HIG) design intelligence skill f
 [![tests](https://img.shields.io/badge/tests-146%20passing-brightgreen)]()
 [![license](https://img.shields.io/badge/license-MIT-blue)]()
 
+**Website:** [onemore.jubakitiashvili.dev](https://onemore.jubakitiashvili.dev)
+
 ---
 
 ## Quick Start
@@ -35,7 +37,7 @@ Then in Claude Code:
 
 | Agent | Role | What it does |
 |-------|------|-------------|
-| **Vision** | Steve Jobs | Transforms vague prompts into opinionated creative briefs |
+| **Vision** | Creative Director | Transforms vague prompts into opinionated creative briefs (UI, logos, branding) |
 | **Build** | Jony Ive | Turns briefs into production code |
 | **Review** | Quality Gate | Pass/fail checklist against Apple HIG |
 | **Animate** | Motion Expert | Spring physics, scroll animations, GSAP, Framer Motion |
@@ -137,14 +139,15 @@ Output as CSS custom properties and React Native StyleSheet."
 
 SwiftUI, React, React Native, Flutter, Tailwind CSS, Vue, Svelte, Next.js, shadcn/ui, NativeWind, UIKit, Nuxt, Astro
 
-### 42 Design Topics
+### 42+ Design Topics
 
-Organized in 6 rule files:
+Organized in 7 rule files:
 - **Craft** — Spring physics, rubber banding, gesture velocity, optical corrections, materials, P3 color
 - **Design System** — Typography, layout, color system, accessibility, Tailwind v4, shadcn/ui, NativeWind
 - **Animation** — Framer Motion, GSAP, Three.js, Lottie, CSS scroll-driven, SVG, View Transitions
-- **Vision** — Creative brief generation, Steve Jobs product thinking
+- **Vision** — Creative brief generation, product thinking, logo & branding
 - **Visual** — SVG illustrations, gradient art, canvas generative, CSS device mockups
+- **Icons** — 70+ inline SVG icons, icon component system, zero emoji policy
 - **Patterns** — Liquid Glass, navigation patterns, modality
 
 ### Python CLI
@@ -165,6 +168,9 @@ OneMore auto-classifies your intent:
 ```
 /onemore "build me a SaaS landing page"
     → Vision → [confirm brief] → Build → Review
+
+/onemore "design a logo for my project"
+    → Vision → Build → Review
 
 /onemore "fix the hover animation on cards"
     → Build (directly)
@@ -187,7 +193,7 @@ docs/                 — Design rules (craft, animation, design-system, vision,
 scripts/              — Python CLI + Gemini/OpenAI video analysis
 data/                 — 34 CSV databases (foundations, components, patterns, platforms)
 tests/                — 146 tests
-showcase/demos/       — 12 HTML showcase demos
+showcase/demos/       — 13 HTML showcase demos
 index.html            — Landing page (GitHub Pages)
 ```
 
