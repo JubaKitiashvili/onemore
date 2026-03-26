@@ -17,6 +17,61 @@ When the user invokes `/onemore`, classify their intent and dispatch the right a
 
 ---
 
+## Pipeline Status Tracking
+
+IMPORTANT: Use TaskCreate for every pipeline step to show visual progress in the terminal. Each task MUST have an `activeForm` for the spinner text.
+
+### Task Pattern for Each Route
+
+For **Build from Scratch** (vision → build → review):
+```
+TaskCreate: "Classify intent"           activeForm: "Classifying intent"
+TaskCreate: "Run Creative Director"     activeForm: "Running Creative Director"
+TaskCreate: "Present brief for approval" activeForm: "Preparing creative brief"
+TaskCreate: "Build with Apple HIG"      activeForm: "Building with Apple HIG rules"
+TaskCreate: "Run quality review"        activeForm: "Running quality review"
+```
+
+For **Fix / Improve**:
+```
+TaskCreate: "Analyze existing code"     activeForm: "Analyzing existing code"
+TaskCreate: "Apply HIG improvements"    activeForm: "Applying Apple HIG improvements"
+```
+
+For **Animate**:
+```
+TaskCreate: "Analyze motion requirements" activeForm: "Analyzing motion requirements"
+TaskCreate: "Implement animations"        activeForm: "Implementing spring animations"
+```
+
+For **Review / Audit**:
+```
+TaskCreate: "Run HIG quality checklist"  activeForm: "Running 39-rule HIG checklist"
+```
+
+For **Accessibility**:
+```
+TaskCreate: "Run WCAG 2.2 audit"        activeForm: "Running WCAG 2.2 accessibility audit"
+```
+
+For **Video Reference**:
+```
+TaskCreate: "Analyze reference video"    activeForm: "Analyzing reference video"
+TaskCreate: "Generate motion spec"       activeForm: "Generating motion specification"
+TaskCreate: "Implement from spec"        activeForm: "Implementing from motion spec"
+```
+
+Mark each task `in_progress` before starting and `completed` when done. This creates the visual pipeline:
+```
+⠋ Classifying intent...
+✓ Classify intent
+⠋ Running Creative Director...
+✓ Run Creative Director
+⠋ Building with Apple HIG rules...
+```
+
+---
+
 ## Intent Classification & Routing
 
 Read the user's message and match to ONE of these routes:
