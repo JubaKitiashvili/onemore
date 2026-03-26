@@ -41,3 +41,16 @@ yarn-error.log*
 next-env.d.ts
 web/
 onemore-workspace/
+public/
+src/
+tsconfig.json
+tsconfig.tsbuildinfo
+next.config.ts
+next-env.d.ts
+eslint.config.mjs
+postcss.config.mjs
+package-lock.json
+AGENTS.md
+.context-mem/
+.playwright-mcp/
+scripts/__pycache__/
